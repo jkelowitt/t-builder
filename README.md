@@ -1,7 +1,7 @@
-# titration-generator
+# Titration Generator
 Allows the user to plot any monoprotic, diprotic, or triprotic titration curve.
 
-Run main.py to start the program.
+Run **main.py** to start the program.
 
 There are 5 parts to the program:
   * The plot is where the titration curve is shown once all of the required data is input. 
