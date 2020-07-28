@@ -18,6 +18,7 @@ TODO:
   * Plot options
   * Fix Spacing on the Titrant and Analyte Sections
   * Make an executable
+  * Make a N-Funcitonal analyte option
   
 Gui built using [Guietta](https://github.com/alfiopuglisi/guietta) by [alfiopuglisi](https://github.com/alfiopuglisi).
 Equations from [Quantitative Chemical Analysis 9th Ed. by Daniel C. Harris](https://www.amazon.com/Quantitative-Chemical-Analysis-Daniel-Harris/dp/146413538X). (Ch. 11.10)
