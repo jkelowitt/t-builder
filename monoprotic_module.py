@@ -56,8 +56,6 @@ def sasb(ca, va, cb):
     va = float(va)
     cb = float(cb)
 
-    print("SASB")
-
     # pH, [H+], [OH-]
     ph, h, oh = start_phs()
 
@@ -68,7 +66,6 @@ def sasb(ca, va, cb):
 
 def wasb(ka, ca, cb, va):
     """Weak Acid, Strong Base Titrant"""
-    print("WASB")
 
     ka = float(ka)
     ca = float(ca)

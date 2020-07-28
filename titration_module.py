@@ -1,3 +1,7 @@
+"""
+All general use functions in the program. Used Basically everywhere.
+"""
+
 import numpy as np
 
 kw = 1.023 * (10 ** -14)  # At 25 degrees celsius
@@ -37,3 +41,21 @@ def plot_titr(ph, vol, gui, title, xscale=1):
     ax.clear()
     ax.plot(vol, ph)
     ax.figure.canvas.draw()
+
+
+def check_for_ext(file_name, ext):
+    """
+    Checks that the input has a certain extension. If it doesn't, it will add the correct extension to the end.
+
+    :param file_name: String to be checked for an extension
+    :param ext: Extension (Ex: .txt, .csv, .pdb) to be looked for in the file_name
+
+    Returns the name of the file with the extension.
+    """
+
+    has_ext = file_name.find(ext) != -1
+
+    if not has_ext:
+        file_name = file_name + ext
+
+    return file_name
