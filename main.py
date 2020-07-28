@@ -25,6 +25,7 @@ gui = Gui(
     exceptions=Exceptions.PRINT
     )
 
+
 @gui.auto
 def replot(gui, *args):
     """Plot the titration curve based on the current state of the Guis"""
