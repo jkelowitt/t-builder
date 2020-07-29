@@ -1,27 +1,23 @@
 """All of the logic for the functions in the gui"""
 
-from guietta import M, ___, III, R1, R2, _, VSeparator, HSeparator, Quit
+from guietta import M, ___, III, R1, R2, VSeparator, HSeparator, Quit, _
 
 from monoprotic_module import *
 from diprotic_module import *
 from triprotic_module import *
 from sub_guis import *
 
-
 # Main Gui. Shows on startup.
 gui = Gui(
-    [M("plot") , VSeparator , "Titrant"              , VSeparator , "Analyte"        ],
-    [III       , III        , III                    , III        , III              ],
-    [III       , III        , R1("Strong Acid")      , III        , R2("Monoprotic") ],
-    [III       , III        , R1("Strong Base")      , III        , R2("Diprotic")   ],
-    [III       , III        , III                    , III        , R2("Triprotic")  ],
-    [III       , III        , _                      , III        , _                ],
-    [III       , III        , HSeparator             , ___        , ___              ],
-    [III       , III        , ["Assign Parameters"]  , ___        , ___              ],
-    [III       , III        , HSeparator             , ___        , ___              ],
-    [III       , III        , ["Force Plot"]         , ___        , ___              ],
-    [III       , III        , HSeparator             , ___        , ___              ],
-    [III       , III        , Quit                   , ___        , ___              ],
+    [M("plot"), VSeparator, "Titrant"            , VSeparator , "Analyte"       ],
+    [III      , III       , R1("Strong Acid")    , III        , R2("Monoprotic")],
+    [III      , III       , R1("Strong Base")    , III        , R2("Diprotic")  ],
+    [III      , III       , _                    , III        , R2("Triprotic") ],
+    [III      , III       , HSeparator           , ___        , ___             ],
+    [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
+    [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
+    [III      , III       , HSeparator           , ___        , ___             ],
+    [_        , _         , Quit                 , ___        , ___             ],
     exceptions=Exceptions.PRINT
     )
 
@@ -136,9 +132,41 @@ def open_nui(gui):
         tp_sb.run()
 
 
-# When the "Force Plot" Button is pressed, replot the graph.
-# This is needed because sometimes typing in the variables isnt enough to make @gui.auto run.
+def get_fig_name(gui):
+    # Get the figure's name
+    save_fig_gui.run()
+
+
+def save_plot(gui):
+    ax = gui.plot.ax
+    fname = check_for_ext(save_fig_gui.figure_name, ".png")
+
+    # Save the figure
+    ax.figure.savefig(fname)
+
+
+def get_csv_name(gui):
+    save_csv_gui.run()
+
+
+def save_csv(gui):
+    # Vastly more complicated than what I have the patience for right now.
+    # Probably involves saving all of the data input above, running the results, and
+    # then formatting the data correctly. Much more painstaking than originally expected.
+    print("Test Statement")
+    pass
+
+
+# When the button is pressed, do the thing
 gui.ForcePlot = replot
+gui.AssignParameters = open_nui
+
+gui.SavePlot = get_fig_name
+save_fig_gui.SavePlot = save_plot
+
+gui.SaveCSV = get_csv_name
+save_csv_gui.SaveCSV = save_csv
+
 
 # Name the window
 gui.title("Titration Plotter")

@@ -117,3 +117,18 @@ tp_sb = Gui(
 
 tp_sb.title("Strong Base Titrant Triprotic")
 
+
+save_fig_gui = Gui(
+    ["Plot Save Name: ", "__figure_name__", ".png"],
+    [["Save Plot"], ___, ___]
+)
+
+save_fig_gui.title("Save Current Plot")
+
+
+save_csv_gui = Gui(
+    ["CSV Save Name: ", "__csv_name__", ".csv"],
+    [["Save CSV"], ___, ___]
+)
+
+save_fig_gui.title("Save Data to CSV")
