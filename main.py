@@ -1,17 +1,12 @@
 """All of the logic for the functions in the gui"""
 
 from guietta import M, ___, III, R1, R2, VSeparator, HSeparator, Quit, _
-import types
 import csv
 
 from monoprotic_module import *
 from diprotic_module import *
 from triprotic_module import *
 from sub_guis import *
-
-# An object to grab all the data from each of the titrations.
-data = types.SimpleNamespace()
-
 
 # Main Gui. Shows on startup.
 gui = Gui(
@@ -27,8 +22,9 @@ gui = Gui(
     exceptions=Exceptions.PRINT
     )
 
+
 @gui.auto
-def replot(gui, data, *args):
+def replot(gui, *args):
     """Plot the titration curve based on the current state of the Guis"""
 
     # Errors with these being used before reference are annoying at worst, so here they are.
@@ -51,10 +47,10 @@ def replot(gui, data, *args):
     saa = mp_sb.Strong.isChecked()  # Strong acid analyte
     waa = mp_sb.Weak.isChecked()  # Weak acid analyte
 
-    # Clear the data object
-    data.ana = ()
-    data.titr = ()
-    data.lists = ()
+    # Clear the gui data object
+    gui.ana = ()
+    gui.titr = ()
+    gui.lists = ()
 
     """Titration calculations. LMK if there is a better way to do these conditionals."""
     # Monoprotic, Using a strong acid titrant
@@ -68,9 +64,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (m.mpbn, m.mpbc, m.mpbv)
-            data.titr = (m.mpan, m.mpac)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (m.mpbn, m.mpbc, m.mpbv)
+            gui.titr = (m.mpan, m.mpac)
+            gui.lists = (ph, h, oh, alpha, vol)
 
         elif wba:  # To titrate a weak base analyte
             # Start the data creation
@@ -79,9 +75,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (m.mpbn, m.mpbc, m.mpbv, m.mpbk)
-            data.titr = (m.mpan, m.mpac)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (m.mpbn, m.mpbc, m.mpbv, m.mpbk)
+            gui.titr = (m.mpan, m.mpac)
+            gui.lists = (ph, h, oh, alpha, vol)
 
     # Monoprotic, Using a strong base titrant
     elif mono and base:
@@ -93,9 +89,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (m.mpan, m.mpac, m.mpav)
-            data.titr = (m.mpbn, m.mpbc)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (m.mpan, m.mpac, m.mpav)
+            gui.titr = (m.mpbn, m.mpbc)
+            gui.lists = (ph, h, oh, alpha, vol)
 
         elif waa:  # Weak acid analyte
             # Start the data creation
@@ -104,9 +100,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (m.mpan, m.mpac, m.mpav, m.mpak)
-            data.titr = (m.mpbn, m.mpbc)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (m.mpan, m.mpac, m.mpav, m.mpak)
+            gui.titr = (m.mpbn, m.mpbc)
+            gui.lists = (ph, h, oh, alpha, vol)
 
     # Diprotic
     elif di:
@@ -119,9 +115,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (d.dpbn, d.dpbc, d.dpbv, d.dpbk1, d.dpbk2)
-            data.titr = (d.dpan, d.dpac)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (d.dpbn, d.dpbc, d.dpbv, d.dpbk1, d.dpbk2)
+            gui.titr = (d.dpan, d.dpac)
+            gui.lists = (ph, h, oh, alpha, vol)
 
         elif base:  # Base Titrant, Weak Diprotic Acid Analyte
             # Start the data creation
@@ -131,9 +127,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (d.dpan, d.dpac, d.dpav, d.dpak1, d.dpak2)
-            data.titr = (d.dpbn, d.dpbc)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (d.dpan, d.dpac, d.dpav, d.dpak1, d.dpak2)
+            gui.titr = (d.dpbn, d.dpbc)
+            gui.lists = (ph, h, oh, alpha, vol)
 
     # Triprotic
     elif tri:
@@ -146,9 +142,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (t.tpbn, t.tpbc, t.tpbv, t.tpbk1, t.tpbk2)
-            data.titr = (t.tpan, t.tpac)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (t.tpbn, t.tpbc, t.tpbv, t.tpbk1, t.tpbk2)
+            gui.titr = (t.tpan, t.tpac)
+            gui.lists = (ph, h, oh, alpha, vol)
 
         elif base:  # Base Titrant
             # Start the data creation
@@ -158,9 +154,9 @@ def replot(gui, data, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            data.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
-            data.titr = (t.tpbn, t.tpbc)
-            data.lists = (ph, h, oh, alpha, vol)
+            gui.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
+            gui.titr = (t.tpbn, t.tpbc)
+            gui.lists = (ph, h, oh, alpha, vol)
 
     """Plot the graph"""
     plot_titr(ph, vol, gui)
@@ -210,26 +206,26 @@ def save_plot(gui):
     ax.figure.savefig(fname)
 
 
-def get_csv_name(gui):
+def get_csv_name(*args):
     save_csv_gui.run()
 
 
-def save_csv(gui, data):
-    zipped = zip(data.lists[0], data.lists[1], data.lists[2], data.lists[3], data.lists[4])
+def save_csv(gui):
+    zipped = zip(gui.lists[0], gui.lists[1], gui.lists[2], gui.lists[3], gui.lists[4])
     with open(save_csv_gui.csv_name, "w") as new_file:
         csv_reader = csv.writer(new_file)
 
-        csv_reader.writerow(data.ana)
-        csv_reader.writerow(data.titr)
+        csv_reader.writerow(gui.ana)
+        csv_reader.writerow(gui.titr)
         csv_reader.writerow("")
         for item in zipped:
             csv_reader.writerow(item)
 
 
 """
- data.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
- data.titr = (t.tpbn, t.tpbc)
- data.lists = (ph, h, oh, alpha, vol)
+ gui.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
+ gui.titr = (t.tpbn, t.tpbc)
+ gui.lists = (ph, h, oh, alpha, vol)
 """
 
 
