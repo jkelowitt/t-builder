@@ -24,9 +24,9 @@ Common Parameters:
 from titration_module import *
 
 
-def tp_alpha_values(h, ka1=1.0, ka2=1.0, ka3=1.0, base=False):
+def tp_alpha_values(h, ka1=1.0, ka2=1.0, ka3=1.0, weak_base=False):
     """Triprotic Alpha Value Calculations"""
-    if base:
+    if weak_base:
         k1 = kw / ka3
         k2 = kw / ka2
         k3 = kw / ka1
@@ -45,9 +45,9 @@ def tp_alpha_values(h, ka1=1.0, ka2=1.0, ka3=1.0, base=False):
     abh3 = ah3a
     abh2 = ah2a
     abh = aha2
-    ab3 = aa3
+    ab = aa3
 
-    return ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab3
+    return ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab
 
 
 def tp_wasb(ka1, ka2, ka3, ca, cb, va):
@@ -61,12 +61,23 @@ def tp_wasb(ka1, ka2, ka3, ca, cb, va):
 
     ph, h, oh = start_phs()
 
-    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab3 = tp_alpha_values(h, ka1, ka2, ka3, base=False)
+    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab = tp_alpha_values(h, ka1, ka2, ka3, weak_base=True)
 
-    phi = ((ah2a) + (2 * aha2) + (3 * aa3) - ((h - oh) / cb)) / (1 + ((h - oh) / ca))
+    alpha = {
+        "alphaH3A" : ah3a,
+        "alphaH2A-": ah2a,
+        "alphaHA2-": aha2,
+        "alphaA3-" : aa3,
+        "alphaBH3+": abh3,
+        "alphaBH2+": abh2,
+        "alphaBH+" : abh,
+        "alphaB"   : ab
+        }
+
+    phi = (ah2a + (2 * aha2) + (3 * aa3) - ((h - oh) / cb)) / (1 + ((h - oh) / ca))
     vol = phi * ca * va / cb
 
-    return vol, ph
+    return vol, ph, h, oh, alpha
 
 
 def tp_wbsa(ka1, ka2, ka3, ca, cb, vb):
@@ -80,9 +91,20 @@ def tp_wbsa(ka1, ka2, ka3, ca, cb, vb):
 
     ph, h, oh = start_phs()
 
-    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab3 = tp_alpha_values(h, ka1, ka2, ka3, base=False)
+    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab = tp_alpha_values(h, ka1, ka2, ka3, weak_base=False)
+
+    alpha = {
+        "alphaH3A" : ah3a,
+        "alphaH2A-": ah2a,
+        "alphaHA2-": aha2,
+        "alphaA3-" : aa3,
+        "alphaBH3+": abh3,
+        "alphaBH2+": abh2,
+        "alphaBH+" : abh,
+        "alphaB"   : ab
+        }
 
     phi = (abh + (2 * abh2) + (3 * abh3) + ((h - oh) / cb)) / (1 - ((h - oh) / ca))
     vol = phi * cb * vb / ca
 
-    return vol, ph
+    return vol, ph, h, oh, alpha

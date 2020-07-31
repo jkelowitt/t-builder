@@ -22,8 +22,8 @@ Common Parameters:
 from titration_module import *
 
 
-def dp_alpha_values(h, ka1=1.0, ka2=1.0, base=False):
-    if base:
+def dp_alpha_values(h, ka1=1.0, ka2=1.0, weak_base=False):
+    if weak_base:
         k1 = kw / ka2
         k2 = kw / ka1
     else:
@@ -55,13 +55,22 @@ def dp_wasb(ka1, ka2, ca, cb, va):
     ph, h, oh = start_phs()
     ah2a, aha, aa2, abh22, abh, ab = dp_alpha_values(h, ka1, ka2)
 
+    alpha = {
+        "alphaH2A"  : ah2a,
+        "alphaHA-"  : aha,
+        "alphaA2-"  : aa2,
+        "alphaBH22+": abh22,
+        "alphaBH+"  : abh,
+        "alphaB"    : ab
+        }
+
     phi = ((aha + (2 * aa2)) - ((h - oh) / ca)) / (1 + ((h - oh) / cb))
     vol = phi * ca * va / cb
 
-    return vol, ph
+    return vol, ph, h, oh, alpha
 
 
-def dp_wbsa(ka1, ka2, ca, cb, vb, base=False):
+def dp_wbsa(ka1, ka2, ca, cb, vb, weak_base=True):
     """Diprotic weak base, strong acid titrant"""
 
     ka1 = float(ka1)
@@ -71,9 +80,18 @@ def dp_wbsa(ka1, ka2, ca, cb, vb, base=False):
     vb = float(vb)
 
     ph, h, oh = start_phs()
-    ah2a, aha, aa2, abh22, abh, ab = dp_alpha_values(h, ka1, ka2, base)
+    ah2a, aha, aa2, abh22, abh, ab = dp_alpha_values(h, ka1, ka2, weak_base)
+
+    alpha = {
+        "alphaH2A"  : ah2a,
+        "alphaHA-"  : aha,
+        "alphaA2-"  : aa2,
+        "alphaBH22+": abh22,
+        "alphaBH+"  : abh,
+        "alphaB"    : ab
+        }
 
     phi = (abh + (2 * abh22) + ((h - oh) / cb)) / (1 - ((h - oh) / ca))
     vol = phi * cb * vb / ca
 
-    return vol, ph
+    return vol, ph, h, oh, alpha

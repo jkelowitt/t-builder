@@ -1,11 +1,17 @@
 """All of the logic for the functions in the gui"""
 
 from guietta import M, ___, III, R1, R2, VSeparator, HSeparator, Quit, _
+import types
+import csv
 
 from monoprotic_module import *
 from diprotic_module import *
 from triprotic_module import *
 from sub_guis import *
+
+# An object to grab all the data from each of the titrations.
+data = types.SimpleNamespace()
+
 
 # Main Gui. Shows on startup.
 gui = Gui(
@@ -21,10 +27,12 @@ gui = Gui(
     exceptions=Exceptions.PRINT
     )
 
-
 @gui.auto
-def replot(gui, *args):
+def replot(gui, data, *args):
     """Plot the titration curve based on the current state of the Guis"""
+
+    # Errors with these being used before reference are annoying at worst, so here they are.
+    vol, ph, ev = [], [], 0
 
     """Button states. Used to determine which titration equations are used."""
     # Functionality of the analyte
@@ -43,62 +51,119 @@ def replot(gui, *args):
     saa = mp_sb.Strong.isChecked()  # Strong acid analyte
     waa = mp_sb.Weak.isChecked()  # Weak acid analyte
 
+    # Clear the data object
+    data.ana = ()
+    data.titr = ()
+    data.lists = ()
+
     """Titration calculations. LMK if there is a better way to do these conditionals."""
     # Monoprotic, Using a strong acid titrant
     if mono and acid:
-
+        m = mp_sa
         if sba:  # To titrate a strong base analyte
-            ev = equiv_volume(mp_sa.mpbc, mp_sa.mpbv, mp_sa.mpac)
-            vol, ph = sbsa(mp_sa.mpbc, mp_sa.mpbv, mp_sa.mpac)
+            # Start the data creation
+            m = mp_sa
+            ev = equiv_volume(m.mpbc, m.mpbv, m.mpac)
+            vol, ph, h, oh, alpha = mp_sbsa(m.mpbc, m.mpbv, m.mpac)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
+
+            # Collect the data
+            data.ana = (m.mpbn, m.mpbc, m.mpbv)
+            data.titr = (m.mpan, m.mpac)
+            data.lists = (ph, h, oh, alpha, vol)
 
         elif wba:  # To titrate a weak base analyte
-            ev = equiv_volume(mp_sa.mpbc, mp_sa.mpbv, mp_sa.mpac)
-            vol, ph = wbsa(mp_sa.mpbk, mp_sa.mpbc, mp_sa.mpac, mp_sa.mpbv)
+            # Start the data creation
+            ev = equiv_volume(m.mpbc, m.mpbv, m.mpac)
+            vol, ph, h, oh, alpha = mp_wbsa(m.mpbk, m.mpbc, m.mpac, m.mpbv)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
+
+            # Collect the data
+            data.ana = (m.mpbn, m.mpbc, m.mpbv, m.mpbk)
+            data.titr = (m.mpan, m.mpac)
+            data.lists = (ph, h, oh, alpha, vol)
 
     # Monoprotic, Using a strong base titrant
     elif mono and base:
-
+        m = mp_sb
         if saa:  # Strong acid analyte
-            ev = equiv_volume(mp_sb.mpac, mp_sb.mpav, mp_sb.mpbc)
-            vol, ph = sasb(mp_sb.mpac, mp_sb.mpav, mp_sb.mpbc)
+            # Start the data creation
+            ev = equiv_volume(m.mpac, m.mpav, m.mpbc)
+            vol, ph, h, oh, alpha = mp_sasb(m.mpac, m.mpav, m.mpbc)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
+
+            # Collect the data
+            data.ana = (m.mpan, m.mpac, m.mpav)
+            data.titr = (m.mpbn, m.mpbc)
+            data.lists = (ph, h, oh, alpha, vol)
 
         elif waa:  # Weak acid analyte
-            ev = equiv_volume(mp_sb.mpac, mp_sb.mpav, mp_sb.mpbc)
-            vol, ph = wasb(mp_sb.mpak, mp_sb.mpac, mp_sb.mpbc, mp_sb.mpav)
+            # Start the data creation
+            ev = equiv_volume(m.mpac, m.mpav, m.mpbc)
+            vol, ph, h, oh, alpha = mp_wasb(m.mpak, m.mpac, m.mpbc, m.mpav)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
+
+            # Collect the data
+            data.ana = (m.mpan, m.mpac, m.mpav, m.mpak)
+            data.titr = (m.mpbn, m.mpbc)
+            data.lists = (ph, h, oh, alpha, vol)
 
     # Diprotic
     elif di:
 
-        if acid:  # Acid Titrant
-            ev = equiv_volume(dp_sa.dpbc, dp_sa.dpbv, dp_sa.dpac) * 2
-            vol, ph = dp_wbsa(dp_sa.dpbk1, dp_sa.dpbk2, dp_sa.dpac, dp_sa.dpbc, dp_sa.dpbv, base=True)
+        if acid:  # Acid Titrant, Weak Diprotic Base Analyte
+            # Start the data creation
+            d = dp_sa
+            ev = equiv_volume(d.dpbc, d.dpbv, d.dpac) * 2  # I need a better way to adjust the scaling
+            vol, ph, h, oh, alpha = dp_wbsa(d.dpbk1, d.dpbk2, d.dpac, d.dpbc, d.dpbv)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
-        elif base:  # Base Titrant
-            ev = equiv_volume(dp_sb.dpac, dp_sb.dpav, dp_sb.dpbc) * 2
-            vol, ph = dp_wasb(dp_sb.dpak1, dp_sb.dpak2, dp_sb.dpac, dp_sb.dpbc, dp_sb.dpav)
+            # Collect the data
+            data.ana = (d.dpbn, d.dpbc, d.dpbv, d.dpbk1, d.dpbk2)
+            data.titr = (d.dpan, d.dpac)
+            data.lists = (ph, h, oh, alpha, vol)
+
+        elif base:  # Base Titrant, Weak Diprotic Acid Analyte
+            # Start the data creation
+            d = dp_sb
+            ev = equiv_volume(d.dpac, d.dpav, d.dpbc) * 2
+            vol, ph, h, oh, alpha = dp_wasb(d.dpak1, d.dpak2, d.dpac, d.dpbc, d.dpav)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
+
+            # Collect the data
+            data.ana = (d.dpan, d.dpac, d.dpav, d.dpak1, d.dpak2)
+            data.titr = (d.dpbn, d.dpbc)
+            data.lists = (ph, h, oh, alpha, vol)
 
     # Triprotic
     elif tri:
 
         if acid:  # Acid Titrant
-            ev = equiv_volume(tp_sa.tpbc, tp_sa.tpbv, tp_sa.tpac) * 3
-            vol, ph = tp_wbsa(tp_sa.tpbk1, tp_sa.tpbk2, tp_sa.tpbk3, tp_sa.tpac, tp_sa.tpbc, tp_sa.tpbv)
-        elif base:  # Base Titrant
-            ev = equiv_volume(tp_sb.tpac, tp_sb.tpav, tp_sb.tpbc) * 3
-            vol, ph = tp_wasb(tp_sb.tpak1, tp_sb.tpak2, tp_sb.tpak3, tp_sb.tpac, tp_sb.tpbc, tp_sb.tpav)
+            # Start the data creation
+            t = tp_sa
+            ev = equiv_volume(t.tpbc, t.tpbv, t.tpac) * 3
+            vol, ph, h, oh, alpha = tp_wbsa(t.tpbk1, t.tpbk2, t.tpbk3, t.tpac, t.tpbc, t.tpbv)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
-    # Remove all extraneous values (Volumes less than zero, or obscenely large)
-    vol, ph = check_vals(vol, ph, ev)
+            # Collect the data
+            data.ana = (t.tpbn, t.tpbc, t.tpbv, t.tpbk1, t.tpbk2)
+            data.titr = (t.tpan, t.tpac)
+            data.lists = (ph, h, oh, alpha, vol)
+
+        elif base:  # Base Titrant
+            # Start the data creation
+            t = tp_sb
+            ev = equiv_volume(t.tpac, t.tpav, t.tpbc) * 3
+            vol, ph, h, oh, alpha = tp_wasb(t.tpak1, t.tpak2, t.tpak3, t.tpac, t.tpbc, t.tpav)
+            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
+
+            # Collect the data
+            data.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
+            data.titr = (t.tpbn, t.tpbc)
+            data.lists = (ph, h, oh, alpha, vol)
 
     """Plot the graph"""
-
-    # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
-    ax = gui.plot.ax
-    ax.clear()
-
-    # Make the figure, and plot it to the Gui
-    ax.plot(vol, ph)
-    ax.figure.canvas.draw()
+    plot_titr(ph, vol, gui)
 
 
 def open_nui(gui):
@@ -149,12 +214,23 @@ def get_csv_name(gui):
     save_csv_gui.run()
 
 
-def save_csv(gui):
-    # Vastly more complicated than what I have the patience for right now.
-    # Probably involves saving all of the data input above, running the results, and
-    # then formatting the data correctly. Much more painstaking than originally expected.
-    print("Test Statement")
-    pass
+def save_csv(gui, data):
+    zipped = zip(data.lists[0], data.lists[1], data.lists[2], data.lists[3], data.lists[4])
+    with open(save_csv_gui.csv_name, "w") as new_file:
+        csv_reader = csv.writer(new_file)
+
+        csv_reader.writerow(data.ana)
+        csv_reader.writerow(data.titr)
+        csv_reader.writerow("")
+        for item in zipped:
+            csv_reader.writerow(item)
+
+
+"""
+ data.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
+ data.titr = (t.tpbn, t.tpbc)
+ data.lists = (ph, h, oh, alpha, vol)
+"""
 
 
 # When the button is pressed, do the thing
@@ -166,7 +242,6 @@ save_fig_gui.SavePlot = save_plot
 
 gui.SaveCSV = get_csv_name
 save_csv_gui.SaveCSV = save_csv
-
 
 # Name the window
 gui.title("Titration Plotter")

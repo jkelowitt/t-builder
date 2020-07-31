@@ -7,12 +7,22 @@ import numpy as np
 kw = 1.023 * (10 ** -14)  # At 25 degrees celsius
 
 
-def check_vals(vol, ph, ev):
-    """Get rid of things which are out of range."""
-    bad_val_index = np.where([vol >= 2 * ev, vol < 0])
-    vol = np.delete(vol, bad_val_index)
-    ph = np.delete(ph, bad_val_index)
-    return vol, ph
+def check_vals(vol, ph, h, oh, alpha, ev):
+    """Find only the useful data."""
+    # Inbetween 0 added titrant and 2 times equivalence point titrant.
+    good_val_index = np.where([vol <= 2 * ev, vol >= 0])
+    vol = [vol[i] for i in good_val_index]
+    ph = [ph[i] for i in good_val_index]
+    h = [h[i] for i in good_val_index]
+    oh = [oh[i] for i in good_val_index]
+
+    # Trim the alpha values
+    new_alpha = []
+    for obj in alpha:
+        cut_alpha = [obj[i] for i in good_val_index]
+        new_alpha.append(cut_alpha)
+
+    return vol, ph, h, oh, new_alpha
 
 
 def equiv_volume(c1, v1, c2):
@@ -36,9 +46,12 @@ def start_phs():
     return ph, h, oh
 
 
-def plot_titr(ph, vol, gui, title, xscale=1):
+def plot_titr(ph, vol, gui, title=""):
+    # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
     ax = gui.plot.ax
     ax.clear()
+
+    # Make the figure, and plot it to the Gui
     ax.plot(vol, ph)
     ax.figure.canvas.draw()
 
