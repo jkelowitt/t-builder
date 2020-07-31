@@ -37,10 +37,10 @@ def tp_alpha_values(h, ka1=1.0, ka2=1.0, ka3=1.0, weak_base=False):
 
     denom = h ** 3 + (h ** 2 * k1) + (h * k1 * k2) + (k1 * k2 * k3)
 
-    ah3a = h ** 3 / denom
-    ah2a = (h ** 2 * k1) / denom
-    aha2 = (h * k1 * k2) / denom
-    aa3 = (k1 * k2 * k3) / denom
+    ah3a = np.array(h ** 3 / denom)
+    ah2a = np.array((h ** 2 * k1) / denom)
+    aha2 = np.array((h * k1 * k2) / denom)
+    aa3 = np.array((k1 * k2 * k3) / denom)
 
     abh3 = ah3a
     abh2 = ah2a

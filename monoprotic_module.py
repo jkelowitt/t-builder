@@ -25,14 +25,14 @@ def mp_alpha_values(h, ka=1.0, kb=1.0):
     kbh = kw / kb
 
     # Acid alpha values
-    AHA = h / (h + ka)
-    AA = ka / (h + ka)
+    alphaHA = np.array(h / (h + ka))
+    alphaA = np.array(ka / (h + ka))
 
     # Base alpha values
-    ABH = h / (h + kbh)
-    AB = kbh / (h + kbh)
+    alphaBH = np.array(h / (h + kbh))
+    alphaB = np.array(kbh / (h + kbh))
 
-    return AHA, AA, ABH, AB
+    return alphaHA, alphaA, alphaBH, alphaB
 
 
 def mp_sbsa(cb, vb, ca):

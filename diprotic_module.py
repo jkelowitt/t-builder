@@ -32,9 +32,9 @@ def dp_alpha_values(h, ka1=1.0, ka2=1.0, weak_base=False):
 
     denom = (h ** 2) + (h * k1) + (k1 * k2)
 
-    ah2a = (h * h) / denom
-    aha = h * k1 / denom
-    aa2 = k1 * k2 / denom
+    ah2a = np.array((h * h) / denom)
+    aha = np.array(h * k1 / denom)
+    aa2 = np.array(k1 * k2 / denom)
 
     abh22 = ah2a
     abh = aha
