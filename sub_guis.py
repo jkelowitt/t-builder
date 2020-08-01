@@ -23,7 +23,7 @@ Parameter guide:
 
 from guietta import Gui, ___, Exceptions, R, Ok
 
-# Monoprotic Sub Guis
+# Monoprotic Strong Acid Titrant
 mp_sa = Gui(
     ["The Base is:"        , R("Strong")   , R("Weak") ],
     ["Base Name:"          , "__mpbn__"    , ___       ],
@@ -38,7 +38,7 @@ mp_sa = Gui(
 
 mp_sa.title("Strong Acid Titrant")
 
-
+# Monoprotic Strong Base Titrant
 mp_sb = Gui(
     ["The Acid is:"        , R("Strong")   , R("Weak") ],
     ["Acid Name:"          , "__mpan__"    , ___       ],
@@ -54,7 +54,7 @@ mp_sb = Gui(
 mp_sb.title("Strong Base Titrant")
 
 
-# Diprotic Sub Guis
+# Diprotic Strong Acid Titrant
 dp_sa = Gui(
     ["Base Name:"          , "__dpbn__"  ],
     ["Base Kb1:"           , "__dpbk1__" ],
@@ -69,7 +69,7 @@ dp_sa = Gui(
 
 dp_sa.title("Strong Acid Titrant Diprotic")
 
-
+# Diprotic Strong Base Titrant
 dp_sb = Gui(
     ["Acid Name:"          , "__dpan__"   ],
     ["Acid Ka1:"           , "__dpak1__"  ],
@@ -85,7 +85,7 @@ dp_sb = Gui(
 dp_sb.title("Strong Base Titrant Diprotic")
 
 
-# Triprotic Sub Guis
+# Triprotic Strong Acid Titrant
 tp_sa = Gui(
     ["Base Name:"          , "__tpbn__"  ],
     ["Base Kb1:"           , "__tpbk1__" ],
@@ -101,7 +101,7 @@ tp_sa = Gui(
 
 tp_sa.title("Strong Acid Titrant Triprotic")
 
-
+# Triprotic Strong Base Titrant
 tp_sb = Gui(
     ["Acid Name:"          , "__tpan__"  ],
     ["Acid Ka1:"           , "__tpak1__" ],
@@ -117,3 +117,17 @@ tp_sb = Gui(
 
 tp_sb.title("Strong Base Titrant Triprotic")
 
+
+save_fig_gui = Gui(
+    ["Plot Save Name: ", "__figure_name__", ".png"],
+    [["Save Plot"], ___, ___]
+    )
+
+save_fig_gui.title("Save Current Plot")
+
+save_csv_gui = Gui(
+    ["CSV Save Name: ", "__csv_name__", ".csv"],
+    [["Save CSV"], ___, ___]
+    )
+
+save_fig_gui.title("Save Data to CSV")

@@ -25,17 +25,17 @@ def mp_alpha_values(h, ka=1.0, kb=1.0):
     kbh = kw / kb
 
     # Acid alpha values
-    AHA = h / (h + ka)
-    AA = ka / (h + ka)
+    alphaHA = np.array(h / (h + ka))
+    alphaA = np.array(ka / (h + ka))
 
     # Base alpha values
-    ABH = h / (h + kbh)
-    AB = kbh / (h + kbh)
+    alphaBH = np.array(h / (h + kbh))
+    alphaB = np.array(kbh / (h + kbh))
 
-    return AHA, AA, ABH, AB
+    return alphaHA, alphaA, alphaBH, alphaB
 
 
-def sbsa(cb, vb, ca):
+def mp_sbsa(cb, vb, ca):
     """Strong Base, Strong Acid Titrant"""
     ca = float(ca)
     vb = float(vb)
@@ -46,29 +46,32 @@ def sbsa(cb, vb, ca):
 
     phi = (1 + ((h - oh) / cb)) / (1 - ((h - oh) / ca))
     vol = phi * vb * cb / ca
-    return vol, ph
+
+    alpha = {}
+
+    return vol, ph, h, oh, alpha
 
 
-def sasb(ca, va, cb):
+def mp_sasb(ca, va, cb):
     """Strong Acid, Strong Base Titrant"""
 
     ca = float(ca)
     va = float(va)
     cb = float(cb)
 
-    print("SASB")
-
     # pH, [H+], [OH-]
     ph, h, oh = start_phs()
 
     phi = (1 - ((h - oh) / ca)) / (1 + ((h - oh) / cb))
     vol = phi * va * ca / cb
-    return vol, ph
+
+    alpha = {}
+
+    return vol, ph, h, oh, alpha
 
 
-def wasb(ka, ca, cb, va):
+def mp_wasb(ka, ca, cb, va):
     """Weak Acid, Strong Base Titrant"""
-    print("WASB")
 
     ka = float(ka)
     ca = float(ca)
@@ -79,16 +82,24 @@ def wasb(ka, ca, cb, va):
     ph, h, oh = start_phs()
 
     # Alpha Values
-    alphaHA, alphaA, ABH, AB = mp_alpha_values(h, ka)
+    alphaHA, alphaA, alphaBH, alphaB = mp_alpha_values(h, ka)
+
+    # Return this dictionary so that data can be collected for the csv
+    alpha = {
+        "alphaHA": alphaHA,
+        "alphaA" : alphaA,
+        "alphaBH": alphaBH,
+        "alphaB" : alphaB
+        }
 
     # Phi and titrant
     phi = (alphaA - ((h - oh) / ca)) / (1 + ((h - oh) / cb))
     vol = phi * ca * va / cb
 
-    return vol, ph
+    return vol, ph, h, oh, alpha
 
 
-def wbsa(ka, ca, cb, vb):
+def mp_wbsa(ka, ca, cb, vb):
     """Weak Base, Strong Acid Titrant"""
 
     ka = float(ka)
@@ -102,8 +113,16 @@ def wbsa(ka, ca, cb, vb):
     # Alpha Values
     alphaHA, alphaA, alphaBH, alphaB = mp_alpha_values(h, kb=ka)
 
+    # Return this dictionary so that data can be collected for the csv
+    alpha = {
+        "alphaHA": alphaHA,
+        "alphaA-" : alphaA,
+        "alphaBH+": alphaBH,
+        "alphaB" : alphaB
+        }
+
     # Phi and titrant
     phi = (alphaBH + ((h - oh) / cb)) / (1 - ((h - oh) / ca))
     vol = phi * cb * vb / ca
 
-    return vol, ph
+    return vol, ph, h, oh, alpha

@@ -1,14 +1,33 @@
+"""
+All general use functions in the program. Used Basically everywhere.
+"""
+
 import numpy as np
 
 kw = 1.023 * (10 ** -14)  # At 25 degrees celsius
 
 
-def check_vals(vol, ph, ev):
-    """Get rid of things which are out of range."""
-    bad_val_index = np.where([vol >= 2 * ev, vol < 0])
-    vol = np.delete(vol, bad_val_index)
-    ph = np.delete(ph, bad_val_index)
-    return vol, ph
+def check_vals(vol, ph, h, oh, alpha, ev):
+    """Find only the useful data."""
+    # Inbetween 0 added titrant and 2 times equivalence point titrant.
+
+    good_val_index = np.where((vol >= 0) & (vol <= 2 * ev))
+
+    vol = vol[good_val_index]
+    ph = ph[good_val_index]
+    h = h[good_val_index]
+    oh = oh[good_val_index]
+
+    # Trim the alpha values
+    new_alpha = []
+    for key in alpha:
+        alpha[key] = alpha[key].astype("object")
+        new_list = np.insert(alpha[key][good_val_index], 0, key)
+        new_alpha.append(new_list)
+
+    new_alpha = np.array(new_alpha, dtype="object")
+
+    return vol, ph, h, oh, new_alpha
 
 
 def equiv_volume(c1, v1, c2):
@@ -32,8 +51,19 @@ def start_phs():
     return ph, h, oh
 
 
-def plot_titr(ph, vol, gui, title, xscale=1):
-    ax = gui.plot.ax
-    ax.clear()
-    ax.plot(vol, ph)
-    ax.figure.canvas.draw()
+def check_for_ext(file_name, ext):
+    """
+    Checks that the input has a certain extension. If it doesn't, it will add the correct extension to the end.
+
+    :param file_name: String to be checked for an extension
+    :param ext: Extension (Ex: .txt, .csv, .pdb) to be looked for in the file_name
+
+    Returns the name of the file with the extension.
+    """
+
+    has_ext = file_name.find(ext) != -1
+
+    if not has_ext:
+        file_name = file_name + ext
+
+    return file_name
