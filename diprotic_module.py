@@ -55,6 +55,7 @@ def dp_wasb(ka1, ka2, ca, cb, va):
     ph, h, oh = start_phs()
     ah2a, aha, aa2, abh22, abh, ab = dp_alpha_values(h, ka1, ka2)
 
+    # Return this dictionary so that data can be collected for the csv
     alpha = {
         "alphaH2A"  : ah2a,
         "alphaHA-"  : aha,
@@ -82,6 +83,7 @@ def dp_wbsa(ka1, ka2, ca, cb, vb, weak_base=True):
     ph, h, oh = start_phs()
     ah2a, aha, aa2, abh22, abh, ab = dp_alpha_values(h, ka1, ka2, weak_base)
 
+    # Return this dictionary so that data can be collected for the csv
     alpha = {
         "alphaH2A"  : ah2a,
         "alphaHA-"  : aha,
