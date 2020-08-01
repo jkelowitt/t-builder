@@ -83,6 +83,8 @@ def mp_wasb(ka, ca, cb, va):
 
     # Alpha Values
     alphaHA, alphaA, alphaBH, alphaB = mp_alpha_values(h, ka)
+
+    # Return this dictionary so that data can be collected for the csv
     alpha = {
         "alphaHA": alphaHA,
         "alphaA" : alphaA,
@@ -110,10 +112,12 @@ def mp_wbsa(ka, ca, cb, vb):
 
     # Alpha Values
     alphaHA, alphaA, alphaBH, alphaB = mp_alpha_values(h, kb=ka)
+
+    # Return this dictionary so that data can be collected for the csv
     alpha = {
         "alphaHA": alphaHA,
-        "alphaA" : alphaA,
-        "alphaBH": alphaBH,
+        "alphaA-" : alphaA,
+        "alphaBH+": alphaBH,
         "alphaB" : alphaB
         }
 
