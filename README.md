@@ -31,7 +31,6 @@ TODO:
   * Make an executable
   * Make a N-Functional analyte option
   * Support for showing Bjerrum Plots
-  * Group Boxes for data entry
   * EQ point finder (either mathematically or with 2nd deriv.)
   * Group Boxes for data entry
   * Close all windows on main gui's close
