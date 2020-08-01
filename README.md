@@ -22,8 +22,8 @@ There are 5 parts to the program:
   * Quit will exit the program.
 
 TODO:
-  * <del>"Save Plot" Button</del> Done
-  * <del>"Save Data CSV" Button</del> Done
+  * <del>"Save Plot" Button</del> *Done*
+  * <del>"Save Data CSV" Button</del> *Done*
   * Auto closing and plotting of the graph when "Ok" is pressed
   * Dynamic Chart Title
   * Plot options
