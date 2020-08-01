@@ -61,8 +61,9 @@ def tp_wasb(ka1, ka2, ka3, ca, cb, va):
 
     ph, h, oh = start_phs()
 
-    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab = tp_alpha_values(h, ka1, ka2, ka3, weak_base=True)
+    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab = tp_alpha_values(h, ka1, ka2, ka3, weak_base=False)
 
+    # Return this dictionary so that data can be collected for the csv
     alpha = {
         "alphaH3A" : ah3a,
         "alphaH2A-": ah2a,
@@ -91,8 +92,9 @@ def tp_wbsa(ka1, ka2, ka3, ca, cb, vb):
 
     ph, h, oh = start_phs()
 
-    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab = tp_alpha_values(h, ka1, ka2, ka3, weak_base=False)
+    ah3a, ah2a, aha2, aa3, abh3, abh2, abh, ab = tp_alpha_values(h, ka1, ka2, ka3, weak_base=True)
 
+    # Return this dictionary so that data can be collected for the csv
     alpha = {
         "alphaH3A" : ah3a,
         "alphaH2A-": ah2a,
