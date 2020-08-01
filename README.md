@@ -12,14 +12,15 @@ There are 5 parts to the program:
   * Quit will exit the program.
 
 TODO:
-  * "Save Plot" Button
-  * "Save Data CSV" Button
+  * <del>"Save Plot" Button</del> Done
+  * <del>"Save Data CSV" Button</del> Done
   * Dynamic Chart Title
   * Plot options
   * Fix Spacing on the Titrant and Analyte Sections
   * Make an executable
   * Make a N-Functional analyte option
   * Support for showing Bjerrum Plots
+  * EQ point finder (either mathematically or with 2nd deriv.)
   
 Gui built using [Guietta](https://github.com/alfiopuglisi/guietta) by [alfiopuglisi](https://github.com/alfiopuglisi).
 Equations from [Quantitative Chemical Analysis 9th Ed. by Daniel C. Harris](https://www.amazon.com/Quantitative-Chemical-Analysis-Daniel-Harris/dp/146413538X). (Ch. 11.10)
