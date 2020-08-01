@@ -9,6 +9,16 @@ There are 5 parts to the program:
   * The Analyte Section is where you select whether the analyte is Monoprotic, Diprotic, or Triprotic.
   * Once the Titrant and Analyte have been selected, the Assign Parameters button will function. Clicking on the Assign Parameters button will open a menu with boxes to enter the required data to plot the requested titration curve. Clicking Ok will save the data.
   * Clicking Force Plot after the data has been entered will put a plot into the plot section. 
+  * Clicking Save Plot allows the user to specify a name under which the plot will be saved. The png will be saved to the program's directory.
+  * Clicking Save CSV allows the user to specify a name under which a csv with the following information will be saved (in the program's directory):
+    * Analyte Parameters
+    * Titrant Parameters
+    * pH
+    * [H+]
+    * [OH-]
+    * Volume of Titrant
+    * Alpha Values
+    
   * Quit will exit the program.
 
 TODO:
