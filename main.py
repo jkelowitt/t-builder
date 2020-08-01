@@ -18,12 +18,11 @@ gui = Gui(
     [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
     [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
     [III      , III       , HSeparator           , ___        , ___             ],
-    [_        , _         , Quit                 , ___        , ___             ],
+    [III      , III       , Quit                 , ___        , ___             ],
     exceptions=Exceptions.PRINT
     )
 
-
-@gui.auto
+# @gui.auto
 def replot(gui, *args):
     """Plot the titration curve based on the current state of the Guis"""
 
@@ -47,10 +46,6 @@ def replot(gui, *args):
     saa = mp_sb.Strong.isChecked()  # Strong acid analyte
     waa = mp_sb.Weak.isChecked()  # Weak acid analyte
 
-    # Clear the gui data object
-    gui.ana = ()
-    gui.titr = ()
-    gui.lists = ()
 
     """Titration calculations. LMK if there is a better way to do these conditionals."""
     # Monoprotic, Using a strong acid titrant
@@ -64,9 +59,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (m.mpbn, m.mpbc, m.mpbv)
-            gui.titr = (m.mpan, m.mpac)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (m.mpbn, m.mpbc, m.mpbv)
+            save_csv_gui.titr = (m.mpan, m.mpac)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
         elif wba:  # To titrate a weak base analyte
             # Start the data creation
@@ -75,9 +70,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (m.mpbn, m.mpbc, m.mpbv, m.mpbk)
-            gui.titr = (m.mpan, m.mpac)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (m.mpbn, m.mpbc, m.mpbv, m.mpbk)
+            save_csv_gui.titr = (m.mpan, m.mpac)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
     # Monoprotic, Using a strong base titrant
     elif mono and base:
@@ -89,9 +84,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (m.mpan, m.mpac, m.mpav)
-            gui.titr = (m.mpbn, m.mpbc)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (m.mpan, m.mpac, m.mpav)
+            save_csv_gui.titr = (m.mpbn, m.mpbc)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
         elif waa:  # Weak acid analyte
             # Start the data creation
@@ -100,9 +95,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (m.mpan, m.mpac, m.mpav, m.mpak)
-            gui.titr = (m.mpbn, m.mpbc)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (m.mpan, m.mpac, m.mpav, m.mpak)
+            save_csv_gui.titr = (m.mpbn, m.mpbc)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
     # Diprotic
     elif di:
@@ -115,9 +110,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (d.dpbn, d.dpbc, d.dpbv, d.dpbk1, d.dpbk2)
-            gui.titr = (d.dpan, d.dpac)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (d.dpbn, d.dpbc, d.dpbv, d.dpbk1, d.dpbk2)
+            save_csv_gui.titr = (d.dpan, d.dpac)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
         elif base:  # Base Titrant, Weak Diprotic Acid Analyte
             # Start the data creation
@@ -127,9 +122,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (d.dpan, d.dpac, d.dpav, d.dpak1, d.dpak2)
-            gui.titr = (d.dpbn, d.dpbc)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (d.dpan, d.dpac, d.dpav, d.dpak1, d.dpak2)
+            save_csv_gui.titr = (d.dpbn, d.dpbc)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
     # Triprotic
     elif tri:
@@ -142,9 +137,9 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (t.tpbn, t.tpbc, t.tpbv, t.tpbk1, t.tpbk2)
-            gui.titr = (t.tpan, t.tpac)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (t.tpbn, t.tpbc, t.tpbv, t.tpbk1, t.tpbk2)
+            save_csv_gui.titr = (t.tpan, t.tpac)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
         elif base:  # Base Titrant
             # Start the data creation
@@ -154,12 +149,18 @@ def replot(gui, *args):
             vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
 
             # Collect the data
-            gui.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
-            gui.titr = (t.tpbn, t.tpbc)
-            gui.lists = (ph, h, oh, alpha, vol)
+            save_csv_gui.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
+            save_csv_gui.titr = (t.tpbn, t.tpbc)
+            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
     """Plot the graph"""
-    plot_titr(ph, vol, gui)
+    # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
+    ax = gui.plot.ax
+    ax.clear()
+
+    # Make the figure, and plot it to the Gui
+    ax.plot(vol, ph)  # np arrays have the type at index 1, therefore the specificity
+    ax.figure.canvas.draw()
 
 
 def open_nui(gui):
@@ -193,12 +194,12 @@ def open_nui(gui):
         tp_sb.run()
 
 
-def get_fig_name(gui):
+def get_fig_name(gui, *args):
     # Get the figure's name
     save_fig_gui.run()
 
 
-def save_plot(gui):
+def save_plot(gui, *args):
     ax = gui.plot.ax
     fname = check_for_ext(save_fig_gui.figure_name, ".png")
 
@@ -206,43 +207,68 @@ def save_plot(gui):
     ax.figure.savefig(fname)
 
 
-def get_csv_name(*args):
+def get_csv_name(gui, *args):
     save_csv_gui.run()
 
 
-def save_csv(gui):
-    zipped = zip(gui.lists[0], gui.lists[1], gui.lists[2], gui.lists[3], gui.lists[4])
-    with open(save_csv_gui.csv_name, "w") as new_file:
-        csv_reader = csv.writer(new_file)
+def save_csv(gui, *args):
+    scg = save_csv_gui
 
-        csv_reader.writerow(gui.ana)
-        csv_reader.writerow(gui.titr)
-        csv_reader.writerow("")
+    # Make a list of zipped lists
+    fname = check_for_ext(scg.csv_name, ".csv")
+
+    with open(fname, "w", newline='') as new_file:
+        csv_writer = csv.writer(new_file)
+
+        # Header row
+        csv_writer.writerow(["Name", "Concentration (M)", "Volume (mL)", "K1", "K2", "K3"])
+
+        csv_writer.writerow(scg.ana)
+        csv_writer.writerow(scg.titr)
+
+        # Spacer row before data dump
+        csv_writer.writerow([])
+
+        # This slows things down, but its used only here, and allows insertion of the row title.
+        # Changes the list type from float to object so that strings can be inserted.
+        ph = scg.lists[0].astype('object')
+        h = scg.lists[1].astype('object')
+        oh = scg.lists[2].astype('object')
+        vol = scg.lists[4].astype('object')
+
+        # Already an object array
+        alpha = scg.lists[3]
+
+        # Add the headers
+        ph = np.insert(ph, 0, "pH")
+        h = np.insert(h, 0, "[H+]")
+        oh = np.insert(oh, 0, "[OH-]")
+        vol = np.insert(vol, 0, "Volume Titrant (mL)")
+
+        # Transposes the direction of the values. Now each pH correlates to the same rows h, oh, vol, and the fraction
+        zipped = np.dstack((ph, h, oh, vol, *alpha))
+
+        # Write to the csv
         for item in zipped:
-            csv_reader.writerow(item)
+            csv_writer.writerows(item)
 
 
-"""
- gui.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
- gui.titr = (t.tpbn, t.tpbc)
- gui.lists = (ph, h, oh, alpha, vol)
-"""
-
-
-# When the button is pressed, do the thing
+# Replot button function definition
 gui.ForcePlot = replot
-gui.AssignParameters = open_nui
 
+# Plot saving buttons
 gui.SavePlot = get_fig_name
 save_fig_gui.SavePlot = save_plot
 
+# CSV saving buttons
 gui.SaveCSV = get_csv_name
 save_csv_gui.SaveCSV = save_csv
 
-# Name the window
+# Name the main window
 gui.title("Titration Plotter")
 
 # Open the sub guis on command
 gui.AssignParameters = open_nui
 
-gui.run()
+if __name__ == "__main__":
+    gui.run()
