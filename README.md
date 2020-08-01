@@ -24,6 +24,7 @@ There are 5 parts to the program:
 TODO:
   * <del>"Save Plot" Button</del> Done
   * <del>"Save Data CSV" Button</del> Done
+  * Auto closing and plotting of the graph when "Ok" is pressed
   * Dynamic Chart Title
   * Plot options
   * Fix Spacing on the Titrant and Analyte Sections
@@ -32,6 +33,7 @@ TODO:
   * Support for showing Bjerrum Plots
   * EQ point finder (either mathematically or with 2nd deriv.)
   * Group Boxes for data entry
+  * Close all windows on main gui's close
 
   
 Gui built using [Guietta](https://github.com/alfiopuglisi/guietta) by [alfiopuglisi](https://github.com/alfiopuglisi).
