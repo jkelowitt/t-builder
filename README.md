@@ -41,6 +41,6 @@ Equations from [Quantitative Chemical Analysis 9th Ed. by Daniel C. Harris](http
 
 The equations utilized from the textbook above leverage the following type of relationship (in this case for a diprotic acid being reacted with a strong base):
 
-![phiEquation](http://www.sciweavers.org/tex2img.php?eq=%5Cphi%20%20%5Cequiv%20%20%20%5Cfrac%7BC_b%20V_b%7D%7BC_a%20V_a%7D%20%3D%20%20%5Cfrac%7B%5Calpha_%7BHA%5E%7B-%7D%7D%2B2%5Calpha_%7BA%5E%7B2-%7D%7D%20%2B%20%5Cfrac%7B%5BH%5E%7B%2B%7D%5D%20-%20%5BOH%5E%7B-%7D%5D%7D%7BC_%7Ba%7D%7D%7D%7B1%20%2B%20%5Cfrac%7B%5BH%5E%7B%2B%7D%5D%20-%20%5BOH%5E%7B-%7D%5D%7D%20%7BC_%7Bb%7D%7D%7D%20&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+![phiEquation](https://bit.ly/3gmgNJG)
 
 Where phi is defined as the "Fraction of the way to the equivalence point." Since the values for alpha are calculatable, phi is calculate able as well. Solving the left most equality for the volume of base lets us find the amount if base added to reach the pH used in the alpha values and concentration of ions. So the pH is the input, and the Volume of titrant is the output. This equation is entirely scalable, and combined with the scalablility of the alpha value equations, it is theoretically possible to calculate the plot of an n-functional analyte with an m-functional titrant.
