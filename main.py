@@ -1,26 +1,12 @@
 """All of the logic for the functions in the gui"""
 
-from guietta import M, ___, III, R1, R2, VSeparator, HSeparator, Quit, _
 import csv
 
 from monoprotic_module import *
 from diprotic_module import *
 from triprotic_module import *
-from sub_guis import *
+from guis import *
 
-# Main Gui. Shows on startup.
-gui = Gui(
-    [M("plot"), VSeparator, "Titrant"            , VSeparator , "Analyte"       ],
-    [III      , III       , R1("Strong Acid")    , III        , R2("Monoprotic")],
-    [III      , III       , R1("Strong Base")    , III        , R2("Diprotic")  ],
-    [III      , III       , _                    , III        , R2("Triprotic") ],
-    [III      , III       , HSeparator           , ___        , ___             ],
-    [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
-    [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
-    [III      , III       , HSeparator           , ___        , ___             ],
-    [III      , III       , Quit                 , ___        , ___             ],
-    exceptions=Exceptions.PRINT
-    )
 
 # @gui.auto
 def replot(gui, *args):
@@ -45,7 +31,6 @@ def replot(gui, *args):
 
     saa = mp_sb.Strong.isChecked()  # Strong acid analyte
     waa = mp_sb.Weak.isChecked()  # Weak acid analyte
-
 
     """Titration calculations. LMK if there is a better way to do these conditionals."""
     # Monoprotic, Using a strong acid titrant

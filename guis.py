@@ -20,8 +20,23 @@ Parameter guide:
     a: Acid
     k2: 2nd Dissociation Constant
 """
+from guietta import M, ___, III, R, R1, R2, VSeparator, HSeparator, Quit, _, Gui, Exceptions, Ok
 
-from guietta import Gui, ___, Exceptions, R, Ok
+
+# Main Gui. Shows on startup.
+gui = Gui(
+    [M("plot"), VSeparator, "Titrant"            , VSeparator , "Analyte"       ],
+    [III      , III       , R1("Strong Acid")    , III        , R2("Monoprotic")],
+    [III      , III       , R1("Strong Base")    , III        , R2("Diprotic")  ],
+    [III      , III       , _                    , III        , R2("Triprotic") ],
+    [III      , III       , HSeparator           , ___        , ___             ],
+    [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
+    [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
+    [III      , III       , HSeparator           , ___        , ___             ],
+    [III      , III       , Quit                 , ___        , ___             ],
+    exceptions=Exceptions.PRINT
+    )
+
 
 # Monoprotic Strong Acid Titrant
 mp_sa = Gui(
