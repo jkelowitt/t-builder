@@ -56,7 +56,7 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     # Solve for volume
     vol = phi * ca * va / ct
 
-    return vol
+    return vol, phi
 
 
 k = np.array([1e-5, 1e-7, 1e-9])
@@ -69,7 +69,8 @@ va = 100  # mL
 aa = alpha_values(k, h, base=True, strong=False)  # Triprotic Weak Base Analyte
 at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Strong Acid Titrant
 
-v = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
+v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
+
 print("v", v)
 
 plt.plot(v, ph)
