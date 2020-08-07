@@ -31,20 +31,28 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     :return vol: An array of the volumes for the given [H+] and [OH-]
     """
 
+    # Scale the alpha values by their indicies.
     anum = scale_alphas(aa)
     atir = scale_alphas(at)
 
+    # Sum the scaled alphas
     sanum = np.sum(anum)
     satir = np.sum(atir)
 
+    # Generate the non-alpha dependent portions of the numerators and denominators
     beta = h - oh
     nbeta = beta / ca  # Numerator Beta
     dbeta = beta / ct  # Denominator Beta
 
+    # Add or subtract the alpha and beta dependent parts of the numerator or denominator conditionally.
+    # If the titrant is an acid, the top needs to be added together and the bottom subtracted. Else the opposite.
     num = cond_add_sub(sanum, nbeta, acid_t)
     den = cond_add_sub(satir, dbeta, not acid_t)
 
+    # Phi is equal to the percent of the way to the equivalence point
     phi = num / den
+
+    # Solve for volume
     vol = phi * ca * va / ct
 
     return vol
