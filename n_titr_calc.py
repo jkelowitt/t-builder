@@ -2,7 +2,7 @@
 Testing an N-functional Analyte, M-functional Titrant calculator
 If successful, this can consolidate all three calculation modules to one, and by massively simplifying the replot logic.
 """
-import numpy as np  # Keep for other matrix manipulations
+
 from confirmed_functioning import *
 from titration_module import *
 import matplotlib.pyplot as plt
