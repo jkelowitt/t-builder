@@ -1,11 +1,27 @@
 """All of the logic for the functions in the gui"""
 
 import csv
+from guietta import Gui, ___, Exceptions, Ok, Quit, III, VSeparator, HSeparator, R, R1, R2, M, _
+
 
 from monoprotic_module import *
 from diprotic_module import *
 from triprotic_module import *
 from guis import *
+
+# Main Gui. Shows on startup.
+gui = Gui(
+    [M("plot"), VSeparator, "Titrant"            , VSeparator , "Analyte"       ],
+    [III      , III       , R1("Strong Acid")    , III        , R2("Monoprotic")],
+    [III      , III       , R1("Strong Base")    , III        , R2("Diprotic")  ],
+    [III      , III       , _                    , III        , R2("Triprotic") ],
+    [III      , III       , HSeparator           , ___        , ___             ],
+    [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
+    [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
+    [III      , III       , HSeparator           , ___        , ___             ],
+    [III      , III       , Quit                 , ___        , ___             ],
+    exceptions=Exceptions.PRINT
+    )
 
 
 # @gui.auto
