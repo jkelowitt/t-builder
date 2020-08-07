@@ -1,5 +1,13 @@
 import numpy as np
 
+
+def cond_add_sub(a, b, cond):
+    if cond:
+        return a + b
+    else:
+        return a - b
+
+
 def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
     """
     For a given list of K values, and a list of hydronium concentrations,

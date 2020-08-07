@@ -7,12 +7,6 @@ from confirmed_functioning import *
 from titration_module import *
 
 
-def cond_add_sub(a, b, cond):
-    if cond:
-        return a + b
-    else:
-        return a - b
-
 
 def scale_alphas(arr):
     for i, item in enumerate(arr):
