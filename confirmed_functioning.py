@@ -20,7 +20,6 @@ def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
     k = np.array(k)
 
     # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n || K_2 = K_w / K_(n-1)
-    # TODO make sure this is right
     if base:
         k = kw / np.flip(k)
 
