@@ -5,6 +5,7 @@ If successful, this can consolidate all three calculation modules to one, and by
 import numpy as np  # Keep for other matrix manipulations
 from confirmed_functioning import *
 from titration_module import *
+import matplotlib.pyplot as plt
 
 
 
@@ -70,3 +71,6 @@ at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Strong Acid Tit
 
 v = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
 print("v", v)
+
+plt.plot(v, ph)
+plt.show()
