@@ -4,6 +4,7 @@ If successful, this can consolidate all three calculation modules to one, and by
 """
 import numpy as np  # Keep for other matrix manipulations
 from confirmed_functioning import *
+from titration_module import *
 
 
 def cond_add_sub(a, b, cond):
@@ -55,9 +56,8 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     return vol
 
 
-k = np.array([1e-5, 1e-12])
-h = np.array([0.04375221051582521, 0.043651583224016584])
-oh = np.array([2.3381675758530645e-13, 2.3435576087814323e-13])
+k = np.array([1e-5, 1e-7, 1e-9])
+ph, h, oh = start_phs()
 
 ct = 0.1  # M
 ca = 0.1  # M
@@ -65,9 +65,6 @@ va = 100  # mL
 
 aa = alpha_values(k, h, base=True, strong=False)  # Triprotic Weak Base Analyte
 at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Strong Acid Titrant
-
-print(aa)
-print(at)
 
 v = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
 print("v", v)
