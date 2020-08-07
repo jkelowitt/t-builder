@@ -13,18 +13,10 @@ def cond_add_sub(a, b, cond):
         return a - b
 
 
-def sum_scaled_alphas(arr):
-    ans = []
-    for sub_list in arr:
-        sub_sum = 0
-        if type(sub_list) == "list":
-            for i, value in enumerate(sub_list):
-                sub_sum += i * value
-        else:
-            sub_sum += 1
-
-        ans.append(sub_sum)
-    return ans
+def scale_alphas(arr):
+    for i, item in enumerate(arr):
+        item[i] *= i
+    return arr
 
 
 def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
@@ -44,15 +36,18 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     :return vol: An array of the volumes for the given [H+] and [OH-]
     """
 
-    a1 = sum_scaled_alphas(aa)
-    a2 = sum_scaled_alphas(at)
+    anum = scale_alphas(aa)
+    atir = scale_alphas(at)
+
+    sanum = np.sum(anum)
+    satir = np.sum(atir)
 
     beta = h - oh
     nbeta = beta / ca  # Numerator Beta
     dbeta = beta / ct  # Denominator Beta
 
-    num = cond_add_sub(a1, nbeta, acid_t)
-    den = cond_add_sub(a2, dbeta, (not acid_t))
+    num = cond_add_sub(sanum, nbeta, acid_t)
+    den = cond_add_sub(satir, dbeta, not acid_t)
 
     phi = num / den
     vol = phi * ca * va / ct
