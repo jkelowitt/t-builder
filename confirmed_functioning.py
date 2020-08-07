@@ -21,7 +21,7 @@ def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
         kw: Used in the conversion from Kb to Ka. Initially assumes a temperature of 25°C
     """
     if strong:
-        return "strong"
+        return [[1]]
 
     # Convert lists to numpy arrays for easier math
     h = np.array(h)
