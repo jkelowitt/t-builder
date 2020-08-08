@@ -30,13 +30,13 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     atir = scale_alphas(at)
 
     # Sum the scaled alphas
-    sanum = np.sum(anum)
-    satir = np.sum(atir)
+    sanum = np.sum(anum, axis=1)
+    satir = np.sum(atir, axis=1)
 
     # Generate the non-alpha dependent portions of the numerators and denominators
-    beta = h - oh
-    nbeta = beta / ca  # Numerator Beta
-    dbeta = beta / ct  # Denominator Beta
+    beta = np.subtract(h, oh)
+    nbeta = np.divide(beta, ca)  # Numerator Beta
+    dbeta = np.divide(beta, ct)  # Denominator Beta
 
     # Add or subtract the alpha and beta dependent parts of the numerator or denominator conditionally.
     # If the titrant is an acid, the top needs to be added together and the bottom subtracted. Else the opposite.
@@ -44,10 +44,10 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     den = cond_add_sub(satir, dbeta, not acid_t)
 
     # Phi is equal to the percent of the way to the equivalence point
-    phi = num / den
+    phi = np.divide(num, den)
 
     # Solve for volume
-    vol = phi * ca * va / ct
+    vol = np.divide((phi * ca * va),  ct)
 
     return vol, phi
 
@@ -59,12 +59,12 @@ ct = 0.1  # M
 ca = 0.1  # M
 va = 100  # mL
 
-aa = alpha_values(k, h, base=True, strong=False)  # Triprotic Weak Base Analyte
-at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Strong Acid Titrant
+aa = alpha_values(k, h, base=False, strong=False)  # Triprotic Weak Base Analyte
+at = alpha_values([1], h, base=True, strong=True)  # Monoprotic Strong Acid Titrant
 
 v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
 
-good_val_index = np.where((v >= 0) & (v <= 200))
+good_val_index = np.where((phi >= 0) & (phi <= 4))
 
 v = v[good_val_index]
 ph = ph[good_val_index]
@@ -73,4 +73,4 @@ print("v", v)
 print("phi", phi)
 
 plt.plot(v, ph)
-# plt.show()
+plt.show()

@@ -16,7 +16,10 @@ def scale_alphas(arr):
             sub_arr.append(sub_item)
         new_arr.append(sub_arr)
     new_arr = np.array(new_arr)
-    return new_arr
+    if new_arr[0][-1] == 0:
+        return np.array([[1]])
+    else:
+        return new_arr
 
 
 def cond_add_sub(a, b, cond):
