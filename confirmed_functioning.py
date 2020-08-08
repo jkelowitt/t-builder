@@ -1,7 +1,11 @@
 import numpy as np
 
 
-# Figure out how to fix this
+def pka_to_ka(pka):
+    """Converts a pka, or an array or pka's to a ka or an array of ka's"""
+    return 10. ** (-pka)
+
+
 def scale_alphas(arr):
     new_arr = []
     for item in arr:
