@@ -64,7 +64,13 @@ at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Strong Acid Tit
 
 v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
 
+good_val_index = np.where((v >= 0) & (v <= 200))
+
+v = v[good_val_index]
+ph = ph[good_val_index]
+
 print("v", v)
+print("phi", phi)
 
 plt.plot(v, ph)
-plt.show()
+# plt.show()
