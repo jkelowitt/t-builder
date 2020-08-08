@@ -24,9 +24,10 @@ def scale_alphas(arr):
 
 def cond_add_sub(a, b, cond):
     if cond:
-        return a + b
+        return np.add(a, b)
+
     else:
-        return a - b
+        return np.subtract(a, b)
 
 
 def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
