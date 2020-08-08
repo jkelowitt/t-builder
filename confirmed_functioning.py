@@ -3,7 +3,7 @@ import numpy as np
 
 def pka_to_ka(pka):
     """Converts a pka, or an array or pka's to a ka or an array of ka's"""
-    return 10. ** (-pka)
+    return 10. ** (-pka)  # Can't raise an int to a non-int datatype.
 
 
 def scale_alphas(arr):
