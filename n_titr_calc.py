@@ -25,7 +25,7 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     :return vol: An array of the volumes for the given [H+] and [OH-]
     """
 
-    # Scale the alpha values by their indicies.
+    # Scale the alpha values by their indices.
     anum = scale_alphas(aa)
     atir = scale_alphas(at)
 

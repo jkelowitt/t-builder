@@ -7,6 +7,7 @@ def pka_to_ka(pka):
 
 
 def scale_alphas(arr):
+    """Scale every value in the sublist of the array by its index."""
     new_arr = []
     for item in arr:
         sub_arr = []
