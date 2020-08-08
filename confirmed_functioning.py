@@ -1,6 +1,19 @@
 import numpy as np
 
 
+# Figure out how to fix this
+def scale_alphas(arr):
+    new_arr = []
+    for item in arr:
+        sub_arr = []
+        for i, subitem in enumerate(item):
+            subitem *= i
+            sub_arr.append(subitem)
+        new_arr.append(sub_arr)
+    new_arr = np.array(new_arr)
+    return new_arr
+
+
 def cond_add_sub(a, b, cond):
     if cond:
         return a + b
