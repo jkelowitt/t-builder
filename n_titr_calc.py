@@ -8,11 +8,17 @@ from titration_module import *
 import matplotlib.pyplot as plt
 
 
-
+# Figure out how to fix this
 def scale_alphas(arr):
-    for i, item in enumerate(arr):
-        item[i] *= i
-    return arr
+    new_arr = []
+    for item in arr:
+        sub_arr = []
+        for i, subitem in enumerate(item):
+            subitem *= i
+            sub_arr.append(subitem)
+        new_arr.append(sub_arr)
+    new_arr = np.array(new_arr)
+    return new_arr
 
 
 def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
