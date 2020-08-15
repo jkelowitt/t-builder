@@ -26,6 +26,7 @@ def check_vals(vol, ph, h, oh, alpha, ev):
         new_alpha.append(new_list)
 
     new_alpha = np.array(new_alpha, dtype="object")
+    new_alpha = np.transpose(new_alpha)
 
     return vol, ph, h, oh, new_alpha
 
