@@ -36,6 +36,7 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
 
     beta = h - oh  # No technical definition
 
+    # Conditional addition or subtraction based on the titrant.
     if acid_titrant:
         numerator = summed_scaled_alphas_analyte + (beta / conc_analyte)
         denominator = summed_scaled_alphas_titrant - (beta / conc_titrant)
@@ -45,7 +46,7 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
         denominator = summed_scaled_alphas_titrant + (beta / conc_titrant)
         print("Base Titrant")
 
-
+    # Solve for the volume
     phi = numerator / denominator
 
     volume = phi * volume_analyte * conc_analyte / conc_titrant
@@ -53,7 +54,8 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
     return volume, phi
 
 
-pka = [3, 5]
+# Driver code
+pka = [5, 12]
 k = pka_to_ka(pka)
 ph, h, oh = start_phs()
 
