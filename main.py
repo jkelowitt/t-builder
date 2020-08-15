@@ -3,25 +3,11 @@
 import csv
 from guietta import Gui, ___, Exceptions, Ok, Quit, III, VSeparator, HSeparator, R, R1, R2, M, _
 
-
-from monoprotic_module import *
-from diprotic_module import *
-from triprotic_module import *
 from guis import *
+from titration_module import *
+
 
 # Main Gui. Shows on startup.
-gui = Gui(
-    [M("plot"), VSeparator, "Titrant"            , VSeparator , "Analyte"       ],
-    [III      , III       , R1("Strong Acid")    , III        , R2("Monoprotic")],
-    [III      , III       , R1("Strong Base")    , III        , R2("Diprotic")  ],
-    [III      , III       , _                    , III        , R2("Triprotic") ],
-    [III      , III       , HSeparator           , ___        , ___             ],
-    [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
-    [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
-    [III      , III       , HSeparator           , ___        , ___             ],
-    [III      , III       , Quit                 , ___        , ___             ],
-    exceptions=Exceptions.PRINT
-    )
 
 
 # @gui.auto
@@ -34,125 +20,6 @@ def replot(gui, *args):
     """Button states. Used to determine which titration equations are used."""
     # Functionality of the analyte
     mono = gui.Monoprotic.isChecked()
-    di = gui.Diprotic.isChecked()
-    tri = gui.Triprotic.isChecked()
-
-    # Whether the acid or the base is the titrant
-    acid = gui.StrongAcid.isChecked()
-    base = gui.StrongBase.isChecked()
-
-    # Special states for just the monoprotic acids
-    sba = mp_sa.Strong.isChecked()  # Strong base analyte
-    wba = mp_sa.Weak.isChecked()  # Weak base analyte
-
-    saa = mp_sb.Strong.isChecked()  # Strong acid analyte
-    waa = mp_sb.Weak.isChecked()  # Weak acid analyte
-
-    """Titration calculations. LMK if there is a better way to do these conditionals."""
-    # Monoprotic, Using a strong acid titrant
-    if mono and acid:
-        m = mp_sa
-        if sba:  # To titrate a strong base analyte
-            # Start the data creation
-            m = mp_sa
-            ev = equiv_volume(m.mpbc, m.mpbv, m.mpac)
-            vol, ph, h, oh, alpha = mp_sbsa(m.mpbc, m.mpbv, m.mpac)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (m.mpbn, m.mpbc, m.mpbv)
-            save_csv_gui.titr = (m.mpan, m.mpac)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-        elif wba:  # To titrate a weak base analyte
-            # Start the data creation
-            ev = equiv_volume(m.mpbc, m.mpbv, m.mpac)
-            vol, ph, h, oh, alpha = mp_wbsa(m.mpbk, m.mpbc, m.mpac, m.mpbv)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (m.mpbn, m.mpbc, m.mpbv, m.mpbk)
-            save_csv_gui.titr = (m.mpan, m.mpac)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-    # Monoprotic, Using a strong base titrant
-    elif mono and base:
-        m = mp_sb
-        if saa:  # Strong acid analyte
-            # Start the data creation
-            ev = equiv_volume(m.mpac, m.mpav, m.mpbc)
-            vol, ph, h, oh, alpha = mp_sasb(m.mpac, m.mpav, m.mpbc)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (m.mpan, m.mpac, m.mpav)
-            save_csv_gui.titr = (m.mpbn, m.mpbc)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-        elif waa:  # Weak acid analyte
-            # Start the data creation
-            ev = equiv_volume(m.mpac, m.mpav, m.mpbc)
-            vol, ph, h, oh, alpha = mp_wasb(m.mpak, m.mpac, m.mpbc, m.mpav)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (m.mpan, m.mpac, m.mpav, m.mpak)
-            save_csv_gui.titr = (m.mpbn, m.mpbc)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-    # Diprotic
-    elif di:
-
-        if acid:  # Acid Titrant, Weak Diprotic Base Analyte
-            # Start the data creation
-            d = dp_sa
-            ev = equiv_volume(d.dpbc, d.dpbv, d.dpac) * 2  # I need a better way to adjust the scaling
-            vol, ph, h, oh, alpha = dp_wbsa(d.dpbk1, d.dpbk2, d.dpac, d.dpbc, d.dpbv)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (d.dpbn, d.dpbc, d.dpbv, d.dpbk1, d.dpbk2)
-            save_csv_gui.titr = (d.dpan, d.dpac)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-        elif base:  # Base Titrant, Weak Diprotic Acid Analyte
-            # Start the data creation
-            d = dp_sb
-            ev = equiv_volume(d.dpac, d.dpav, d.dpbc) * 2
-            vol, ph, h, oh, alpha = dp_wasb(d.dpak1, d.dpak2, d.dpac, d.dpbc, d.dpav)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (d.dpan, d.dpac, d.dpav, d.dpak1, d.dpak2)
-            save_csv_gui.titr = (d.dpbn, d.dpbc)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-    # Triprotic
-    elif tri:
-
-        if acid:  # Acid Titrant
-            # Start the data creation
-            t = tp_sa
-            ev = equiv_volume(t.tpbc, t.tpbv, t.tpac) * 3
-            vol, ph, h, oh, alpha = tp_wbsa(t.tpbk1, t.tpbk2, t.tpbk3, t.tpac, t.tpbc, t.tpbv)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (t.tpbn, t.tpbc, t.tpbv, t.tpbk1, t.tpbk2)
-            save_csv_gui.titr = (t.tpan, t.tpac)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
-
-        elif base:  # Base Titrant
-            # Start the data creation
-            t = tp_sb
-            ev = equiv_volume(t.tpac, t.tpav, t.tpbc) * 3
-            vol, ph, h, oh, alpha = tp_wasb(t.tpak1, t.tpak2, t.tpak3, t.tpac, t.tpbc, t.tpav)
-            vol, ph, h, oh, alpha = check_vals(vol, ph, h, oh, alpha, ev)
-
-            # Collect the data
-            save_csv_gui.ana = (t.tpan, t.tpac, t.tpav, t.tpak1, t.tpak2, t.tpak3)
-            save_csv_gui.titr = (t.tpbn, t.tpbc)
-            save_csv_gui.lists = (ph, h, oh, alpha, vol)
 
     """Plot the graph"""
     # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
@@ -162,37 +29,6 @@ def replot(gui, *args):
     # Make the figure, and plot it to the Gui
     ax.plot(vol, ph)  # np arrays have the type at index 1, therefore the specificity
     ax.figure.canvas.draw()
-
-
-def open_nui(gui):
-    """Opens the sub gui's based on button states"""
-
-    # Analyte functionality
-    mono = gui.Monoprotic.isChecked()
-    di = gui.Diprotic.isChecked()
-    tri = gui.Triprotic.isChecked()
-
-    # Titrant identity
-    acid = gui.StrongAcid.isChecked()
-    base = gui.StrongBase.isChecked()
-
-    # Monoprotic guis
-    if mono and acid:
-        mp_sa.run()
-    elif mono and base:
-        mp_sb.run()
-
-    # Diprotic guis
-    elif di and acid:
-        dp_sa.run()
-    elif di and base:
-        dp_sb.run()
-
-    # Triprotic guis
-    elif tri and acid:
-        tp_sa.run()
-    elif tri and base:
-        tp_sb.run()
 
 
 def get_fig_name(gui, *args):
@@ -267,9 +103,6 @@ save_csv_gui.SaveCSV = save_csv
 
 # Name the main window
 gui.title("Titration Plotter")
-
-# Open the sub guis on command
-gui.AssignParameters = open_nui
 
 if __name__ == "__main__":
     gui.run()
