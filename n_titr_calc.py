@@ -52,7 +52,8 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
 
     return volume, phi
 
-pka = [5, 7, 9]
+
+pka = [3, 5]
 k = pka_to_ka(pka)
 ph, h, oh = start_phs()
 
@@ -60,8 +61,8 @@ ct = 0.1  # M
 ca = 0.1  # M
 va = 100  # mL
 
-aa = alpha_values(k, h, base=False, strong=False)  # Triprotic Analyte Acid
-at = alpha_values([1], h, base=True, strong=True)  # Monoprotic Titrant Base
+aa = alpha_values(k, h, base=True, strong=False)  # Triprotic Analyte Base
+at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Titrant Acid
 
 v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_titrant=True)
 
@@ -69,6 +70,7 @@ good_val_index = np.where((phi >= 0) & (phi <= 4))
 
 v = v[good_val_index]
 ph = ph[good_val_index]
+phi = phi[good_val_index]
 
 print("v", v)
 print("phi", phi)
