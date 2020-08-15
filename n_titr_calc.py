@@ -8,7 +8,7 @@ from titration_module import *
 import matplotlib.pyplot as plt
 
 
-def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
+def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_titrant, h, oh):
     """
     Take in a whole bunch of information, returns a list of volumes for the given data, with a length equal to the
     [H+] and [OH-] lists.
@@ -25,44 +25,37 @@ def get_vol(aa, ca, va, at, ct, h, oh, acid_t=True):
     :return vol: An array of the volumes for the given [H+] and [OH-]
     """
 
-    # Scale the alpha values by their indices.
-    anum = scale_alphas(aa)
-    atir = scale_alphas(at)
+    # Alpha values scaled by their index
+    scaled_alphas_analyte = scale_alphas(alpha_analyte)
+    scaled_alphas_titrant = scale_alphas(alpha_titrant)
 
-    # Sum the scaled alphas
-    sanum = np.sum(anum, axis=1)
-    satir = np.sum(atir, axis=1)
+    # Sume the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
+    summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
+    summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
 
-    # Generate the non-alpha dependent portions of the numerators and denominators
-    beta = np.subtract(h, oh)
-    nbeta = np.divide(beta, ca)  # Numerator Beta
-    dbeta = np.divide(beta, ct)  # Denominator Beta
+    beta = h - oh  # No technical definition
 
-    # Add or subtract the alpha and beta dependent parts of the numerator or denominator conditionally.
-    # If the titrant is an acid, the top needs to be added together and the bottom subtracted. Else the opposite.
-    num = cond_add_sub(sanum, nbeta, acid_t)
-    den = cond_add_sub(satir, dbeta, not acid_t)
+    numerator = summed_scaled_alphas_analyte - (beta / conc_analyte)
+    denominator = summed_scaled_alphas_titrant + (beta / conc_titrant)
 
-    # Phi is equal to the percent of the way to the equivalence point
-    phi = np.divide(num, den)
+    phi = numerator / denominator
 
-    # Solve for volume
-    vol = np.divide((phi * ca * va),  ct)
+    volume = phi * volume_analyte * conc_analyte / conc_titrant
 
-    return vol, phi
+    return volume, phi
 
-
-k = np.array([1e-5, 1e-7, 1e-9])
+pka = [5, 7, 9]
+k = pka_to_ka(pka)
 ph, h, oh = start_phs()
 
 ct = 0.1  # M
 ca = 0.1  # M
 va = 100  # mL
 
-aa = alpha_values(k, h, base=False, strong=False)  # Triprotic Weak Base Analyte
-at = alpha_values([1], h, base=True, strong=True)  # Monoprotic Strong Acid Titrant
+aa = alpha_values(k, h, base=False, strong=False)  # Triprotic Analyte Acid
+at = alpha_values([1], h, base=True, strong=True)  # Monoprotic Titrant Base
 
-v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_t=True)
+v, phi = get_vol(aa, ca, va, at, ct, h, oh)
 
 good_val_index = np.where((phi >= 0) & (phi <= 4))
 
