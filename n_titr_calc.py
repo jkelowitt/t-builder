@@ -40,15 +40,12 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
     if acid_titrant:
         numerator = summed_scaled_alphas_analyte + (beta / conc_analyte)
         denominator = summed_scaled_alphas_titrant - (beta / conc_titrant)
-        print("Acid Titrant")
     else:
         numerator = summed_scaled_alphas_analyte - (beta / conc_analyte)
         denominator = summed_scaled_alphas_titrant + (beta / conc_titrant)
-        print("Base Titrant")
 
     # Solve for the volume
     phi = numerator / denominator
-
     volume = phi * volume_analyte * conc_analyte / conc_titrant
 
     return volume, phi
@@ -73,9 +70,6 @@ good_val_index = np.where((phi >= 0) & (phi <= len(pka)+1))
 v = v[good_val_index]
 ph = ph[good_val_index]
 phi = phi[good_val_index]
-
-print("v", v)
-print("phi", phi)
 
 plt.plot(v, ph)
 plt.show()
