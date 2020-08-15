@@ -39,10 +39,10 @@ def equiv_volume(c1, v1, c2):
     return c1 * v1 / c2
 
 
-def start_phs():
+def start_phs(min_ph=0, max_ph=14, precision=0.001):
     """Generate pH, [H+], and [OH-] lists"""
     # pH
-    ph = np.array(np.arange(0, 14.001, step=0.001))
+    ph = np.array(np.arange(min_ph, max_ph+precision, step=precision))
     ph = ph.round(decimals=3)
 
     # Hydroxide and Hydronium
