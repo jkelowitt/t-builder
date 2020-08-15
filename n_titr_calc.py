@@ -66,7 +66,7 @@ at = alpha_values([1], h, base=False, strong=True)  # Monoprotic Titrant Acid
 
 v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_titrant=True)
 
-good_val_index = np.where((phi >= 0) & (phi <= 4))
+good_val_index = np.where((phi >= 0) & (phi <= len(pka)+1))
 
 v = v[good_val_index]
 ph = ph[good_val_index]
