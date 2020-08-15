@@ -72,4 +72,8 @@ def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
     div_arr = np.divide(tda, denoms)  # Divide
     alphas = np.transpose(div_arr)  # Re-transpose to the logically correct orientation
 
-    return alphas
+    if base:
+        return np.flip(alphas, axis=0)
+        # return alphas
+
+    return np.array(alphas)
