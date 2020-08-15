@@ -25,7 +25,6 @@ def scale_alphas(arr):
 def cond_add_sub(a, b, cond):
     if cond:
         return np.add(a, b)
-
     else:
         return np.subtract(a, b)
 
@@ -36,7 +35,7 @@ def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
     return a list of the alpha values for every level of protonation.
 
     Parameters:
-        k: An ordered list of values for k. --> [k1, k2,..., kn]
+        k: A list of values for k. --> [k1, k2,..., kn]
         h: A list of hydronium concentrations. --> [h_1, h_2, ..., h_m]
         base: If the solution is a base, the k values need to be converted from Kb to Ka for these calculations.
         strong: If the solution is a strong acid or base, there are no alpha values to be calculated
