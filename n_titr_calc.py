@@ -8,7 +8,7 @@ from titration_module import *
 import matplotlib.pyplot as plt
 
 
-def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_titrant, h, oh):
+def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_titrant, h, oh, acid_titrant):
     """
     Take in a whole bunch of information, returns a list of volumes for the given data, with a length equal to the
     [H+] and [OH-] lists.
@@ -20,6 +20,7 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
     :param conc_titrant: Concentration Titrant
     :param h: Concentration Hydronium. Must be the same length of oh.
     :param oh: Concentration Hydroxide. Must be the same length of h.
+    :param acid_titrant: Whether or not the titrant is an acid.
 
     :return vol: An array of volumes for the given [H+] and [OH-]
     :return phi: An array of phi (fraction of the way to the equivilence point) values
@@ -35,8 +36,15 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
 
     beta = h - oh  # No technical definition
 
-    numerator = summed_scaled_alphas_analyte - (beta / conc_analyte)
-    denominator = summed_scaled_alphas_titrant + (beta / conc_titrant)
+    if acid_titrant:
+        numerator = summed_scaled_alphas_analyte + (beta / conc_analyte)
+        denominator = summed_scaled_alphas_titrant - (beta / conc_titrant)
+        print("Acid Titrant")
+    else:
+        numerator = summed_scaled_alphas_analyte - (beta / conc_analyte)
+        denominator = summed_scaled_alphas_titrant + (beta / conc_titrant)
+        print("Base Titrant")
+
 
     phi = numerator / denominator
 
@@ -55,7 +63,7 @@ va = 100  # mL
 aa = alpha_values(k, h, base=False, strong=False)  # Triprotic Analyte Acid
 at = alpha_values([1], h, base=True, strong=True)  # Monoprotic Titrant Base
 
-v, phi = get_vol(aa, ca, va, at, ct, h, oh)
+v, phi = get_vol(aa, ca, va, at, ct, h, oh, acid_titrant=True)
 
 good_val_index = np.where((phi >= 0) & (phi <= 4))
 
