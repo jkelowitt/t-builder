@@ -13,16 +13,16 @@ def get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_tit
     Take in a whole bunch of information, returns a list of volumes for the given data, with a length equal to the
     [H+] and [OH-] lists.
 
-    :param aa: Alpha Analyte
-    :param ca: Concentration Analyte
-    :param va: Volume Analyte
-    :param at: Alpha Titrant
-    :param ct: Concentration Titrant
+    :param alpha_analyte: Alpha Analyte
+    :param conc_analyte: Concentration Analyte
+    :param volume_analyte: Volume Analyte
+    :param alpha_titrant: Alpha Titrant
+    :param conc_titrant: Concentration Titrant
     :param h: Concentration Hydronium. Must be the same length of oh.
     :param oh: Concentration Hydroxide. Must be the same length of h.
-    :param acid_t: Whether or not the acid is the titrant.
 
-    :return vol: An array of the volumes for the given [H+] and [OH-]
+    :return vol: An array of volumes for the given [H+] and [OH-]
+    :return phi: An array of phi (fraction of the way to the equivilence point) values
     """
 
     # Alpha values scaled by their index
