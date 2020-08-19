@@ -1,29 +1,21 @@
 """All of the logic for the functions in the gui"""
 
 import csv
-from guietta import Gui, ___, Exceptions, Ok, Quit, III, VSeparator, HSeparator, R, R1, R2, M, _
 
 from guis import *
 from titration_module import *
 
 
-# Main Gui. Shows on startup.
-
-
 # @gui.auto
-def replot(gui, *args):
+def replot(g, *args):
     """Plot the titration curve based on the current state of the Guis"""
 
     # Errors with these being used before reference are annoying at worst, so here they are.
     vol, ph, ev = [], [], 0
 
-    """Button states. Used to determine which titration equations are used."""
-    # Functionality of the analyte
-    mono = gui.Monoprotic.isChecked()
-
     """Plot the graph"""
     # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
-    ax = gui.plot.ax
+    ax = g.plot.ax
     ax.clear()
 
     # Make the figure, and plot it to the Gui
@@ -31,24 +23,24 @@ def replot(gui, *args):
     ax.figure.canvas.draw()
 
 
-def get_fig_name(gui, *args):
+def get_fig_name(g, *args):
     # Get the figure's name
     save_fig_gui.run()
 
 
-def save_plot(gui, *args):
-    ax = gui.plot.ax
+def save_plot(g, *args):
+    ax = g.plot.ax
     fname = check_for_ext(save_fig_gui.figure_name, ".png")
 
     # Save the figure
     ax.figure.savefig(fname)
 
 
-def get_csv_name(gui, *args):
+def get_csv_name(g, *args):
     save_csv_gui.run()
 
 
-def save_csv(gui, *args):
+def save_csv(g, *args):
     scg = save_csv_gui
 
     # Make a list of zipped lists
@@ -101,8 +93,13 @@ save_fig_gui.SavePlot = save_plot
 gui.SaveCSV = get_csv_name
 save_csv_gui.SaveCSV = save_csv
 
-# Name the main window
-gui.title("Titration Plotter")
+# Default Titrant Strengths and Acid State
+gui.tacid.setChecked(True)
+gui.tstrong.setChecked(True)
+
+# Gui final setup
+gui.title("Titration Generator")
+gui.run()
 
 if __name__ == "__main__":
     gui.run()
