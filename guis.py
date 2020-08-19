@@ -42,41 +42,10 @@ gui = Gui(
     exceptions=Exceptions.PRINT
     )
 
-dp_sb.title("Strong Base Titrant Diprotic")
 
-
-# Triprotic Strong Acid Titrant
-tp_sa = Gui(
-    ["Base Name:"          , "__tpbn__"  ],
-    ["Base Kb1:"           , "__tpbk1__" ],
-    ["Base Kb2:"           , "__tpbk2__" ],
-    ["Base Kb3:"           , "__tpbk3__" ],
-    ["Base Concentration:" , "__tpbc__"  ],
-    ["Base Volume (mL):"   , "__tpbv__"  ],
-    ["Acid Name:"          , "__tpan__"  ],
-    ["Acid Concentration:" , "__tpac__"  ],
-    [Ok                    , ___         ],
-    exceptions=Exceptions.PRINT
-    )
-
-tp_sa.title("Strong Acid Titrant Triprotic")
-
-# Triprotic Strong Base Titrant
-tp_sb = Gui(
-    ["Acid Name:"          , "__tpan__"  ],
-    ["Acid Ka1:"           , "__tpak1__" ],
-    ["Acid Ka2:"           , "__tpak2__" ],
-    ["Acid Ka3:"           , "__tpak3__" ],
-    ["Acid Concentration:" , "__tpac__"  ],
-    ["Acid Volume (mL):"   , "__tpav__"  ],
-    ["Base Name:"          , "__tpbn__"  ],
-    ["Base Concentration:" , "__tpbc__"  ],
-    [Ok                    , ___         ],
-    exceptions=Exceptions.PRINT
-    )
-
-tp_sb.title("Strong Base Titrant Triprotic")
-
+# Default Functionality
+gui.tfunc = 1
+gui.afunc = 1
 
 save_fig_gui = Gui(
     ["Plot Save Name: ", "__figure_name__", ".png"],
