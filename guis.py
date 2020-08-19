@@ -21,79 +21,24 @@ Parameter guide:
     k2: 2nd Dissociation Constant
 """
 
-from guietta import Gui, ___, Exceptions, Ok, Quit, III, VSeparator, HSeparator, R, R1, R2, M, _
+from guietta import Gui, ___, Exceptions, III, R, M, C
 
-
+title = "<center style='font-size:20px'>"
+big = "<u><center style='font-size:16px'>"
 # Main Gui. Shows on startup.
 gui = Gui(
-    [M("MPlot"), VSeparator, "Titrant"            , VSeparator , "Analyte"       ],
-    [III      , III       , R1("Strong Acid")    , III        , R2("Monoprotic")],
-    [III      , III       , R1("Strong Base")    , III        , R2("Diprotic")  ],
-    [III      , III       , _                    , III        , R2("Triprotic") ],
-    [III      , III       , HSeparator           , ___        , ___             ],
-    [III      , III       , ["Assign Parameters"], _          , ["Force Plot"]  ],
-    [III      , III       , ["Save CSV"]         , _          , ["Save Plot"]   ],
-    [III      , III       , HSeparator           , ___        , ___             ],
-    [III      , III       , Quit                 , ___        , ___             ],
-    exceptions=Exceptions.PRINT
-    )
-
-# Monoprotic Strong Acid Titrant
-mp_sa = Gui(
-    ["The Base is:"        , R("Strong")   , R("Weak") ],
-    ["Base Name:"          , "__mpbn__"    , ___       ],
-    ["Base Kb:"            , "__mpbk__"    , ___       ],
-    ["Base Concentration:" , "__mpbc__"    , ___       ],
-    ["Base Volume (mL):"   , "__mpbv__"    , ___       ],
-    ["Acid Name:"          , "__mpan__"    , ___       ],
-    ["Acid Concentration:" , "__mpac__"    , ___       ],
-    [Ok                    , ___           , ___       ],
-    exceptions=Exceptions.PRINT
-    )
-
-mp_sa.title("Strong Acid Titrant")
-
-# Monoprotic Strong Base Titrant
-mp_sb = Gui(
-    ["The Acid is:"        , R("Strong")   , R("Weak") ],
-    ["Acid Name:"          , "__mpan__"    , ___       ],
-    ["Acid Ka:"            , "__mpak__"    , ___       ],
-    ["Acid Concentration:" , "__mpac__"    , ___       ],
-    ["Acid Volume (mL):"   , "__mpav__"    , ___       ],
-    ["Base Name:"          , "__mpbn__"    , ___       ],
-    ["Base Concentration:" , "__mpbc__"    , ___       ],
-    [Ok                    , ___           , ___       ],
-    exceptions=Exceptions.PRINT
-    )
-
-mp_sb.title("Strong Base Titrant")
-
-
-# Diprotic Strong Acid Titrant
-dp_sa = Gui(
-    ["Base Name:"          , "__dpbn__"  ],
-    ["Base Kb1:"           , "__dpbk1__" ],
-    ["Base Kb2:"           , "__dpbk2__" ],
-    ["Base Concentration:" , "__dpbc__"  ],
-    ["Base Volume (mL):"   , "__dpbv__"  ],
-    ["Acid Name:"          , "__dpan__"  ],
-    ["Acid Concentration:" , "__dpac__"  ],
-    [Ok                    , ___         ],
-    exceptions=Exceptions.PRINT
-    )
-
-dp_sa.title("Strong Acid Titrant Diprotic")
-
-# Diprotic Strong Base Titrant
-dp_sb = Gui(
-    ["Acid Name:"          , "__dpan__"   ],
-    ["Acid Ka1:"           , "__dpak1__"  ],
-    ["Acid Ka2:"           , "__dpak2__"  ],
-    ["Acid Concentration:" , "__dpac__"   ],
-    ["Acid Volume (mL):"   , "__dpav__"   ],
-    ["Base Name:"          , "__dpbn__"   ],
-    ["Base Concentration:" , "__dpbc__"   ],
-    [Ok                    , ___          ],
+    [M("plot")  , f"{title} Parameters"           , ___           ],
+    [III        , f"{big} Titrant"                , ___           ],
+    [III        , "Functionality:"                , "__tfunc__"   ],
+    [III        , (C("Strong"), "tstrong")        , ___           ],
+    [III        , (R("Acid"), "tacid")            , ___           ],
+    [III        , f"{big} Analyte"                , ___           ],
+    [III        , "Functionality:"                , "__afunc__"   ],
+    [III        , (C("Strong"), "astrong")        , ___           ],
+    [III        , (R("Acid"), "aacid")            , ___           ],
+    [III        , (["Input Parameters"], "start") , ___           ],
+    [III        , (["Save CSV"], "saveCSV")       , ___           ],
+    [III        , (["Save Plot"], "savePlot")     , ___           ],
     exceptions=Exceptions.PRINT
     )
 
