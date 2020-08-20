@@ -82,7 +82,108 @@ def save_csv(g, *args):
             csv_writer.writerows(item)
 
 
-# Replot button function definition
+def run_var_gui(*args):
+    base_list = [["<center><u>Titrant Variables", ___],
+                 ["Name", "__tname__"],
+                 ["Concentration (M):", "__tconc__"],
+                 ]
+
+    # Figure out whether its pK'a' or pK'b'
+    if gui.aacid.isChecked():
+        n = "a"
+        t = "b"
+    else:
+        n = "b"
+        t = "a"
+
+    # Add on all of the pK'TITRANT' values, so long as they aren't strong.
+    if not gui.tstrong.isChecked():
+        for i in range(int(float(gui.tfunc))):
+            new_row = [f"pK{t}<sub>{i + 1}</sub>:", f"__pkt{i + 1}__"]
+            base_list.append(new_row)
+
+    # Add titrant basics
+    t_list = [
+        ["<center><u>Analyte Variables", ___],
+        ["Name", "__aname__"],
+        ["Concentration (M):", "__aconc__"],
+        ["Volume (mL):", "__avol__"]
+        ]
+
+    for item in t_list:
+        base_list.append(item)
+
+    # Add on all of the pK'ANALYTE' values, so long as they aren't strong.
+    if not gui.astrong.isChecked():
+        for i in range(int(float(gui.afunc))):
+            new_row = [f"pK{n}<sub>{i + 1}</sub>:", f"__pka{i + 1}__"]
+            base_list.append(new_row)
+
+    base_list.append([(["Plot Titration Curve"], "ptr"), ___])
+
+    var_gui = Gui(*base_list)
+    var_gui.ptr = replot
+    var_gui.title("Variable Setter")
+
+    var_gui.run()
+
+
+def replot(var_gui, *args):
+    """Plot the titration curve based on the current state of the Guis"""
+
+    """Calculate the Volumes"""
+    # Errors with these being used before reference are annoying at worst, so here they are.
+    ph, h, oh = start_phs()
+
+    # Collect the pKa/b values and convert them to Ka/b values
+    pkt = []
+    for i in range(int(float(gui.tfunc))):
+        try:
+            exec(f"pkt.append(var_gui.pkt{i + 1})")
+        except:
+            pass
+
+    pka = []
+    for i in range(int(float(gui.tfunc))):
+        try:
+            exec(f"pkt.append(var_gui.pka{i + 1})")
+        except:
+            pass
+
+    # Convert the pk values to floats.
+    pkt = list(map(float, pkt))
+    pka = list(map(float, pka))
+
+    kt = pka_to_ka(pkt)
+    ka = pka_to_ka(pka)
+
+    conc_analyte = float(var_gui.aconc)
+    conc_titrant = float(var_gui.tconc)
+
+    volume_analyte = float(var_gui.avol)
+    acid_titrant = gui.tacid.isChecked()
+
+    # Get the alpha values
+    alpha_titrant = alpha_values(kt, h)
+    alpha_analyte = alpha_values(ka, h)
+
+    # Get the volume and phi values
+    vol, phi = get_vol(alpha_analyte, conc_analyte, volume_analyte, alpha_titrant, conc_titrant, h, oh, acid_titrant)
+
+    vol, ph, h, oh, phi, alpha_analyte, alpha_titrant = check_vals(vol, ph, h, oh, phi, gui.afunc, alpha_analyte,
+                                                                   alpha_titrant)
+
+    """Plot the graph"""
+    # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
+    ax = gui.plot.ax
+    ax.clear()
+
+    # Make the figure, and plot it to the Gui
+    ax.plot(vol, ph)
+    ax.figure.canvas.draw()
+
+
+# Defining buttons
 gui.ForcePlot = replot
 
 # Plot saving buttons
