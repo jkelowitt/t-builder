@@ -7,28 +7,60 @@ import numpy as np
 kw = 1.023 * (10 ** -14)  # At 25 degrees celsius
 
 
-def check_vals(vol, ph, h, oh, alpha, ev):
-    """Find only the useful data."""
-    # Inbetween 0 added titrant and 2 times equivalence point titrant.
+def check_vals(vol, ph, h, oh, phi, pka_vals, aanalyte, atitrant):
+    """
+    Find only the useful data.
+    :param vol: A list of volumes
+    :param ph: A list of pH's
+    :param h: A list of hydroniums
+    :param oh: A list of hydroxides
+    :param phi: A list of phi values
+    :param pka_vals: A list of pK values for the analyte
+    :param aanalyte: A list of lists of alpha values for the analyte at each h value
+    :param atitrant: A list of lists of alpha values for the titrant at each h value
 
-    good_val_index = np.where((vol >= 0) & (vol <= 2 * ev))
+    """
+
+    limiter = len(pka_vals)
+
+    good_val_index = np.where((phi >= 0) & (phi <= limiter+1))
 
     vol = vol[good_val_index]
     ph = ph[good_val_index]
     h = h[good_val_index]
     oh = oh[good_val_index]
 
-    # Trim the alpha values
-    new_alpha = []
-    for key in alpha:
-        alpha[key] = alpha[key].astype("object")
-        new_list = np.insert(alpha[key][good_val_index], 0, key)
-        new_alpha.append(new_list)
+    # Trim the alpha_analyte values
+    try:  # If the analyte is strong, there should be no alpha values
+        new_alpha_analyte = []
+        for key in aanalyte:
+            key = int(key)
+            aanalyte[key] = aanalyte[key].astype("object")
+            new_list = np.insert(aanalyte[key][good_val_index], 0, key)
+            new_alpha_analyte.append(new_list)
 
-    new_alpha = np.array(new_alpha, dtype="object")
-    new_alpha = np.transpose(new_alpha)
+        new_alpha_analyte = np.array(new_alpha_analyte, dtype="object")
+        new_alpha_analyte = np.transpose(new_alpha_analyte)
+    except:
+        new_alpha_analyte = [[1]]
 
-    return vol, ph, h, oh, new_alpha
+
+    # Trim the alpha_titrant values
+    try:  # If the titrant is strong, there should be no alpha values
+        new_alpha_titrant = []
+        for key in atitrant:
+            key = int(key)
+            atitrant[key] = atitrant[key].astype("object")
+            new_list = np.insert(atitrant[key][good_val_index], 0, key)
+            new_alpha_titrant.append(new_list)
+    except:
+        new_alpha_titrant = [[1]]
+
+    new_alpha_titrant = np.array(new_alpha_titrant, dtype="object")
+    new_alpha_titrant = np.transpose(new_alpha_titrant)
+
+
+    return vol, ph, h, oh, phi, new_alpha_analyte, new_alpha_titrant
 
 
 def equiv_volume(c1, v1, c2):
