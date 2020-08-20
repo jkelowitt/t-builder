@@ -2,45 +2,30 @@
 
 import csv
 
+from guietta import ___
+
 from guis import *
 from titration_module import *
 
 
-# @gui.auto
-def replot(g, *args):
-    """Plot the titration curve based on the current state of the Guis"""
-
-    # Errors with these being used before reference are annoying at worst, so here they are.
-    vol, ph, ev = [], [], 0
-
-    """Plot the graph"""
-    # Clear the plot. This stops matplotlib from plotting over the same plot and hogging up ram.
-    ax = g.plot.ax
-    ax.clear()
-
-    # Make the figure, and plot it to the Gui
-    ax.plot(vol, ph)  # np arrays have the type at index 1, therefore the specificity
-    ax.figure.canvas.draw()
-
-
-def get_fig_name(g, *args):
+def get_fig_name(*args):
     # Get the figure's name
     save_fig_gui.run()
 
 
-def save_plot(g, *args):
-    ax = g.plot.ax
+def save_plot(*args):
+    ax = gui.plot.ax
     fname = check_for_ext(save_fig_gui.figure_name, ".png")
 
     # Save the figure
     ax.figure.savefig(fname)
 
 
-def get_csv_name(g, *args):
+def get_csv_name(*args):
     save_csv_gui.run()
 
 
-def save_csv(g, *args):
+def save_csv(*args):
     scg = save_csv_gui
 
     # Make a list of zipped lists
@@ -185,22 +170,13 @@ def replot(var_gui, *args):
 
 # Defining buttons
 gui.ForcePlot = replot
-
-# Plot saving buttons
+gui.start = run_var_gui
 gui.SavePlot = get_fig_name
 save_fig_gui.SavePlot = save_plot
 
 # CSV saving buttons
 gui.SaveCSV = get_csv_name
 save_csv_gui.SaveCSV = save_csv
-
-# Default Titrant Strengths and Acid State
-gui.tacid.setChecked(True)
-gui.tstrong.setChecked(True)
-
-# Gui final setup
-gui.title("Titration Generator")
-gui.run()
 
 if __name__ == "__main__":
     gui.run()
