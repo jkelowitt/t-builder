@@ -1,19 +1,4 @@
-"""
-Sub GUI's for the main gui. Mainly for variable entry.
-
-Parameter guide:
-    The first two letters of each of the variables tells which functionality it is used for.
-        mp: Monoprotic
-        dp: Diprotic
-        tp: Triprotic
-    The third letter tells whether the variable pertains to an acid or base.
-        a: acid
-        b: base
-    The remaining letters correlate to the literal variable name.
-        n : Name
-        k#: #th Dissociation Constant (If the # is absent, it is the first)
-        c : Concentration
-        v : Volume
+"""Main and some sub guis"""
 
     Example: dpak2
     dp: Diprotic
