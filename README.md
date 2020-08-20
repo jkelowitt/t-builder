@@ -34,6 +34,11 @@ TODO:
   * EQ point finder (either mathematically or with 2nd deriv.)
   * Group Boxes for data entry
   * Close all windows on main gui's close
+  * Move the save plot and save csv functions to the variable gui. 
+
+ISSUES:
+  * The plotting function will only allow you to plot once. 
+  * Having two windows open at once causes issues. 
 
   
 Gui built using [Guietta](https://github.com/alfiopuglisi/guietta) by [alfiopuglisi](https://github.com/alfiopuglisi).
@@ -41,7 +46,7 @@ Equations from [Quantitative Chemical Analysis 9th Ed. by Daniel C. Harris](http
 
 The equations utilized from the textbook above leverage the following type of relationship (in this case for a diprotic acid being reacted with a strong base):
 
-![equation](https://latex.codecogs.com/svg.latex?\phi%20%20\equiv%20%20%20\frac{C_b%20V_b}{C_a%20V_a}%20=%20%20\frac{\alpha_{HA^{-}}+2\alpha_{A^{2-}}%20+%20\frac{[H^{+}]%20-%20[OH^{-}]}{C_{a}}}{1%20+%20\frac{[H^{+}]%20-%20[OH^{-}]}%20{C_{b}}})
+![equation](https://latex.codecogs.com/gif.latex?\dpi{120}&space;\fn_cm&space;\large&space;\phi&space;\equiv&space;\frac{C_b&space;V_b}{C_a&space;V_a}&space;=&space;\frac{\alpha_{HA^{-}}&plus;2\alpha_{A^{2-}}&space;-&space;\frac{[H^{&plus;}]-[OH^{-}]}{C_{a}}}{1&plus;\frac{[H^{&plus;}]-[OH^{-}]}{C_{b}}})
 
 Where phi is defined as the "Fraction of the way to the equivalence point." Since the values for alpha are calculatable, phi is calculate able as well. Solving the left most equality for the volume of base lets us find the amount if base added to reach the pH used in the alpha values and concentration of ions. So the pH is the input, and the Volume of titrant is the output. 
 
