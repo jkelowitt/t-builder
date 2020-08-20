@@ -1,12 +1,6 @@
 """Main and some sub guis"""
 
-    Example: dpak2
-    dp: Diprotic
-    a: Acid
-    k2: 2nd Dissociation Constant
-"""
-
-from guietta import Gui, ___, Exceptions, III, R, M, C
+from guietta import Gui, ___, III, R, C, M, Exceptions
 
 title = "<center style='font-size:20px'>"
 big = "<u><center style='font-size:16px'>"
