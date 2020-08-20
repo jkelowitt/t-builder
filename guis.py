@@ -4,6 +4,7 @@ from guietta import Gui, ___, III, R, C, M, Exceptions
 
 title = "<center style='font-size:20px'>"
 big = "<u><center style='font-size:16px'>"
+
 # Main Gui. Shows on startup.
 gui = Gui(
     [M("plot")  , f"{title} Parameters"           , ___           ],
@@ -21,10 +22,14 @@ gui = Gui(
     exceptions=Exceptions.PRINT
     )
 
+gui.title("Titration Generator")
 
-# Default Functionality
+# Gui defaults
 gui.tfunc = 1
 gui.afunc = 1
+gui.tacid.setChecked(True)
+gui.tstrong.setChecked(True)
+
 
 save_fig_gui = Gui(
     ["Plot Save Name: ", "__figure_name__", ".png"],
