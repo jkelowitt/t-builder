@@ -65,12 +65,6 @@ class Titration:
         self.k_titrant = pk_to_k(self.pkt_values)
 
         # Calculate alpha values
-        # TODO check that the inputs to this alpha value function requires hydroxide all the time, rather than
-        #  if it is just an acid / base.
-        # UPDATE, this seems to be the problem.
-        # If the analyte is basic, we should be using hydroxide instead of hydronium and vis a versa
-        # TODO make this take in the acidity and strength of the analyte and titrant.
-
         analyte_focus = self.hydronium if analyte_is_acidic else self.hydroxide
         titrant_focus = self.hydronium if titrant_is_acidic else self.hydroxide
 
