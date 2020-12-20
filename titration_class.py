@@ -213,5 +213,9 @@ class Titration:
             plt.title(self.title)
             plt.show()
 
+    def plot_alpha_curve(self):
+        self.volume_calculator(self.titrant_acidity)
 
-
+        plt.plot(self.ph, self.alpha_analyte)
+        plt.title("Alpha Values")
+        plt.show()
