@@ -9,7 +9,7 @@ from titration_module import *
 
 
 def get_fig_name(*args):
-    # Get the figure's name
+    # Get the figure's name from user
     save_fig_gui.run()
 
 
@@ -22,10 +22,12 @@ def save_plot(*args):
 
 
 def get_csv_name(*args):
+    # Get the csv file's name from user
     save_csv_gui.run()
 
 
 def save_csv(*args):
+    # TODO Figure out how to do this in Pandas or some other module.
     scg = save_csv_gui
 
     # Make a list of zipped lists
@@ -43,7 +45,7 @@ def save_csv(*args):
         # Spacer row before data dump
         csv_writer.writerow([])
 
-        # This slows things down, but its used only here, and allows insertion of the row title.
+        # Converting to an object type slows things down, but its used only here, and allows insertion of the row title.
         # Changes the list type from float to object so that strings can be inserted.
         ph = scg.lists[0].astype('object')
         h = scg.lists[1].astype('object')
@@ -139,9 +141,12 @@ def replot(var_gui, *args):
     pkt = list(map(float, pkt))
     pka = list(map(float, pka))
 
+    # Convert the pka/b values to ka/b values
     kt = pka_to_ka(pkt)
     ka = pka_to_ka(pka)
 
+
+    # Get the concentrations of the analyte and titrant
     conc_analyte = float(var_gui.aconc)
     conc_titrant = float(var_gui.tconc)
 
