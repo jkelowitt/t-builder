@@ -131,7 +131,7 @@ class Titration:
         Parameters:
             k: A list of values for k. --> [k1, k2,..., kn]
             h: A list of hydronium concentrations. --> [h_1, h_2, ..., h_m]
-            base: If the solution is a base, the k values need to be converted from Kb to Ka for these calculations.
+            acid: If the solution is not an acid, the k values need to be converted from Kb to Ka for these calculations.
             strong: If the solution is a strong acid or base, there are no alpha values to be calculated
         """
         if strong:
