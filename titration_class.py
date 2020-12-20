@@ -4,6 +4,17 @@ I'm not super great with classes, but we'll see how this goes.
 import numpy as np
 import matplotlib.pyplot as plt
 
+import pretty_errors
+
+
+def equiv_volume(c1, v1, c2):
+    """Returns the equivalence volume"""
+    c1 = float(c1)
+    v1 = float(v1)
+    c2 = float(c2)
+
+    return c1 * v1 / c2
+
 
 def pk_to_k(pk):
     """Converts a pk, or an array or pk's to a k or an array of k's"""
