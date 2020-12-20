@@ -1,6 +1,7 @@
 from titration_class import Titration
 
 # Strong Monoprotic Acidic Analyte, Strong Monoprotic Basic Titrant.
+# TODO figure out why strong-strong is giving two straight lines instead of a perfect cross
 a = Titration(analyte_is_acidic=True,
               titrant_is_acidic=False,
               volume_analyte=25,
@@ -45,7 +46,6 @@ a = Titration(analyte_is_acidic=True,
 a.plot_titration_curve()
 
 # Strong Monofunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method..
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -57,7 +57,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_titration_curve()
 
 # Weak Monofunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method..
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -69,7 +68,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_titration_curve()
 
 # Weak Difunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -81,7 +79,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_titration_curve()
 
 # Weak Trifunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -93,7 +90,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_titration_curve()
 
 # Weak Monofunctional Basic Analyte, Weak Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -105,7 +101,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_titration_curve()
 
 # Weak Monoprotic Acidic Analyte, Weak Monofunctional Basic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=True,
               titrant_is_acidic=False,
               volume_analyte=25,
