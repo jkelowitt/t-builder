@@ -18,12 +18,11 @@ def check_vals(vol, ph, h, oh, phi, pka_vals, aanalyte, atitrant):
     :param pka_vals: A list of pK values for the analyte
     :param aanalyte: A list of lists of alpha values for the analyte at each h value
     :param atitrant: A list of lists of alpha values for the titrant at each h value
-
     """
 
     limiter = len(pka_vals)
 
-    good_val_index = np.where((phi >= 0) & (phi <= limiter+1))
+    good_val_index = np.where((phi >= 0) & (phi <= limiter + 1))
 
     vol = vol[good_val_index]
     ph = ph[good_val_index]
@@ -44,7 +43,6 @@ def check_vals(vol, ph, h, oh, phi, pka_vals, aanalyte, atitrant):
     except:
         new_alpha_analyte = [[1]]
 
-
     # Trim the alpha_titrant values
     try:  # If the titrant is strong, there should be no alpha values
         new_alpha_titrant = []
@@ -58,7 +56,6 @@ def check_vals(vol, ph, h, oh, phi, pka_vals, aanalyte, atitrant):
 
     new_alpha_titrant = np.array(new_alpha_titrant, dtype="object")
     new_alpha_titrant = np.transpose(new_alpha_titrant)
-
 
     return vol, ph, h, oh, phi, new_alpha_analyte, new_alpha_titrant
 
@@ -126,7 +123,7 @@ def scale_alphas(arr):
 def alpha_values(k, h, base=False, strong=False, kw=(1.023 * (10 ** -14))):
     """
     For a given list of K values, and a list of hydronium concentrations,
-    return a list of the alpha values for every level of protonation.
+    return a list of the alpha values for every level of protonation for the analyte.
 
     Parameters:
         k: A list of values for k. --> [k1, k2,..., kn]
