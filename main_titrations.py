@@ -1,7 +1,6 @@
 from titration_class import Titration
 
 # Strong Monoprotic Acidic Analyte, Strong Monoprotic Basic Titrant.
-# TODO figure out why strong-strong is giving two straight lines instead of a perfect cross
 a = Titration(analyte_is_acidic=True,
               titrant_is_acidic=False,
               volume_analyte=25,
