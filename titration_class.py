@@ -84,9 +84,9 @@ class Titration:
 
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
-        self.check_vals()
+        self.check_values()
 
-    def check_vals(self):
+    def check_values(self):
         """
         Find only the useful data.
         """
@@ -139,7 +139,7 @@ class Titration:
         oh = self.kw / h
         return ph, h, oh
 
-    def alpha_values(self, k, h, base=False, strong=False):
+    def alpha_values(self, k, h, acid=True, strong=False):
         """
         For a given list of K values, and a list of hydronium concentrations,
         return a list of the alpha values for every level of protonation for the analyte.
@@ -158,7 +158,7 @@ class Titration:
         k = np.array(k)
 
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
-        if base:
+        if not acid:
             k = self.kw / np.flip(k)
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
@@ -181,7 +181,7 @@ class Titration:
         div_arr = np.divide(tda, denoms)  # Divide
         alphas = np.transpose(div_arr)  # Re-transpose to the logically correct orientation
 
-        if base:
+        if not acid:
             return np.flip(alphas, axis=0)
             # return alphas
 
