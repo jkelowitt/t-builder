@@ -95,7 +95,7 @@ def run_var_gui(*args):
         ["Name", "__aname__"],
         ["Concentration (M):", "__aconc__"],
         ["Volume (mL):", "__avol__"]
-        ]
+    ]
 
     for item in t_list:
         base_list.append(item)
@@ -144,7 +144,6 @@ def replot(var_gui, *args):
     # Convert the pka/b values to ka/b values
     kt = pka_to_ka(pkt)
     ka = pka_to_ka(pka)
-
 
     # Get the concentrations of the analyte and titrant
     conc_analyte = float(var_gui.aconc)
