@@ -51,12 +51,14 @@ class Titration:
                  concentration_titrant,
                  pkt_values,
                  pka_values,
-                 kw=1.023 * (10 ** -14)  # Assuming 25C
+                 kw=1.023 * (10 ** -14),  # Assuming 25C
+                 title="Titration Curve"
                  ):
 
         # General Information
         self.kw = kw
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
+        self.title = title
 
         # Analyte information
         self.analyte_acidity = analyte_is_acidic
@@ -223,6 +225,7 @@ class Titration:
 
         if self.volume_titrant is not None and self.ph is not None:
             plt.plot(self.volume_titrant, self.ph)
+            plt.title(self.title)
             plt.show()
 
 
