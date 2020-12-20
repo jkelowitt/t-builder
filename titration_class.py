@@ -238,14 +238,4 @@ class Titration:
             plt.show()
 
 
-# Strong Trifunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems.
-a = Titration(analyte_is_acidic=False,
-              titrant_is_acidic=True,
-              volume_analyte=25,
-              concentration_analyte=0.10,
-              concentration_titrant=0.10,
-              pka_values=[3, 6, 9],
-              pkt_values=[1000])
 
-a.plot_titration_curve()
