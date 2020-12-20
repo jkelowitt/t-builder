@@ -78,8 +78,17 @@ class Titration:
         # Calculate alpha values
         # TODO check that the inputs to this alpha value function requires hydroxide all the time, rather than
         #  if it is just an acid / base.
-        self.alpha_analyte = self.alpha_values(self.k_analyte, self.hydronium)
-        self.alpha_titrant = self.alpha_values(self.k_titrant, self.hydronium)
+        # UPDATE, this seems to be the problem.
+        # If the analyte is basic, we should be using hydroxide instead of hydronium and vis a versa
+        # TODO make this take in the acidity and strength of the analyte and titrant.
+
+        analyte_focus = self.hydronium if analyte_is_acidic else self.hydroxide
+        titrant_focus = self.hydronium if titrant_is_acidic else self.hydroxide
+
+        print(f"{analyte_focus =}\n{titrant_focus =}\n")
+
+        self.alpha_analyte = self.alpha_values(self.k_analyte, analyte_focus)
+        self.alpha_titrant = self.alpha_values(self.k_titrant, titrant_focus)
 
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
