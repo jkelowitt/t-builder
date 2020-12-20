@@ -12,6 +12,7 @@ def pk_to_k(pk):
 
 def scale_alphas(arr):
     """Scale every value in the sublist of the array by its index."""
+    # TODO make this less horrible
     new_arr = []
     for item in arr:
         sub_arr = []
@@ -66,7 +67,7 @@ class Titration:
 
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
-        self.volume_titrant, self.ph, self.hydronium, self.hydroxide, self.phi, self.alpha_analyte, self.alpha_titrant = self.check_vals()
+        self.check_vals()
 
     def check_vals(self):
         """
@@ -184,7 +185,7 @@ class Titration:
         scaled_alphas_analyte = scale_alphas(self.alpha_analyte)
         scaled_alphas_titrant = scale_alphas(self.alpha_titrant)
 
-        # Sume the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
+        # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
         summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
         summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
 
@@ -207,16 +208,18 @@ class Titration:
         self.volume_calculator(self.titrant_acidity)
 
         if self.volume_titrant is not None and self.ph is not None:
-            plt.plot(self.ph, self.volume_titrant)
+            plt.plot(self.volume_titrant, self.ph)
             plt.show()
 
 
-a = Titration(analyte_is_acidic=True,
-              titrant_is_acidic=False,
-              volume_analyte=0.25,
+# Strong Trifunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
+# Poly-protic basic analyte causes problems.
+a = Titration(analyte_is_acidic=False,
+              titrant_is_acidic=True,
+              volume_analyte=25,
               concentration_analyte=0.10,
               concentration_titrant=0.10,
-              pka_values=[1000],
+              pka_values=[3, 6, 9],
               pkt_values=[1000])
 
 a.plot_titration_curve()
