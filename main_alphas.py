@@ -46,7 +46,6 @@ a = Titration(analyte_is_acidic=True,
 a.plot_alpha_curve()
 
 # Strong Monofunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method..
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -58,7 +57,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_alpha_curve()
 
 # Weak Monofunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method..
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -70,7 +68,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_alpha_curve()
 
 # Weak Difunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -82,7 +79,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_alpha_curve()
 
 # Weak Trifunctional Basic Analyte, Strong Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -94,7 +90,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_alpha_curve()
 
 # Weak Monofunctional Basic Analyte, Weak Monoprotic Acidic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=False,
               titrant_is_acidic=True,
               volume_analyte=25,
@@ -106,7 +101,6 @@ a = Titration(analyte_is_acidic=False,
 a.plot_alpha_curve()
 
 # Weak Monoprotic Acidic Analyte, Weak Monofunctional Basic Titrant.
-# Poly-protic basic analyte causes problems. Most likely due to the alphas method.
 a = Titration(analyte_is_acidic=True,
               titrant_is_acidic=False,
               volume_analyte=25,
