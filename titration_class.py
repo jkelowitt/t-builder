@@ -4,15 +4,6 @@ import matplotlib.pyplot as plt
 import pretty_errors
 
 
-def equiv_volume(c1, v1, c2):
-    """Returns the equivalence volume"""
-    c1 = float(c1)
-    v1 = float(v1)
-    c2 = float(c2)
-
-    return c1 * v1 / c2
-
-
 def pk_to_k(pk):
     """Converts a pk, or an array or pk's to a k or an array of k's"""
     return np.array(10. ** - np.array(pk))
@@ -29,8 +20,6 @@ def scale_alphas(arr):
             sub_arr.append(sub_item)
         new_arr.append(sub_arr)
     new_arr = np.array(new_arr)
-    # print(f"{new_arr=}")
-    # print(f"{new_arr[0]=}")
 
     try:
         if new_arr[0][-1] == 0:
@@ -84,8 +73,6 @@ class Titration:
 
         analyte_focus = self.hydronium if analyte_is_acidic else self.hydroxide
         titrant_focus = self.hydronium if titrant_is_acidic else self.hydroxide
-
-        print(f"{analyte_focus =}\n{titrant_focus =}\n")
 
         self.alpha_analyte = self.alpha_values(self.k_analyte, analyte_focus)
         self.alpha_titrant = self.alpha_values(self.k_titrant, titrant_focus)
