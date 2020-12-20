@@ -1,0 +1,18 @@
+
+
+
+# Strong Monoprotic Acidic Analyte, Strong Monoprotic Basic Titrant.
+Titration(analyte_is_acidic=True,
+              titrant_is_acidic=False,
+              volume_analyte=0.25,
+              concentration_analyte=0.10,
+              concentration_titrant=0.10,
+              pka_values=(1000),
+              pkt_values=(1000))
+
+
+
+
+
+
+
