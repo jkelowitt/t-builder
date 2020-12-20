@@ -32,10 +32,16 @@ def scale_alphas(arr):
             sub_arr.append(sub_item)
         new_arr.append(sub_arr)
     new_arr = np.array(new_arr)
-    if new_arr[0][-1] == 0:
+    # print(f"{new_arr=}")
+    # print(f"{new_arr[0]=}")
+
+    try:
+        if new_arr[0][-1] == 0:
+            return np.array([[1]])
+        else:
+            return new_arr
+    except:
         return np.array([[1]])
-    else:
-        return new_arr
 
 
 class Titration:
