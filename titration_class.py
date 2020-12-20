@@ -1,6 +1,3 @@
-"""
-I'm not super great with classes, but we'll see how this goes.
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 
