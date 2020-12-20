@@ -110,3 +110,14 @@ a = Titration(analyte_is_acidic=True,
               pkt_values=[5],
               title="Weak Monoprotic Acidic Analyte, Weak Monofunctional Basic Titrant.")
 a.plot_titration_curve()
+
+# Weak Polyprotic Acidic Analyte, Weak Polyfunctional Basic Titrant.
+a = Titration(analyte_is_acidic=True,
+              titrant_is_acidic=False,
+              volume_analyte=25,
+              concentration_analyte=0.10,
+              concentration_titrant=0.10,
+              pka_values=[3, 4.5, 5, 6, 7.23, 8, 9, 10, 11, 12],
+              pkt_values=[3, 4.5, 5, 6, 7, 8, 9, 10, 11, 12],
+              title=" Weak Polyprotic Acidic Analyte, Weak Polyfunctional Basic Titrant.")
+a.plot_titration_curve()
