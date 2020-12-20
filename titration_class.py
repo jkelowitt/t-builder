@@ -90,18 +90,13 @@ class Titration:
         self.hydroxide = self.hydroxide[good_val_index]
 
         # Trim the alpha_analyte values
-        try:  # If the analyte is strong, there should be no alpha values
-            self.alpha_analyte = []
-            for key in self.alpha_analyte:
-                key = int(key)
-                self.alpha_analyte[key] = self.alpha_analyte[key].astype("object")
-                new_list = np.insert(self.alpha_analyte[key][good_val_index], 0, key)
-                self.alpha_analyte.append(new_list)
+        new_alphas = []
+        for alphas in self.alpha_analyte.T:
+            new_alphas.append(alphas[good_val_index])
+        self.alpha_analyte = new_alphas
 
-            self.alpha_analyte = np.array(self.alpha_analyte, dtype="object")
-            self.alpha_analyte = np.transpose(self.alpha_analyte)
-        except:
-            self.alpha_analyte = [[1]]
+        self.alpha_analyte = np.array(self.alpha_analyte, dtype="object")
+        self.alpha_analyte = np.transpose(self.alpha_analyte)
 
         # Trim the alpha_titrant values
         try:  # If the titrant is strong, there should be no alpha values
