@@ -12,6 +12,7 @@ def pk_to_k(pk):
 def scale_alphas(arr):
     """Scale every value in the sublist of the array by its index."""
     # TODO make this less horrible
+    # TODO this may be why the strong strong bjerrum plots are broken. Figure out why.
     new_arr = []
     for item in arr:
         sub_arr = []
@@ -21,6 +22,7 @@ def scale_alphas(arr):
         new_arr.append(sub_arr)
     new_arr = np.array(new_arr)
 
+    # This should be what keeps the alpha values strong if they are.
     try:
         if new_arr[0][-1] == 0:
             return np.array([[1]])
@@ -43,6 +45,19 @@ class Titration:
                  kw=1.023 * (10 ** -14),  # Assuming 25C
                  title="Titration Curve"
                  ):
+        """
+        Titration curve class. Can make titration and bjerrum plots.
+
+        :param analyte_is_acidic: Whether or not the analyte is acidic
+        :param titrant_is_acidic: Whether or not the titrant is acidic
+        :param volume_analyte: Volume for the analyte in the same volume unit as the concentration
+        :param concentration_analyte: Concentration for the analyte
+        :param concentration_titrant: Concentration for the titrant
+        :param pkt_values: pKa values for each ampholyte of the titrant.
+        :param pka_values: pKa values for each ampholyte of the analyte.
+        :param kw: The k value for water. Defaults to the value at 25C
+        :param title: Title for the titration curve plot.
+        """
 
         # General Information
         self.kw = kw
@@ -64,12 +79,12 @@ class Titration:
         self.k_analyte = pk_to_k(self.pka_values)
         self.k_titrant = pk_to_k(self.pkt_values)
 
-        # Calculate alpha values
+        # Calculate alpha values TODO probably not doing anything. What was this for?
         analyte_focus = self.hydronium if analyte_is_acidic else self.hydroxide
         titrant_focus = self.hydronium if titrant_is_acidic else self.hydroxide
 
-        self.alpha_analyte = self.alpha_values(self.k_analyte, analyte_focus)
-        self.alpha_titrant = self.alpha_values(self.k_titrant, titrant_focus)
+        self.alpha_analyte = self.alpha_values(self.k_analyte, analyte_is_acidic)
+        self.alpha_titrant = self.alpha_values(self.k_titrant, titrant_is_acidic)
 
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
@@ -137,10 +152,6 @@ class Titration:
         if strong:
             return np.array([[1]])
 
-        # Convert lists to numpy arrays for easier math
-        h = np.array(h)
-        k = np.array(k)
-
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
             k = self.kw / np.flip(k)
@@ -167,7 +178,6 @@ class Titration:
 
         if not acid:
             return np.flip(alphas, axis=0)
-            # return alphas
 
         return np.array(alphas)
 
