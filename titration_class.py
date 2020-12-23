@@ -71,9 +71,6 @@ class Titration:
         # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
-        # Calculate the trimmed values for titration plotting. This prevents data destruction.
-        self.volume_titrant_t, self.ph_t, self.hydronium_t, self.hydroxide_t, self.alpha_titrant_t, self.alpha_analyte_t = self.check_values()
-
     @staticmethod
     def pk_to_k(pk):
         """
@@ -96,8 +93,7 @@ class Titration:
             phi value of one more than the number of equivalence points.
 
         :return:
-        volume_titrant, ph, hydronium, hydroxide, alpha_titrant, alpha_analyte, all trimmed to be within the
-            specified range.
+            volume_titrant, pH.
         """
 
         # Go until you are 1 past the last sub-reaction.
@@ -108,22 +104,8 @@ class Titration:
         # Cut the bad data out of each dataset.
         volume_titrant = self.volume_titrant[good_val_index]
         ph = self.ph[good_val_index]
-        hydronium = self.hydronium[good_val_index]
-        hydroxide = self.hydroxide[good_val_index]
 
-        # Trim the alpha_analyte values
-        new_alphas = []
-        for alphas in self.alpha_analyte.T:
-            new_alphas.append(alphas[good_val_index])
-        alpha_analyte = np.array(new_alphas).T
-
-        # Trim the alpha_titrant values
-        new_alphas = []
-        for alphas in self.alpha_titrant.T:
-            new_alphas.append(alphas[good_val_index])
-        alpha_titrant = np.array(new_alphas).T
-
-        return volume_titrant, ph, hydronium, hydroxide, alpha_titrant, alpha_analyte
+        return volume_titrant, ph
 
     def starting_phs(self, min_ph=0, max_ph=14):
         """
@@ -257,9 +239,9 @@ class Titration:
             None
         """
         # Remove values from indices where the volume is negative or extremely large.
-        self.check_values()
+        volume, pH = self.check_values()
 
-        plt.plot(self.volume_titrant_t, self.ph_t)
+        plt.plot(volume, pH)
         plt.title(title)
         plt.show()
 
@@ -286,8 +268,9 @@ class Titration:
             None
         """
         # Make dataframe.
-        data = pd.DataFrame({"volume": self.volume_titrant_t,
-                             "pH": self.ph_t})
+        volume, pH = self.check_values()
+        data = pd.DataFrame({"volume": volume,
+                             "pH": pH})
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
