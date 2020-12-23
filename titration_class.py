@@ -18,12 +18,14 @@ class Titration:
                  pka_values,
                  strong_analyte=True,
                  strong_titrant=True,
+                 title="Titration Curve",
+                 precision=0.01,
                  kw=1.023 * (10 ** -14),  # Assuming 25C
-                 title="Titration Curve"
                  ):
 
         # General Information
         self.kw = kw
+        self.precision = precision
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
         self.title = title
 
