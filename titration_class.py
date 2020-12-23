@@ -197,3 +197,23 @@ class Titration:
         plt.plot(self.ph, self.alpha_analyte)
         plt.title("Alpha Values for\n" + self.title)
         plt.show()
+
+    def write_titration_data(self):
+        # Remove values from indices where the volume is negative or extremely large.
+        self.check_values()
+
+        # Make and write the data frame to a csv
+        data = pd.DataFrame({"volume": self.volume_titrant, "pH": self.ph})
+        data.to_csv(f"{self.title} titration data.csv", index=False)
+
+    def write_alpha_data(self):
+        # Initialize the dataframe with the ph values
+        data_dict = {"pH": self.ph}
+
+        # Add the alpha values for each analyte species
+        for num, alpha in enumerate(self.alpha_analyte.T):
+            data_dict[f"alpha{num}"] = alpha
+
+        # Make and write the data frame to a csv
+        data = pd.DataFrame(data_dict)
+        data.to_csv(f"{self.title} alpha data.csv", index=False)
