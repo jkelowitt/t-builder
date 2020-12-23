@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-
-# TODO figure out why strong-strong is giving two straight lines instead of a perfect cross
-
 class Titration:
 
     def __init__(self,
