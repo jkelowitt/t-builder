@@ -65,8 +65,8 @@ class Titration:
         self.k_analyte = self.pk_to_k(self.pka_values)
         self.k_titrant = self.pk_to_k(self.pkt_values)
 
-        self.alpha_analyte = self.alpha_values(k=self.k_analyte, h=self.hydronium, acid=self.analyte_acidity)
-        self.alpha_titrant = self.alpha_values(k=self.k_titrant, h=self.hydronium, acid=self.titrant_acidity)
+        self.alpha_analyte = self.alpha_values(k=self.k_analyte, acid=self.analyte_acidity)
+        self.alpha_titrant = self.alpha_values(k=self.k_titrant, acid=self.titrant_acidity)
 
         # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
@@ -163,7 +163,7 @@ class Titration:
 
         return new_arr
 
-    def alpha_values(self, k, h, acid=True):
+    def alpha_values(self, k, acid=True):
         """
         Calculates the alpha values for the given compound.
         :param k:
@@ -176,8 +176,7 @@ class Titration:
             A numpy array of alpha values for the compound.
         """
 
-        # Convert lists to numpy arrays for easier math
-        h = np.array(h)
+        # Convert the k values to a list to help with matrix transformations.
         k = np.array(k)
 
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
@@ -189,7 +188,7 @@ class Titration:
 
         # Get the values for the [H+]^n power
         powers = np.array([x for x in range(n, -1, -1)])  # List of powers
-        h_vals = np.array([np.array(h ** i) for i in powers])  # List of H values raised to the powers
+        h_vals = np.array([np.array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
 
         # Get the products of the k values.
         k_vals = [np.prod(k[0:x]) for x in range(n + 1)]
