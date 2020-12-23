@@ -4,6 +4,9 @@ import pandas as pd
 
 
 class Titration:
+    """
+    A class which defines a titration and predominance curve based on the used analyte and titrant.
+    """
 
     def __init__(self,
                  analyte_is_acidic,
@@ -17,6 +20,28 @@ class Titration:
                  precision=0.01,
                  kw=1.023 * (10 ** -14),  # Assuming 25C
                  ):
+        """
+        :param analyte_is_acidic: bool
+            Whether or not the analyte is acting as acidic.
+        :param volume_analyte: Union[float, int]
+            The volume of the analyte in chosen units.
+        :param concentration_analyte: Union[float, int]
+            Concentration of the analyte in chosen units.
+        :param concentration_titrant: Union[float, int]
+            Concentration of the titrant in chosen units.
+        :param pkt_values: List[float]
+            pK values for the titrant. If the titrant is acidic, use the pKa values, else use the pKb values.
+        :param pka_values: List[float]
+            pK values for the analyte. If the analyte is acidic, use the pKa values, else use the pKb values.
+        :param strong_analyte: bool
+            Whether or not the analyte is a strong one. Typically, pK values <-1.74 are strong in aqueous solution.
+        :param strong_titrant: bool
+            Whether or not the titrant is a strong one. Typically, pK values <-1.74 are strong in aqueous solution.
+        :param precision: Union[float, int]
+            The precision to calculate the titration/alpha at. Defaults to a step size of 0.01 pH.
+        :param kw: Union[float, int]
+            The dissociation constant of water. Defaults to the constant at 25 C.
+        """
 
         # General Information
         self.kw = kw
