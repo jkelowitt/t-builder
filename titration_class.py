@@ -18,28 +18,28 @@ class Titration:
                  strong_analyte=True,
                  strong_titrant=True,
                  precision=0.01,
-                 kw=1.023 * (10 ** -14),  # Assuming 25C
+                 kw=1.023 * (10 ** -14)
                  ):
         """
-        :param analyte_is_acidic: bool
+        :param analyte_is_acidic:
             Whether or not the analyte is acting as acidic.
-        :param volume_analyte: Union[float, int]
+        :param volume_analyte:
             The volume of the analyte in chosen units.
-        :param concentration_analyte: Union[float, int]
+        :param concentration_analyte:
             Concentration of the analyte in chosen units.
-        :param concentration_titrant: Union[float, int]
+        :param concentration_titrant:
             Concentration of the titrant in chosen units.
-        :param pkt_values: List[float]
+        :param pkt_values:
             pK values for the titrant. If the titrant is acidic, use the pKa values, else use the pKb values.
-        :param pka_values: List[float]
+        :param pka_values:
             pK values for the analyte. If the analyte is acidic, use the pKa values, else use the pKb values.
-        :param strong_analyte: bool
+        :param strong_analyte:
             Whether or not the analyte is a strong one. Typically, pK values <-1.74 are strong in aqueous solution.
-        :param strong_titrant: bool
+        :param strong_titrant:
             Whether or not the titrant is a strong one. Typically, pK values <-1.74 are strong in aqueous solution.
-        :param precision: Union[float, int]
+        :param precision:
             The precision to calculate the titration/alpha at. Defaults to a step size of 0.01 pH.
-        :param kw: Union[float, int]
+        :param kw:
             The dissociation constant of water. Defaults to the constant at 25 C.
         """
 
