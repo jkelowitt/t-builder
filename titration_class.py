@@ -46,8 +46,10 @@ class Titration:
         self.alpha_analyte = self.alpha_values(k=self.k_analyte, h=self.hydronium, acid=analyte_is_acidic)
         self.alpha_titrant = self.alpha_values(k=self.k_titrant, h=self.hydronium, acid=titrant_is_acidic)
 
+        # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
+        # Remove values from indices where the volume is negative or extremely large.
         self.check_values()
 
     @staticmethod
@@ -57,14 +59,14 @@ class Titration:
         return k
 
     def check_values(self):
-        """
-        Find only the useful data.
-        """
+        """Find only the useful data."""
 
-        limiter = len(self.pka_values)
+        # Go until you are 1 past the last sub-reaction.
+        limiter = len(self.pka_values) + 1
 
         good_val_index = np.where((self.phi >= 0) & (self.phi <= limiter + 1))
 
+        # Cut the bad data out of each dataset.
         self.volume_titrant = self.volume_titrant[good_val_index]
         self.ph = self.ph[good_val_index]
         self.hydronium = self.hydronium[good_val_index]
