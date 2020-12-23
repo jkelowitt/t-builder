@@ -43,10 +43,6 @@ class Titration:
         self.k_analyte = self.pk_to_k(self.pka_values)
         self.k_titrant = self.pk_to_k(self.pkt_values)
 
-        # Calculate alpha values
-        analyte_focus = self.hydronium if analyte_is_acidic else self.hydroxide
-        titrant_focus = self.hydronium if titrant_is_acidic else self.hydroxide
-
         self.alpha_analyte = self.alpha_values(k=self.k_analyte, h=self.hydronium, acid=analyte_is_acidic)
         self.alpha_titrant = self.alpha_values(k=self.k_titrant, h=self.hydronium, acid=titrant_is_acidic)
 
