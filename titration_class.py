@@ -76,25 +76,18 @@ class Titration:
         new_alphas = []
         for alphas in self.alpha_analyte.T:
             new_alphas.append(alphas[good_val_index])
-        self.alpha_analyte = new_alphas
-
-        self.alpha_analyte = np.array(self.alpha_analyte, dtype="object")
-        self.alpha_analyte = np.transpose(self.alpha_analyte)
+        self.alpha_analyte = np.array(new_alphas).T
 
         # Trim the alpha_titrant values
         new_alphas = []
         for alphas in self.alpha_titrant.T:
             new_alphas.append(alphas[good_val_index])
-        self.alpha_titrant = new_alphas
+        self.alpha_titrant = np.array(new_alphas).T
 
-        self.alpha_titrant = np.array(self.alpha_titrant, dtype="object")
-        self.alpha_titrant = np.transpose(self.alpha_titrant)
-
-    def starting_phs(self, min_ph=0, max_ph=14, precision=0.001):
+    def starting_phs(self, min_ph=0, max_ph=14):
         """Generate pH, [H+], and [OH-] lists"""
         # pH
-        ph = np.array(np.arange(min_ph, max_ph + precision, step=precision))
-        ph = ph.round(decimals=3)
+        ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
 
         # Hydroxide and Hydronium
         h = 10 ** (-ph.copy())
