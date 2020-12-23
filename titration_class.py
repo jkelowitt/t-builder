@@ -47,7 +47,6 @@ class Titration:
         self.kw = kw
         self.precision = precision
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
-        self.title = title
 
         # Analyte information
         self.analyte_acidity = analyte_is_acidic
@@ -57,7 +56,7 @@ class Titration:
         self.strong_analyte = strong_analyte
 
         # Titrant Information
-        self.titrant_acidity = titrant_is_acidic
+        self.titrant_acidity = not analyte_is_acidic  # The titrant is the opposite acidity as the analyte.
         self.concentration_titrant = concentration_titrant
         self.pkt_values = pkt_values
         self.strong_titrant = strong_titrant
@@ -66,8 +65,8 @@ class Titration:
         self.k_analyte = self.pk_to_k(self.pka_values)
         self.k_titrant = self.pk_to_k(self.pkt_values)
 
-        self.alpha_analyte = self.alpha_values(k=self.k_analyte, h=self.hydronium, acid=analyte_is_acidic)
-        self.alpha_titrant = self.alpha_values(k=self.k_titrant, h=self.hydronium, acid=titrant_is_acidic)
+        self.alpha_analyte = self.alpha_values(k=self.k_analyte, h=self.hydronium, acid=self.analyte_acidity)
+        self.alpha_titrant = self.alpha_values(k=self.k_titrant, h=self.hydronium, acid=self.titrant_acidity)
 
         # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
