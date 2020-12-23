@@ -149,8 +149,6 @@ class Titration:
         Calculates the alpha values for the given compound.
         :param k:
             A list of k values for the
-        :param h:
-            A list of hydronium concentrations.
         :param acid:
             Whether or not the compound is acidic.
         :return:
