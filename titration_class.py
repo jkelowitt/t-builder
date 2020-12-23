@@ -158,15 +158,6 @@ class Titration:
         return np.array(alphas)
 
     def volume_calculator(self, acid_titrant):
-        """
-        Take in a whole bunch of information, returns a list of volumes for the given data, with a length equal to the
-        [H+] and [OH-] lists.
-
-        :param acid_titrant: Whether or not the titrant is an acid.
-
-        :return vol: An array of volumes for the given [H+] and [OH-]
-        :return phi: An array of phi (fraction of the way to the equivalence point) values
-        """
 
         # Alpha values scaled by their index
         scaled_alphas_analyte = scale_alphas(self.alpha_analyte)
