@@ -4,6 +4,7 @@ import pandas as pd
 
 import pretty_errors
 
+
 # TODO figure out why strong-strong is giving two straight lines instead of a perfect cross
 
 class Titration:
@@ -107,7 +108,6 @@ class Titration:
         new_arr = np.array(new_arr)
 
         return new_arr
-
 
     def alpha_values(self, k, h, acid=True):
 
