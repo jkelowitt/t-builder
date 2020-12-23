@@ -64,7 +64,7 @@ class Titration:
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.pka_values) + 1
 
-        good_val_index = np.where((self.phi >= 0) & (self.phi <= limiter + 1))
+        good_val_index = np.where((self.volume_titrant >= 0) & (self.phi <= limiter))
 
         # Cut the bad data out of each dataset.
         self.volume_titrant = self.volume_titrant[good_val_index]
