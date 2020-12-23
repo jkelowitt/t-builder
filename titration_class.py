@@ -82,15 +82,10 @@ class Titration:
         self.alpha_analyte = np.transpose(self.alpha_analyte)
 
         # Trim the alpha_titrant values
-        try:  # If the titrant is strong, there should be no alpha values
-            self.alpha_titrant = []
-            for key in self.alpha_titrant:
-                key = int(key)
-                self.alpha_titrant[key] = self.alpha_titrant[key].astype("object")
-                new_list = np.insert(self.alpha_titrant[key][good_val_index], 0, key)
-                self.alpha_titrant.append(new_list)
-        except:
-            self.alpha_titrant = [[1]]
+        new_alphas = []
+        for alphas in self.alpha_titrant.T:
+            new_alphas.append(alphas[good_val_index])
+        self.alpha_titrant = new_alphas
 
         self.alpha_titrant = np.array(self.alpha_titrant, dtype="object")
         self.alpha_titrant = np.transpose(self.alpha_titrant)
@@ -153,15 +148,14 @@ class Titration:
 
         if not acid:
             return np.flip(alphas, axis=0)
-            # return alphas
 
         return np.array(alphas)
 
     def volume_calculator(self, acid_titrant):
 
         # Alpha values scaled by their index
-        scaled_alphas_analyte = scale_alphas(self.alpha_analyte)
-        scaled_alphas_titrant = scale_alphas(self.alpha_titrant)
+        scaled_alphas_analyte = self.scale_alphas(self.alpha_analyte)
+        scaled_alphas_titrant = self.scale_alphas(self.alpha_titrant)
 
         # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
         # Since strong acids/bases fully dissociate, they only appear in their pure form, thus, their alpha values = 1
@@ -191,16 +185,13 @@ class Titration:
         return volume, phi
 
     def plot_titration_curve(self):
-        self.volume_calculator(self.titrant_acidity)
 
-        if self.volume_titrant is not None and self.ph is not None:
-            plt.plot(self.volume_titrant, self.ph)
-            plt.title(self.title)
-            plt.show()
+        plt.plot(self.volume_titrant, self.ph)
+        plt.title("Titration curve for\n" + self.title)
+        plt.show()
 
     def plot_alpha_curve(self):
-        self.volume_calculator(self.titrant_acidity)
 
         plt.plot(self.ph, self.alpha_analyte)
-        plt.title("Alpha Values")
+        plt.title("Alpha Values for\n" + self.title)
         plt.show()
