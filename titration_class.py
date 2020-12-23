@@ -3,32 +3,7 @@ import matplotlib.pyplot as plt
 
 import pretty_errors
 
-
-def pk_to_k(pk):
-    """Converts a pk, or an array or pk's to a k or an array of k's"""
-    return np.array(10. ** - np.array(pk))
-
-
-def scale_alphas(arr):
-    """Scale every value in the sublist of the array by its index."""
-    # TODO make this less horrible
-    new_arr = []
-    for item in arr:
-        sub_arr = []
-        for i, sub_item in enumerate(item):
-            sub_item *= i
-            sub_arr.append(sub_item)
-        new_arr.append(sub_arr)
-    new_arr = np.array(new_arr)
-
-    try:
-        if new_arr[0][-1] == 0:
-            return np.array([[1]])
-        else:
-            return new_arr
-    except:
-        return np.array([[1]])
-
+# TODO figure out why strong-strong is giving two straight lines instead of a perfect cross
 
 class Titration:
 
@@ -65,19 +40,25 @@ class Titration:
         self.strong_titrant = strong_titrant
 
         # Convert from pk values to k values.
-        self.k_analyte = pk_to_k(self.pka_values)
-        self.k_titrant = pk_to_k(self.pkt_values)
+        self.k_analyte = self.pk_to_k(self.pka_values)
+        self.k_titrant = self.pk_to_k(self.pkt_values)
 
         # Calculate alpha values
         analyte_focus = self.hydronium if analyte_is_acidic else self.hydroxide
         titrant_focus = self.hydronium if titrant_is_acidic else self.hydroxide
 
-        self.alpha_analyte = self.alpha_values(self.k_analyte, analyte_focus)
-        self.alpha_titrant = self.alpha_values(self.k_titrant, titrant_focus)
+        self.alpha_analyte = self.alpha_values(k=self.k_analyte, h=self.hydronium, acid=analyte_is_acidic)
+        self.alpha_titrant = self.alpha_values(k=self.k_titrant, h=self.hydronium, acid=titrant_is_acidic)
 
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
         self.check_values()
+
+    @staticmethod
+    def pk_to_k(pk):
+        """Converts a pk, or an array or pk's to a k or an array of k's"""
+        k = np.array(10. ** (- np.array(pk)))
+        return k
 
     def check_values(self):
         """
@@ -127,19 +108,22 @@ class Titration:
         oh = self.kw / h
         return ph, h, oh
 
-    def alpha_values(self, k, h, acid=True, strong=False):
-        """
-        For a given list of K values, and a list of hydronium concentrations,
-        return a list of the alpha values for every level of protonation for the analyte.
+    @staticmethod
+    def scale_alphas(arr):
+        # TODO make this less horrible
+        new_arr = []
+        for item in arr:
+            sub_arr = []
+            for i, sub_item in enumerate(item):
+                sub_item *= i
+                sub_arr.append(sub_item)
+            new_arr.append(sub_arr)
+        new_arr = np.array(new_arr)
 
-        Parameters:
-            k: A list of values for k. --> [k1, k2,..., kn]
-            h: A list of hydronium concentrations. --> [h_1, h_2, ..., h_m]
-            acid: If the solution is not an acid, the k values need to be converted from Kb to Ka for these calculations.
-            strong: If the solution is a strong acid or base, there are no alpha values to be calculated
-        """
-        if strong:
-            return np.array([[1]])
+        return new_arr
+
+
+    def alpha_values(self, k, h, acid=True):
 
         # Convert lists to numpy arrays for easier math
         h = np.array(h)
