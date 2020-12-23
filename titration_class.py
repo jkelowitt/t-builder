@@ -52,9 +52,6 @@ class Titration:
         # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
 
-        # Remove values from indices where the volume is negative or extremely large.
-        self.check_values()
-
     @staticmethod
     def pk_to_k(pk):
         """Converts a pk, or an array or pk's to a k or an array of k's"""
@@ -188,6 +185,8 @@ class Titration:
         return volume, phi
 
     def plot_titration_curve(self):
+        # Remove values from indices where the volume is negative or extremely large.
+        self.check_values()
 
         plt.plot(self.volume_titrant, self.ph)
         plt.title("Titration curve for\n" + self.title)
