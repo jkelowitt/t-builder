@@ -58,7 +58,7 @@ e = Titration(analyte_is_acidic=True,
               pka_values=[7],
               pkt_values=[5],
               strong_analyte=False,
-              strong_titrant=True,
+              strong_titrant=False,
               title="Weak Monoprotic Acidic Analyte, Weak Monofunctional Basic Titrant.")
 
 # Weak Polyprotic Acidic Analyte, Weak Polyfunctional Basic Titrant.
@@ -70,7 +70,7 @@ f = Titration(analyte_is_acidic=True,
               pka_values=[3, 4.5, 5, 6, 7.23, 8, 9, 10, 11, 12],
               pkt_values=[3, 4.5, 5, 6, 7, 8, 9, 10, 11, 12],
               strong_analyte=False,
-              strong_titrant=True,
+              strong_titrant=False,
               title="Weak Polyprotic Acidic Analyte, Weak Polyfunctional Basic Titrant.")
 
 """Base Analytes"""
@@ -132,7 +132,7 @@ k = Titration(analyte_is_acidic=False,
               pka_values=[7],
               pkt_values=[5],
               strong_analyte=False,
-              strong_titrant=True,
+              strong_titrant=False,
               title="Weak Monofunctional Basic Analyte, Weak Monoprotic Acidic Titrant.")
 
 # Weak Polyfunctional Base Analyte, Weak Polyprotic Acid Titrant.
@@ -144,7 +144,7 @@ l = Titration(analyte_is_acidic=False,
               pka_values=[3, 4.5, 5, 6, 7.23, 8, 9, 10, 11, 12],
               pkt_values=[3, 4.5, 5, 6, 7, 8, 9, 10, 11, 12],
               strong_analyte=False,
-              strong_titrant=True,
+              strong_titrant=False,
               title="Weak Polyfunctional Base Analyte, Weak Polyprotic Acid Titrant.")
 
 tests = [a, b, c, d, e, f, g, h, i, j, k, l]
