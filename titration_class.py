@@ -40,6 +40,8 @@ class Titration:
                  concentration_titrant,
                  pkt_values,
                  pka_values,
+                 strong_analyte=True,
+                 strong_titrant=True,
                  kw=1.023 * (10 ** -14),  # Assuming 25C
                  title="Titration Curve"
                  ):
@@ -54,11 +56,13 @@ class Titration:
         self.concentration_analyte = concentration_analyte
         self.volume_analyte = volume_analyte
         self.pka_values = pka_values
+        self.strong_analyte = strong_analyte
 
         # Titrant Information
         self.titrant_acidity = titrant_is_acidic
         self.concentration_titrant = concentration_titrant
         self.pkt_values = pkt_values
+        self.strong_titrant = strong_titrant
 
         # Convert from pk values to k values.
         self.k_analyte = pk_to_k(self.pka_values)
@@ -187,8 +191,16 @@ class Titration:
         scaled_alphas_titrant = scale_alphas(self.alpha_titrant)
 
         # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
-        summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
-        summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
+        # Since strong acids/bases fully dissociate, they only appear in their pure form, thus, their alpha values = 1
+        if self.strong_analyte:
+            summed_scaled_alphas_analyte = np.array([1])
+        else:
+            summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
+
+        if self.strong_titrant:
+            summed_scaled_alphas_titrant = np.array([1])
+        else:
+            summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
 
         beta = self.hydronium - self.hydroxide  # No technical definition
 
