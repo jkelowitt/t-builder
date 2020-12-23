@@ -82,8 +82,8 @@ class Titration:
             An array of the pk values respective k values in order.
 
         """
-        k = np.array(10. ** (- np.array(pk)))
-        return k
+
+        return np.array(10. ** (- np.array(pk)))
 
     def check_values(self):
         """
@@ -117,10 +117,8 @@ class Titration:
         :return: ph, h, oh
             pH, hydronium concentration, and hydroxide concentration.
         """
-        # pH
-        ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
 
-        # Hydroxide and Hydronium
+        ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
         return ph, h, oh
@@ -134,6 +132,7 @@ class Titration:
         :return: new_arr
             Array which has been scaled.
         """
+
         new_arr = []
         for item in arr:
             sub_arr = []
@@ -238,6 +237,7 @@ class Titration:
         :return:
             None
         """
+
         # Remove values from indices where the volume is negative or extremely large.
         volume, pH = self.check_values()
 
@@ -253,6 +253,7 @@ class Titration:
         :return:
             None
         """
+
         plt.plot(self.ph, self.alpha_analyte)
         plt.title(title)
         plt.show()
@@ -267,6 +268,7 @@ class Titration:
         :return:
             None
         """
+
         # Make dataframe.
         volume, pH = self.check_values()
         data = pd.DataFrame({"volume": volume,
@@ -287,6 +289,7 @@ class Titration:
         :return:
             None
         """
+
         # Initialize the dataframe with the ph values
         data_dict = {"pH": self.ph}
 
