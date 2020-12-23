@@ -52,15 +52,15 @@ e = Titration(analyte_is_acidic=True,
               strong_analyte=False,
               strong_titrant=False)
 
-# Weak Polyprotic Acidic Analyte, Weak Polyfunctional Basic Titrant.
+# EDTA Analyte, KOH Basic Titrant.
 f = Titration(analyte_is_acidic=True,
               volume_analyte=25,
               concentration_analyte=0.10,
               concentration_titrant=0.10,
-              pka_values=[3, 4.5, 5, 6, 7.23, 8, 9, 10, 11, 12],
-              pkt_values=[3, 4.5, 5, 6, 7, 8, 9, 10, 11, 12],
+              pka_values=[2.0, 2.7, 6.16, 10.26],
+              pkt_values=[0.2],
               strong_analyte=False,
-              strong_titrant=False)
+              strong_titrant=True)
 
 """Base Analytes"""
 
@@ -114,15 +114,15 @@ k = Titration(analyte_is_acidic=False,
               strong_analyte=False,
               strong_titrant=False)
 
-# Weak Polyfunctional Base Analyte, Weak Polyprotic Acid Titrant.
+# EDTA ion Analyte, HCl Acid Titrant.
 l = Titration(analyte_is_acidic=False,
               volume_analyte=25,
               concentration_analyte=0.10,
               concentration_titrant=0.10,
-              pka_values=[3, 4.5, 5, 6, 7.23, 8, 9, 10, 11, 12],
-              pkt_values=[3, 4.5, 5, 6, 7, 8, 9, 10, 11, 12],
+              pka_values=[2.0, 2.7, 6.16, 10.26],
+              pkt_values=[-6],
               strong_analyte=False,
-              strong_titrant=False)
+              strong_titrant=True)
 
 tests = [a, b, c, d, e, f, g, h, i, j, k, l]
 
