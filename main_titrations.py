@@ -150,5 +150,8 @@ l = Titration(analyte_is_acidic=False,
 tests = [a, b, c, d, e, f, g, h, i, j, k, l]
 
 for test in tests:
-    test.plot_titration_curve()
+    # test.plot_titration_curve()
     # test.plot_alpha_curve()
+    # test.write_alpha_data()
+    # test.write_titration_data()
+    pass
