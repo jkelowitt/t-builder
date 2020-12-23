@@ -7,7 +7,6 @@ class Titration:
 
     def __init__(self,
                  analyte_is_acidic,
-                 titrant_is_acidic,
                  volume_analyte,
                  concentration_analyte,
                  concentration_titrant,
