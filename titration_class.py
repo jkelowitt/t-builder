@@ -1,6 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
+from numpy import prod, array, arange, where, sum, divide, transpose, multiply, flip
+from matplotlib.pyplot import plot, show
+from pandas import DataFrame
 
 
 class Titration:
