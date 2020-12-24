@@ -98,7 +98,7 @@ directly ported into a bjerrum plot or predominance zone diagram.
 
 With the alpha values now calculated, another relationship can be utilized. The equation:
 
-![phi_definition](https://latex.codecogs.com/gif.latex?\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\gamma}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\theta}n\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
+![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\gamma}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\theta}n\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
 
 where phi is defined as the "Fraction of the way to the equivalence point", and gamma and theta are the functionality of
 the analyte and titrant, respectively, can be used to determine the volume of titrant required to reach a certain pH.
@@ -106,7 +106,7 @@ Since all the values in the definition of phi are known, they can be solved to f
 the volume of analyte, and the concentration of both analyte and titrant, the volume of titrant can be calculated
 through rearanging the previous equation to find:
 
-![phi_usage](https://latex.codecogs.com/gif.latex?V_t=\frac{\phi&space;C_aV_a}{C_t})
+![phi_usage](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;V_t&space;=&space;\frac{\phi&space;C_a&space;V_a}&space;{C_t})
 
 This equation is then solved thousands of times to produce a plot of volumes to pH values. The axes are flipped, and a
 titration curve is born.
