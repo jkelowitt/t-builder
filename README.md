@@ -76,8 +76,8 @@ titr = Titration(analyte_is_acidic=True,
                  volume_analyte=100,  # mL
                  concentration_analyte=0.10,  # M
                  concentration_titrant=0.10,  # M
-                 pka_values=[-6],
-                 pkt_values=[-6],
+                 pka_values=[-6],  # pKa
+                 pkt_values=[-6],  # pKb
                  strong_analyte=True,
                  strong_titrant=True)
 
@@ -100,8 +100,8 @@ titr = Titration(analyte_is_acidic=False,
                  volume_analyte=25,  # mL
                  concentration_analyte=0.50,  # M
                  concentration_titrant=0.10,  # M
-                 pka_values=[4, 7],
-                 pkt_values=[-6],
+                 pka_values=[4, 7],  # pKb
+                 pkt_values=[-6],  # pKa
                  strong_analyte=False,
                  strong_titrant=True)
 
@@ -124,8 +124,8 @@ titr = Titration(analyte_is_acidic=False,
                  volume_analyte=10,  # mL
                  concentration_analyte=1.00,  # M
                  concentration_titrant=0.10,  # M
-                 pka_values=[2.0, 2.7, 6.16, 10.26],
-                 pkt_values=[0.2],
+                 pka_values=[2.0, 2.7, 6.16, 10.26],  # pKa
+                 pkt_values=[0.2],  # pKb
                  strong_analyte=False,
                  strong_titrant=True)
 
@@ -187,7 +187,7 @@ The alpha value for a species tells the relative predominance of the species at 
 and 1. The larger the alpha value for the species, the higher concentration the species is in at that pH. The alpha
 value for a given species at a certain concentration of hydronium can be given by the equation:
 
-![alpha_equation](https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_white&space;\fn_cm&space;\alpha_s&space;=&space;\frac{\Omega_s}{\sum_{n,m=\gamma,0}&space;^{0,&space;\gamma}([H^&plus;]^{n}&space;*&space;\prod^{m}&space;_{i=0}(K_i))})
+![alpha_equation](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\fn_cm&space;\alpha_s&space;=&space;\frac{\Omega_s}{\sum_{n,m=\gamma,0}&space;^{0,&space;\gamma}([H^&plus;]^{n}&space;*&space;\prod^{m}&space;_{i=0}(K_i))})
 
 where Omega_s is equal to the component of the sum in the denominator with the index equal to the absolute value of the
 charge on the species (assuming the un-reacted species is neutral). The un-reacted species, the species with no charge,
