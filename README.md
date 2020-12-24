@@ -8,7 +8,7 @@ Use:
 from titration_class import Titration
 ``` 
 
-to import the Titration class used.
+to import the Titration class used. Requires matplotlib, numpy, and pandas to be installed.
 
 ## Class Arguments
 
