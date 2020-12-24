@@ -93,27 +93,33 @@ value for a given species at a certain concentration of hydronium can be given b
 
 where Omega_s is equal to the component of the sum in the denominator with the index equal to the absolute value of the
 charge on the species (assuming the un-reacted species is neutral). The un-reacted species, the species with no charge,
-s = 0, and thus Omega_s would equal the first component of the summation in the denominator. These values can be
-directly ported into a bjerrum plot or predominance zone diagram.
+s = 0, and thus Omega_s would equal the first component of the summation in the denominator. The value of gamma is the
+degree of functionality for the analyte. K_i represents the indexed dissociation constant for the analyte.These values
+can be directly ported into a bjerrum plot or predominance zone diagram.
 
-With the alpha values now calculated, another relationship can be utilized. The equation:
+With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
-![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\gamma}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\theta}n\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
+![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\gamma}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\theta}m\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
 
 where phi is defined as the "Fraction of the way to the equivalence point", and gamma and theta are the functionality of
-the analyte and titrant, respectively, can be used to determine the volume of titrant required to reach a certain pH.
-Since all the values in the definition of phi are known, they can be solved to find phi. Using phi and known values for
-the volume of analyte, and the concentration of both analyte and titrant, the volume of titrant can be calculated
-through rearanging the previous equation to find:
+the analyte and titrant, respectively, alpha_an represents the indexed alpha values of the analyte, and the similarly,
+alpha_tm represents the indexed alpha values of the titrant. The ± in the numerator is positive if the analyte is a
+base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. C_a and V_a are
+the concentration and volume of the analyte. C_t and V_t are the concentration and volume for the titrant.
+
+Phi can be used to determine the volume of titrant required to reach a certain pH. Since all the values in the
+definition of phi are known, they can be solved to find phi. Using phi and known values for the volume of analyte, and
+the concentration of both analyte and titrant, the volume of titrant can be calculated through re-aranging the previous
+equation to find:
 
 ![phi_usage](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;V_t&space;=&space;\frac{\phi&space;C_a&space;V_a}&space;{C_t})
 
-This equation is then solved thousands of times to produce a plot of volumes to pH values. The axes are flipped, and a
-titration curve is born.
+This equation is then solved thousands of times to produce a plot of volumes to pH values. The volume of titrant is set
+as the x-axis, and the pH the y-axis, and a titration curve is born.
 
 ## Observations
 
-1) On average, the class takes about 0.1s to initialize on my computer and the precision set to 0.01.
+1) On average, the class takes about 0.1s to initialize on my computer, and the precision set to 0.01.
 2) The initialization time is majorly dependent on the precision and to a lesser degree the number of pK values.
 3) I'd like to do some more research into what would be useful to have with a titration simulator. It will probably end
    up copying a lot of what [OpenTitration](https://github.com/dalevens/OpenTitration) has already done.
