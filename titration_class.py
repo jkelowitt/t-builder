@@ -228,7 +228,7 @@ class Titration:
         volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
         return volume, phi
 
-    def plot_titration_curve(self, title):
+    def plot_titration_curve(self, title="Titration Curve"):
         """
         Plots a titration curve for the current analyte and titrant at the trimmed pH values
         :param title:
@@ -244,7 +244,7 @@ class Titration:
         plt.title(title)
         plt.show()
 
-    def plot_alpha_curve(self, title):
+    def plot_alpha_curve(self, title="Alpha Value Plot"):
         """
         Plots a bjerrum curve for the current analyte at all pH values.
         :param title:
@@ -257,7 +257,7 @@ class Titration:
         plt.title(title)
         plt.show()
 
-    def write_titration_data(self, title, file_headers=False):
+    def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         """
         Write to a csv file, the volume of titrant and pH at each addition.
         :param title:
@@ -276,7 +276,7 @@ class Titration:
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
 
-    def write_alpha_data(self, title, file_headers=False, species_names=None):
+    def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
         """
         Write to a csv file, the pH and ampholyte prevalence for each species in solution.
         :param title:
