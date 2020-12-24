@@ -61,7 +61,7 @@ There are 4 optional key-word arguments:
     * Takes in a title string as a required positional argument.
 
 * write_alpha_data
-    * Writes the pH and species predominances at the pH to a csv file.
+    * Writes the pH and species predominance at the pH to a csv file.
     * Takes in a title string as a required positional argument.
 
 ## TODO:
@@ -77,17 +77,46 @@ There are 4 optional key-word arguments:
     * Probably just pass through matplotlib figure **kwargs
 * A GUI.
 
-Equations
-from [Quantitative Chemical Analysis 9th Ed.](https://www.amazon.com/Quantitative-Chemical-Analysis-Daniel-Harris/dp/146413538X)
+## Math
+
+Variables with the subscript 't' refer to the titrant. Variables with the subscript 'a' refer to the analyte.
+
+Equations are a generalized form of the equations found
+in [Quantitative Chemical Analysis 9th Ed.](https://www.amazon.com/Quantitative-Chemical-Analysis-Daniel-Harris/dp/146413538X)
 by Daniel C. Harris. (Ch. 11.10)
 
-The equations utilized from the textbook above leverage the following type of relationship (in this case for a diprotic
-acid being reacted with a strong base):
+The alpha value for a species tells the relative predominance of the species at a given pH. The values range between 0
+and 1. The larger the alpha value for the species, the higher concentration the species is in at that pH. The alpha
+value for a given species at a certain concentration of hydronium can be given by the equation:
 
-![equation](https://latex.codecogs.com/svg.latex?\phi%20%20\equiv%20%20%20\frac{C_b%20V_b}{C_a%20V_a}%20=%20%20\frac{\alpha_{HA^{-}}+2\alpha_{A^{2-}}%20+%20\frac{[H^{+}]%20-%20[OH^{-}]}{C_{a}}}{1%20+%20\frac{[H^{+}]%20-%20[OH^{-}]}%20{C_{b}}})
+![alpha_equation](https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_white&space;\fn_cm&space;\alpha_s&space;=&space;\frac{\Omega_s}{\sum_{n,m=\gamma,0}&space;^{0,&space;\gamma}([H^&plus;]^{n}&space;*&space;\prod^{m}&space;_{i=0}(K_i))})
 
-Where phi is defined as the "Fraction of the way to the equivalence point." Since the values for alpha are calculatable,
-phi is calculable as well. Solving the left most equality for the volume of base lets us find the amount if base added
-to reach the pH used in the alpha values and concentration of ions. So the pH is the input, and the Volume of titrant is
-the output. 
+where Omega_s is equal to the component of the sum in the denominator with the index equal to the absolute value of the
+charge on the species (assuming the un-reacted species is neutral). The un-reacted species, the species with no charge,
+s = 0, and thus Omega_s would equal the first component of the summation in the denominator. These values can be
+directly ported into a bjerrum plot or predominance zone diagram.
 
+With the alpha values now calculated, another relationship can be utilized. The equation:
+
+![phi_definition](https://latex.codecogs.com/gif.latex?\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\gamma}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\theta}n\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
+
+where phi is defined as the "Fraction of the way to the equivalence point", and gamma and theta are the functionality of
+the analyte and titrant, respectively, can be used to determine the volume of titrant required to reach a certain pH.
+Since all the values in the definition of phi are known, they can be solved to find phi. Using phi and known values for
+the volume of analyte, and the concentration of both analyte and titrant, the volume of titrant can be calculated
+through rearanging the previous equation to find:
+
+![phi_usage](https://latex.codecogs.com/gif.latex?V_t=\frac{\phi&space;C_aV_a}{C_t})
+
+This equation is then solved thousands of times to produce a plot of volumes to pH values. The axes are flipped, and a
+titration curve is born.
+
+## Observations
+
+1) On average, the class takes about 0.1s to initialize on my computer and the precision set to 0.01.
+2) The initialization time is majorly dependent on the precision and to a lesser degree the number of pK values.
+3) I'd like to do some more research into what would be useful to have with a titration simulator. It will probably end
+   up copying a lot of what [OpenTitration](https://github.com/dalevens/OpenTitration) has already done.
+4) I dread making a gui more than anything else. I dread making a *web app* even more, even though that is probably
+   where this program will be heading. This is the last of the items on my list for now. I'll find excuses to not work
+   on them for now though.
