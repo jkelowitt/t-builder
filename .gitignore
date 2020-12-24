@@ -1,6 +1,5 @@
-/ExampleCSV.csv
-/StrongStrong.csv
 /.idea/*
-/venv/
-/testing/*
+/venv/*
+/main_titrations.py
+/single_test.py
 /latex_equations.txt
