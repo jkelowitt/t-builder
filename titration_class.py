@@ -1,6 +1,7 @@
-from numpy import prod, array, arange, where, sum, divide, transpose, multiply, flip
-from matplotlib.pyplot import plot, show
-from pandas import DataFrame
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from datetime import datetime as dt
 
 
 class Titration:
@@ -83,7 +84,7 @@ class Titration:
 
         """
 
-        return array(10. ** (- array(pk)))
+        return np.array(10. ** (- np.array(pk)))
 
     def check_values(self):
         """
