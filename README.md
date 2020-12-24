@@ -64,6 +64,104 @@ There are 4 optional key-word arguments:
     * Writes the pH and species predominance at the pH to a csv file.
     * Takes in a title string as a required positional argument.
 
+## Examples
+
+#### Strong Acid titrated with Strong Base
+
+```python
+from titration_class import Titration
+
+# Initialize Titration Class
+titr = Titration(analyte_is_acidic=True,
+                 volume_analyte=100,  # mL
+                 concentration_analyte=0.10,  # M
+                 concentration_titrant=0.10,  # M
+                 pka_values=[-6],
+                 pkt_values=[-6],
+                 strong_analyte=True,
+                 strong_titrant=True)
+
+# Plot the titration curve and save the data to a csv file.
+titr.plot_titration_curve()
+titr.write_titration_data()
+
+# Plot the alpha curve and save the data to a csv file. 
+titr.plot_alpha_curve()
+titr.write_alpha_data()
+```
+
+#### Weak Diprotic Base titrated with Strong Acid
+
+```python
+from titration_class import Titration
+
+# Initialize Titration Class
+titr = Titration(analyte_is_acidic=False,
+                 volume_analyte=25,  # mL
+                 concentration_analyte=0.50,  # M
+                 concentration_titrant=0.10,  # M
+                 pka_values=[4, 7],
+                 pkt_values=[-6],
+                 strong_analyte=False,
+                 strong_titrant=True)
+
+# Plot the titration curve and save the data to a csv file.
+titr.plot_titration_curve()
+titr.write_titration_data()
+
+# Plot the alpha curve and save the data to a csv file. 
+titr.plot_alpha_curve()
+titr.write_alpha_data()
+```
+
+#### Quadroprotic EDTA titrated with KOH
+
+```python
+from titration_class import Titration
+
+# Initialize Titration Class
+titr = Titration(analyte_is_acidic=False,
+                 volume_analyte=10,  # mL
+                 concentration_analyte=1.00,  # M
+                 concentration_titrant=0.10,  # M
+                 pka_values=[2.0, 2.7, 6.16, 10.26],
+                 pkt_values=[0.2],
+                 strong_analyte=False,
+                 strong_titrant=True)
+
+# Plot the titration curve and save the data to a csv file.
+titr.plot_titration_curve()
+titr.write_titration_data()
+
+# Plot the alpha curve and save the data to a csv file. 
+titr.plot_alpha_curve()
+titr.write_alpha_data()
+```
+
+#### Weak hyperfunctional base titrated with a weak hyperprotic acid
+
+```python
+from titration_class import Titration
+
+# Initialize Titration Class
+titr = Titration(analyte_is_acidic=False,
+                 volume_analyte=50,  # mL
+                 concentration_analyte=0.15,  # M
+                 concentration_titrant=0.20,  # M
+                 pka_values=[3, 4.5, 6, 7.5, 9, 12],
+                 pkt_values=[3.5, 5, 6.5, 8, 9.5, 12.5],
+                 strong_analyte=False,
+                 strong_titrant=False)
+
+# Plot the titration curve and save the data to a csv file.
+titr.plot_titration_curve()
+titr.write_titration_data()
+
+# Plot the alpha curve and save the data to a csv file. 
+titr.plot_alpha_curve()
+titr.write_alpha_data()
+```
+
 ## TODO:
 
 * <del>"Show Plot" method</del> *Done*
