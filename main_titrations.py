@@ -48,7 +48,7 @@ e = Titration(analyte_is_acidic=True,
               concentration_analyte=0.10,
               concentration_titrant=0.10,
               pka_values=[7],
-              pkt_values=[5],
+              pkt_values=[2],
               strong_analyte=False,
               strong_titrant=False)
 
@@ -110,7 +110,7 @@ k = Titration(analyte_is_acidic=False,
               concentration_analyte=0.10,
               concentration_titrant=0.10,
               pka_values=[7],
-              pkt_values=[5],
+              pkt_values=[2],
               strong_analyte=False,
               strong_titrant=False)
 
