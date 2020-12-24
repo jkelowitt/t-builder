@@ -11,7 +11,7 @@ a = Titration(analyte_is_acidic=False,
               strong_analyte=False,
               strong_titrant=True)
 
-a.plot_titration_curve("titration")
-a.plot_alpha_curve("titration")
-a.write_titration_data("alpha")
-a.write_alpha_data("alpha")
+a.plot_titration_curve()
+a.plot_alpha_curve()
+a.write_titration_data()
+a.write_alpha_data()
