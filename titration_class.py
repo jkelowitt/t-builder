@@ -83,7 +83,7 @@ class Titration:
 
         """
 
-        return np.array(10. ** (- np.array(pk)))
+        return array(10. ** (- array(pk)))
 
     def check_values(self):
         """
@@ -99,7 +99,7 @@ class Titration:
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.pka_values) + 1
 
-        good_val_index = np.where((self.phi >= 0) & (self.phi <= limiter))
+        good_val_index = where((self.phi >= 0) & (self.phi <= limiter))
 
         # Cut the bad data out of each dataset.
         volume_titrant = self.volume_titrant[good_val_index]
@@ -118,7 +118,7 @@ class Titration:
             pH, hydronium concentration, and hydroxide concentration.
         """
 
-        ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
+        ph = array(arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
         return ph, h, oh
@@ -140,7 +140,7 @@ class Titration:
                 sub_item *= i
                 sub_arr.append(sub_item)
             new_arr.append(sub_arr)
-        new_arr = np.array(new_arr)
+        new_arr = array(new_arr)
 
         return new_arr
 
@@ -156,36 +156,36 @@ class Titration:
         """
 
         # Convert the k values to a list to help with matrix transformations.
-        k = np.array(k)
+        k = array(k)
 
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
-            k = self.kw / np.flip(k)
+            k = self.kw / flip(k)
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
 
         # Get the values for the [H+]^n power
-        powers = np.array([x for x in range(n, -1, -1)])  # List of powers
-        h_vals = np.array([np.array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
+        powers = array([x for x in range(n, -1, -1)])  # List of powers
+        h_vals = array([array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
 
         # Get the products of the k values.
-        k_vals = [np.prod(k[0:x]) for x in range(n + 1)]
+        k_vals = [prod(k[0:x]) for x in range(n + 1)]
 
         # Prod and Sum the h and k values
         h_vals = h_vals.T  # Reorient the array for multiplication
-        denoms_arr = np.multiply(h_vals, k_vals)  # Product of the sub-elements of the denominator
-        denoms = np.sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
+        denoms_arr = multiply(h_vals, k_vals)  # Product of the sub-elements of the denominator
+        denoms = sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
 
         # Do the outermost alpha value calculation
-        tda = np.transpose(denoms_arr)  # Transpose the array to the correct orientation for the division
-        div_arr = np.divide(tda, denoms)  # Divide
-        alphas = np.transpose(div_arr)  # Re-transpose to the logically correct orientation
+        tda = transpose(denoms_arr)  # Transpose the array to the correct orientation for the division
+        div_arr = divide(tda, denoms)  # Divide
+        alphas = transpose(div_arr)  # Re-transpose to the logically correct orientation
 
         if not acid:
-            return np.flip(alphas, axis=0)
+            return flip(alphas, axis=0)
 
-        return np.array(alphas)
+        return array(alphas)
 
     def volume_calculator(self, acid_titrant):
         """
@@ -203,14 +203,14 @@ class Titration:
         # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
         # Since strong acids/bases fully dissociate, they only appear in their pure form, thus, their alpha values = 1
         if self.strong_analyte:
-            summed_scaled_alphas_analyte = np.array([1])
+            summed_scaled_alphas_analyte = array([1])
         else:
-            summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
+            summed_scaled_alphas_analyte = sum(scaled_alphas_analyte, axis=1)
 
         if self.strong_titrant:
-            summed_scaled_alphas_titrant = np.array([1])
+            summed_scaled_alphas_titrant = array([1])
         else:
-            summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
+            summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
 
         beta = self.hydronium - self.hydroxide  # No technical definition
 
@@ -239,9 +239,9 @@ class Titration:
         # Remove values from indices where the volume is negative or extremely large.
         volume, pH = self.check_values()
 
-        plt.plot(volume, pH)
-        plt.title(title)
-        plt.show()
+        plot(volume, pH)
+        title(title)
+        show()
 
     def plot_alpha_curve(self, title):
         """
@@ -252,9 +252,9 @@ class Titration:
             None
         """
 
-        plt.plot(self.ph, self.alpha_analyte)
-        plt.title(title)
-        plt.show()
+        plot(self.ph, self.alpha_analyte)
+        title(title)
+        show()
 
     def write_titration_data(self, title, file_headers=False):
         """
@@ -269,8 +269,8 @@ class Titration:
 
         # Make dataframe.
         volume, pH = self.check_values()
-        data = pd.DataFrame({"volume": volume,
-                             "pH": pH})
+        data = DataFrame({"volume": volume,
+                          "pH": pH})
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
@@ -303,5 +303,5 @@ class Titration:
                     raise ValueError("You have not supplied enough species names!")
 
         # Make and write the data frame to a csv
-        data = pd.DataFrame(data_dict)
+        data = DataFrame(data_dict)
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
