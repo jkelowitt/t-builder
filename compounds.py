@@ -1,5 +1,15 @@
 import titration_class as ts
 
+acidic_water = ts.Compound(name="Water",
+                           acidic=True,
+                           pKs=[14.0],
+                           strong=False)
+
+basic_water = ts.Compound(name="Water",
+                          acidic=False,
+                          pKs=[14.0],
+                          strong=False)
+
 """Strong Compounds"""
 # Acids
 HCl = ts.Compound(name="HCl",
