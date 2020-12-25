@@ -10,157 +10,9 @@ from titration_class import Titration
 
 to import the Titration class used. Requires matplotlib, numpy, and pandas to be installed.
 
-## Class Arguments
-
-There are 6 positional arguments:
-
-* analyte_is_acidic
-    * Whether the analyte is acting as an acid.
-
-* volume_analyte
-    * The volume of the analyte.
-
-* concentration_analyte
-    * The concentration of the analyte.
-
-* concentration_titrant
-    * The concentration of the titrant.
-
-* pkt_values
-    * A list of the pK values for the titrant. If it is acidic, use pKa, else use the pKb values.
-
-* pka_values
-    * A list of the pK values for the analyte. If it is acidic, use pKa, else use the pKb values.
-
-There are 4 optional key-word arguments:
-
-* strong_analyte
-    * Whether the analyte is strong. Default = True
-
-* strong_titrant
-    * Whether the titrant is strong. Default = True
-
-* precision
-    * The step size of the pH being calculated. Default = 0.01
-
-* kw
-    * The dissociation constant of water. Default = 1.023 * (10 ** -14)
-
-## Class Methods
-
-* plot_titration_curve
-    * Plots and shows the titration curve for a reasonable range of volumes.
-    * Takes in a title string as a required positional argument.
-
-* plot_alpha_curve
-    * Plots and shows the bjerrum plot for each species in solution for the entire pH range.
-    * Takes in a title string as a required positional argument.
-
-* write_titration_data
-    * Writes the pH and volume of titrant to a csv file.
-    * Takes in a title string as a required positional argument.
-
-* write_alpha_data
-    * Writes the pH and species predominance at the pH to a csv file.
-    * Takes in a title string as a required positional argument.
-
 ## Examples
 
-#### Strong Acid titrated with Strong Base
-
-```python
-from titration_class import Titration
-
-# Initialize Titration Class
-titr = Titration(analyte_is_acidic=True,
-                 volume_analyte=100,  # mL
-                 concentration_analyte=0.10,  # M
-                 concentration_titrant=0.10,  # M
-                 pka_values=[-6],  # pKa
-                 pkt_values=[-6],  # pKb
-                 strong_analyte=True,
-                 strong_titrant=True)
-
-# Plot the titration curve and save the data to a csv file.
-titr.plot_titration_curve()
-titr.write_titration_data()
-
-# Plot the alpha curve and save the data to a csv file. 
-titr.plot_alpha_curve()
-titr.write_alpha_data()
-```
-
-#### Weak Diprotic Base titrated with Strong Acid
-
-```python
-from titration_class import Titration
-
-# Initialize Titration Class
-titr = Titration(analyte_is_acidic=False,
-                 volume_analyte=25,  # mL
-                 concentration_analyte=0.50,  # M
-                 concentration_titrant=0.10,  # M
-                 pka_values=[4, 7],  # pKb
-                 pkt_values=[-6],  # pKa
-                 strong_analyte=False,
-                 strong_titrant=True)
-
-# Plot the titration curve and save the data to a csv file.
-titr.plot_titration_curve()
-titr.write_titration_data()
-
-# Plot the alpha curve and save the data to a csv file. 
-titr.plot_alpha_curve()
-titr.write_alpha_data()
-```
-
-#### Quadroprotic EDTA titrated with KOH
-
-```python
-from titration_class import Titration
-
-# Initialize Titration Class
-titr = Titration(analyte_is_acidic=False,
-                 volume_analyte=10,  # mL
-                 concentration_analyte=1.00,  # M
-                 concentration_titrant=0.10,  # M
-                 pka_values=[2.0, 2.7, 6.16, 10.26],  # pKa
-                 pkt_values=[0.2],  # pKb
-                 strong_analyte=False,
-                 strong_titrant=True)
-
-# Plot the titration curve and save the data to a csv file.
-titr.plot_titration_curve()
-titr.write_titration_data()
-
-# Plot the alpha curve and save the data to a csv file. 
-titr.plot_alpha_curve()
-titr.write_alpha_data()
-```
-
-#### Weak hyperfunctional base titrated with a weak hyperprotic acid
-
-```python
-from titration_class import Titration
-
-# Initialize Titration Class
-titr = Titration(analyte_is_acidic=False,
-                 volume_analyte=50,  # mL
-                 concentration_analyte=0.15,  # M
-                 concentration_titrant=0.20,  # M
-                 pka_values=[3, 4.5, 6, 7.5, 9, 12],
-                 pkt_values=[3.5, 5, 6.5, 8, 9.5, 12.5],
-                 strong_analyte=False,
-                 strong_titrant=False)
-
-# Plot the titration curve and save the data to a csv file.
-titr.plot_titration_curve()
-titr.write_titration_data()
-
-# Plot the alpha curve and save the data to a csv file. 
-titr.plot_alpha_curve()
-titr.write_alpha_data()
-```
+To be done later. 
 
 ## TODO:
 
@@ -171,6 +23,7 @@ titr.write_alpha_data()
 * <del>Support for showing Bjerrum Plots </del> *Done*
 * <del>EQ point finder (either mathematically or with 2nd deriv.)</del> (
   See [OpenTitration](https://github.com/dalevens/OpenTitration), by Dale Evans.)
+* <del>Support for different temperatures </del> *Done*
 * More Plot options
     * Probably just pass through matplotlib figure **kwargs
 * A GUI
@@ -226,4 +79,4 @@ as the x-axis, and the pH the y-axis, and a titration curve is born.
 4) I dread making a gui more than anything else. I dread making a *web app* even more, even though that is probably
    where this program will be heading. This is the last of the items on my list for now. I'll find excuses to not work
    on them for now though.
-5) I know that TitraSim exists, but I haven't looked into it yet.    
+5) I know that TitraSim exists, but I haven't looked into it yet. I may be making the open source version of it.     
