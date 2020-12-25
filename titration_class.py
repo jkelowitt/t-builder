@@ -59,9 +59,9 @@ class AcidBase:
 
 class Bjerrum(AcidBase):
 
-    def __init__(self, analyte, titrant, precision=0.01, kw=1.023 * (10 ** -14)):
+    def __init__(self, analyte, titrant, precision=0.01, pKw=None, temp=None):
 
-        super().__init__(analyte, titrant, precision, kw)
+        super().__init__(analyte, titrant, precision, pKw, temp)
 
         self.alpha_analyte = self.alpha_values(k=analyte.K, acid=analyte.acidic)
         self.alpha_titrant = self.alpha_values(k=titrant.K, acid=titrant.acidic)
@@ -112,9 +112,14 @@ class Bjerrum(AcidBase):
 
         return np.array(alphas)
 
-    def plot_alpha_curve(self, title="Alpha Value Plot"):
+    def plot_alpha_curve(self, title="Alpha Value Plot", xlabel="pH", ylabel="Relative Concentration"):
         plt.plot(self.ph, self.alpha_analyte)
-        plt.title(title)
+
+        # Plot formatting
+        plt.title = title
+        plt.xlabel = xlabel
+        plt.ylabel = ylabel
+
         plt.show()
 
     def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
@@ -143,8 +148,8 @@ class Titration(Bjerrum):
     """
 
     def __init__(self, analyte, titrant, volume_analyte, concentration_analyte, concentration_titrant, precision=0.01,
-                 kw=1.023 * (10 ** -14)):
-        super().__init__(analyte, titrant, precision, kw)
+                 pKw=None, temp=None):
+        super().__init__(analyte, titrant, precision, pKw, temp)
 
         # Analyte information
         self.concentration_analyte = concentration_analyte
@@ -156,9 +161,9 @@ class Titration(Bjerrum):
         self.kt_values = titrant.K
 
         # Calculate the respective titrant values for each pH
-        self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
+        self.volume_titrant, self.phi = self.calculate_volume(self.titrant_acidity)
 
-    def check_values(self):
+    def trim_values(self):
 
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
@@ -171,7 +176,7 @@ class Titration(Bjerrum):
 
         return volume_titrant, ph
 
-    def volume_calculator(self, acid_titrant):
+    def calculate_volume(self, acid_titrant):
 
         # Alpha values scaled by their index
         scaled_alphas_analyte = self.scale_alphas(self.alpha_analyte)
@@ -204,18 +209,23 @@ class Titration(Bjerrum):
         volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
         return volume, phi
 
-    def plot_titration_curve(self, title="Titration Curve"):
+    def plot_titration_curve(self, title="Titration Curve", xlabel="Volume Titrant", ylabel="pH"):
 
         # Remove values from indices where the volume is negative or extremely large.
-        volume, pH = self.check_values()
+        volume, pH = self.trim_values()
 
         plt.plot(volume, pH)
-        plt.title(title)
+
+        # Plot formatting
+        plt.title = title
+        plt.xlabel = xlabel
+        plt.ylabel = ylabel
+
         plt.show()
 
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         # Make dataframe.
-        volume, pH = self.check_values()
+        volume, pH = self.trim_values()
         data = pd.DataFrame({"volume": volume,
                              "pH": pH})
 
