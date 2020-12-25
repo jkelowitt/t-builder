@@ -49,7 +49,7 @@ NaOH = ts.Compound(name="NaOH",
 # Acids
 EDTA = ts.Compound(name="EDTA",
                    acidic=True,
-                   pKs=[2.0, 2.7, 6.16, 10.26],
+                   pKs=[0.0, 1.5, 2.00, 2.69, 6.13, 10.37],  # Pg 268 QCA
                    strong=False)
 
 citric = ts.Compound(name="Citric Acid",
