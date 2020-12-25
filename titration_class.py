@@ -16,7 +16,7 @@ class Compound:
 
 
 class AcidBase:
-    def __init__(self, analyte, titrant, precision=0.01, kw=1.023 * (10 ** -14)):
+    def __init__(self, analyte, titrant, precision=0.01, pKw=None, temp=None):
         self.analyte_is_acidic = analyte.acidic
         self.k_analyte = pk_to_k(analyte.K)
         self.titrant_acidity = titrant.acidic
@@ -28,11 +28,34 @@ class AcidBase:
         self.kw = kw
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
+        if pKw is not None:
+            self.kw = 10 ** (-pKw)
+        elif temp is not None:
+            self.kw = 10 ** (-self.get_kw(temp))
+        else:
+            self.kw = 10 ** (-13.995)
+
     def starting_phs(self, min_ph=0, max_ph=14):
         ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
         return ph, h, oh
+
+    @staticmethod
+    def get_kw(temp):
+        if temp > 350 or temp < 0:
+            print("Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
+                  "\nProceed with caution, or set a pKw value rather than a temperature.")
+
+        # Variables for a quartic function found to have an R^2 > 0.9999 in Desmos.
+        # This most likely works only on the range of data used: 0C to 350C
+        a = 6.7179 * 10 ** -10
+        b = -5.3141 * 10 ** -7
+        c = 0.000199761
+        d = -0.0421956
+        f = 14.9376
+        pKw = (a * temp ** 4) + (b * temp ** 3) + (c * temp ** 2) + (d * temp) + f
+        return pKw
 
 
 class Bjerrum(AcidBase):
