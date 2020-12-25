@@ -12,7 +12,7 @@ to import the Titration class used. Requires matplotlib, numpy, and pandas to be
 
 ## Examples
 
-To be done later. 
+To be done later.
 
 ## TODO:
 
@@ -29,6 +29,7 @@ To be done later.
 * A GUI
 * Figure out how to make the titration curve of a mixture of analytes
 * Make a better name
+* Optional activity coefficients. 
 
 ## Math
 
