@@ -3,51 +3,44 @@ import numpy as np
 import pandas as pd
 
 
+def pk_to_k(pk):
+    return np.array(10. ** (- np.array(pk)))
+
+
+class Compound:
+    def __init__(self, name, concentration, acidic, pKs, strong):
+        self.name = name
+        self.concentration = concentration
+        self.acidic = acidic
+        self.K = pk_to_k(pKs)
+        self.strong = strong
+
+
+class Analyte(Compound):
+    def __init__(self, name, concentration, acidic, pK, strong, volume):
+        super().__init__(name, concentration, acidic, pK, strong)
+        self.volume = volume
+
+
+class Titrant(Compound):
+    def __init__(self, name, concentration, acidic, pK, strong):
+        super().__init__(name, concentration, acidic, pK, strong)
+
+
 class AcidBase:
-    def __init__(self,
-                 analyte_is_acidic,
-                 pka_values,
-                 pkt_values,
-                 strong_analyte=True,
-                 strong_titrant=True,
-                 precision=0.01,
-                 kw=1.023 * (10 ** -14),
-                 ):
-        self.analyte_is_acidic = analyte_is_acidic
-        self.k_analyte = self.pk_to_k(pka_values)
-        self.k_titrant = self.pk_to_k(pkt_values)
-        self.titrant_acidity = not analyte_is_acidic
-        self.strong_analyte = strong_analyte
-        self.strong_titrant = strong_titrant
+    def __init__(self, analyte, titrant, precision=0.01, kw=1.023 * (10 ** -14)):
+        self.analyte_is_acidic = analyte.acidic
+        self.k_analyte = pk_to_k(analyte.K)
+        self.titrant_acidity = titrant.acidic
+        self.k_titrant = pk_to_k(titrant.K)
+
+        self.strong_analyte = analyte.strong
+        self.strong_titrant = titrant.strong
         self.precision = precision
         self.kw = kw
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
-    @staticmethod
-    def pk_to_k(pk):
-        """
-        Converts a pk, or an array or pk's to a k or an array of k's
-
-        :param pk:
-            A or a list of pK values for a compound.
-        :return:
-            An array of the pk values respective k values in order.
-
-        """
-
-        return np.array(10. ** (- np.array(pk)))
-
     def starting_phs(self, min_ph=0, max_ph=14):
-        """
-        Creates a starting range of pH, hydronium, and hydroxide values.
-        :param min_ph:
-            The minimum value of pH to calculate from.
-        :param max_ph:
-            The maximum value of pH to calculate from.
-        :return: ph, h, oh
-            pH, hydronium concentration, and hydroxide concentration.
-        """
-
         ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
@@ -56,23 +49,15 @@ class AcidBase:
 
 class Bjerrum(AcidBase):
 
-    def __init__(self,
-                 analyte_is_acidic,
-                 pka_values,
-                 pkt_values,
-                 strong_analyte=True,
-                 strong_titrant=True,
-                 precision=0.01,
-                 kw=1.023 * (10 ** -14)):
+    def __init__(self, analyte, titrant, precision=0.01, kw=1.023 * (10 ** -14)):
 
-        super().__init__(analyte_is_acidic, pka_values, pkt_values, strong_analyte, strong_titrant, precision, kw)
+        super().__init__(analyte, titrant, precision, kw)
 
-        self.alpha_analyte = self.alpha_values(k=self.k_analyte, acid=self.analyte_is_acidic)
-        self.alpha_titrant = self.alpha_values(k=self.k_titrant, acid=self.titrant_acidity)
+        self.alpha_analyte = self.alpha_values(k=analyte.K, acid=analyte.acidic)
+        self.alpha_titrant = self.alpha_values(k=titrant.K, acid=titrant.acidic)
 
     @staticmethod
     def scale_alphas(arr):
-
         new_arr = []
         for item in arr:
             sub_arr = []
@@ -85,7 +70,6 @@ class Bjerrum(AcidBase):
         return new_arr
 
     def alpha_values(self, k, acid=True):
-
         # Convert the k values to a list to help with matrix transformations.
         k = np.array(k)
 
@@ -119,13 +103,11 @@ class Bjerrum(AcidBase):
         return np.array(alphas)
 
     def plot_alpha_curve(self, title="Alpha Value Plot"):
-
         plt.plot(self.ph, self.alpha_analyte)
         plt.title(title)
         plt.show()
 
     def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
-
         # Initialize the dataframe with the ph values
         data_dict = {"pH": self.ph}
 
@@ -150,28 +132,17 @@ class Titration(Bjerrum):
     A class which defines a titration and predominance curve based on the used analyte and titrant.
     """
 
-    def __init__(self,
-                 analyte_is_acidic,
-                 volume_analyte,
-                 concentration_analyte,
-                 concentration_titrant,
-                 pka_values,
-                 pkt_values,
-                 strong_analyte=True,
-                 strong_titrant=True,
-                 precision=0.01,
-                 kw=1.023 * (10 ** -14),
-                 ):
-        super().__init__(analyte_is_acidic, pka_values, pkt_values, strong_analyte, strong_titrant, precision, kw)
+    def __init__(self, analyte, titrant, precision=0.01, kw=1.023 * (10 ** -14)):
+        super().__init__(analyte, titrant, precision, kw)
 
         # Analyte information
-        self.concentration_analyte = concentration_analyte
-        self.volume_analyte = volume_analyte
-        self.pka_values = pka_values
+        self.concentration_analyte = analyte.concentration
+        self.volume_analyte = analyte.volume
+        self.ka_values = analyte.K
 
         # Titrant Information
-        self.concentration_titrant = concentration_titrant
-        self.pkt_values = pkt_values
+        self.concentration_titrant = titrant.concentration
+        self.kt_values = titrant.K
 
         # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.volume_calculator(self.titrant_acidity)
@@ -179,7 +150,7 @@ class Titration(Bjerrum):
     def check_values(self):
 
         # Go until you are 1 past the last sub-reaction.
-        limiter = len(self.pka_values) + 1
+        limiter = len(self.k_analyte) + 1
 
         good_val_index = np.where((self.phi >= 0) & (self.phi <= limiter))
 
