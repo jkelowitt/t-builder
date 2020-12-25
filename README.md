@@ -173,7 +173,9 @@ titr.write_alpha_data()
   See [OpenTitration](https://github.com/dalevens/OpenTitration), by Dale Evans.)
 * More Plot options
     * Probably just pass through matplotlib figure **kwargs
-* A GUI.
+* A GUI
+* Figure out how to make the titration curve of a mixture of analytes
+* Make a better name
 
 ## Math
 
@@ -224,3 +226,4 @@ as the x-axis, and the pH the y-axis, and a titration curve is born.
 4) I dread making a gui more than anything else. I dread making a *web app* even more, even though that is probably
    where this program will be heading. This is the last of the items on my list for now. I'll find excuses to not work
    on them for now though.
+5) I know that TitraSim exists, but I haven't looked into it yet.    
