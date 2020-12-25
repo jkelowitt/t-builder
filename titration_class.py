@@ -25,7 +25,6 @@ class AcidBase:
         self.strong_analyte = analyte.strong
         self.strong_titrant = titrant.strong
         self.precision = precision
-        self.kw = kw
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
         if pKw is not None:
