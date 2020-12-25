@@ -8,23 +8,11 @@ def pk_to_k(pk):
 
 
 class Compound:
-    def __init__(self, name, concentration, acidic, pKs, strong):
+    def __init__(self, name, acidic, pKs, strong):
         self.name = name
-        self.concentration = concentration
         self.acidic = acidic
         self.K = pk_to_k(pKs)
         self.strong = strong
-
-
-class Analyte(Compound):
-    def __init__(self, name, concentration, acidic, pK, strong, volume):
-        super().__init__(name, concentration, acidic, pK, strong)
-        self.volume = volume
-
-
-class Titrant(Compound):
-    def __init__(self, name, concentration, acidic, pK, strong):
-        super().__init__(name, concentration, acidic, pK, strong)
 
 
 class AcidBase:
@@ -132,16 +120,17 @@ class Titration(Bjerrum):
     A class which defines a titration and predominance curve based on the used analyte and titrant.
     """
 
-    def __init__(self, analyte, titrant, precision=0.01, kw=1.023 * (10 ** -14)):
+    def __init__(self, analyte, titrant, volume_analyte, concentration_analyte, concentration_titrant, precision=0.01,
+                 kw=1.023 * (10 ** -14)):
         super().__init__(analyte, titrant, precision, kw)
 
         # Analyte information
-        self.concentration_analyte = analyte.concentration
-        self.volume_analyte = analyte.volume
+        self.concentration_analyte = concentration_analyte
+        self.volume_analyte = volume_analyte
         self.ka_values = analyte.K
 
         # Titrant Information
-        self.concentration_titrant = titrant.concentration
+        self.concentration_titrant = concentration_titrant
         self.kt_values = titrant.K
 
         # Calculate the respective titrant values for each pH
