@@ -164,7 +164,6 @@ class Titration(Bjerrum):
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant_acidity)
 
     def trim_values(self):
-
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
@@ -184,6 +183,8 @@ class Titration(Bjerrum):
 
         # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
         # Since strong acids/bases fully dissociate, they only appear in their pure form, thus, their alpha values = 1
+        # The alpha values are calculated to be almost exactly 1 anyways, but letting it calculate as normal breaks the
+        #  calculation
         if self.strong_analyte:
             summed_scaled_alphas_analyte = np.array([1])
         else:
