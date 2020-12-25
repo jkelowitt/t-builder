@@ -22,17 +22,17 @@ class AcidBase:
         self.titrant_acidity = titrant.acidic
         self.k_titrant = pk_to_k(titrant.K)
 
-        self.strong_analyte = analyte.strong
-        self.strong_titrant = titrant.strong
-        self.precision = precision
-        self.ph, self.hydronium, self.hydroxide = self.starting_phs()
-
         if pKw is not None:
             self.kw = 10 ** (-pKw)
         elif temp is not None:
             self.kw = 10 ** (-self.get_kw(temp))
         else:
             self.kw = 10 ** (-13.995)
+
+        self.strong_analyte = analyte.strong
+        self.strong_titrant = titrant.strong
+        self.precision = precision
+        self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
     def starting_phs(self, min_ph=0, max_ph=14):
         ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
