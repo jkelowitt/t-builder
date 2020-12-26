@@ -163,6 +163,9 @@ class Titration(Bjerrum):
         # Calculate the respective titrant values for each pH
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant_acidity)
 
+        # Trimmed values for gui plot
+        self.ph_t, self.volume_titrant_t = self.trim_values()
+
     def trim_values(self):
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
@@ -173,7 +176,7 @@ class Titration(Bjerrum):
         volume_titrant = self.volume_titrant[good_val_index]
         ph = self.ph[good_val_index]
 
-        return volume_titrant, ph
+        return ph, volume_titrant
 
     def calculate_volume(self, acid_titrant):
 
@@ -212,10 +215,7 @@ class Titration(Bjerrum):
 
     def plot_titration_curve(self, title="Titration Curve", xlabel="Volume Titrant", ylabel="pH"):
 
-        # Remove values from indices where the volume is negative or extremely large.
-        volume, pH = self.trim_values()
-
-        plt.plot(volume, pH)
+        plt.plot(self.volume_titrant_t, self.ph_t)
 
         # Plot formatting
         plt.title = title
