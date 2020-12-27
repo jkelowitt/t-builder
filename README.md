@@ -2,7 +2,10 @@
 
 Allows the user to plot any polyprotic or polyfunctional titration curve.
 
-Use, run the main_gui.py or the executable to open the GUI. Requires pandas, numpy, matplotlib, and dearpygui to be installed.
+Run the executable to open the GUI.
+
+Enter the data as indicated into the data entry area of the GUI. Click "Save Titration Data" or "Save Bjerrum Data" to
+save the data plotted above to a CSV file.
 
 ## TODO:
 
@@ -16,10 +19,16 @@ Use, run the main_gui.py or the executable to open the GUI. Requires pandas, num
 * <del>Support for different temperatures </del> ***Done 12/24/2020***
 * <del>A GUI</del> ***Done 12/26/2020***
 * <del>Make a better name</del> ***Done 12/26/2020***
-* More Plot options
-    * Probably just pass through matplotlib figure **kwargs
+* <del>More Plot options</del>
+    * <del>Probably just pass through matplotlib figure **kwargs</del> ***No longer pursued due to GUI***
 * Figure out how to make the titration curve of a mixture of analytes
 * Optional activity coefficients.
+* Optional Species Names
+* Advanced Features (These combined could make a new major version)
+    * Calculate the equivalence points
+    * Plot the derivatives
+    * Allow for preset compounds
+    * Saving and loading compounds
 
 ## Math
 
@@ -66,7 +75,8 @@ as the x-axis, and the pH the y-axis, and a titration curve is born.
 1) On average, the class takes about 0.1s to initialize on my computer, and the precision set to 0.01.
 2) The initialization time is majorly dependent on the precision and to a lesser degree the number of pK values.
 3) I'd like to do some more research into what would be useful to have with a titration simulator. It will probably end
-   up copying a lot of what [OpenTitration](https://github.com/dalevens/OpenTitration) has already done.
+   up copying a lot of what [OpenTitration](https://github.com/dalevens/OpenTitration) has already done. I'll try to do
+   something similar.
 4) I dread making a gui more than anything else. I dread making a *web app* even more, even though that is probably
    where this program will be heading. This is the last of the items on my list for now. I'll find excuses to not work
    on them for now though.
