@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
@@ -112,16 +111,6 @@ class Bjerrum(AcidBase):
 
         return np.array(alphas)
 
-    def plot_alpha_curve(self, title="Alpha Value Plot", xlabel="pH", ylabel="Relative Concentration"):
-        plt.plot(self.ph, self.alpha_analyte)
-
-        # Plot formatting
-        plt.title = title
-        plt.xlabel = xlabel
-        plt.ylabel = ylabel
-
-        plt.show()
-
     def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
         # Initialize the dataframe with the ph values
         data_dict = {"pH": self.ph}
@@ -212,17 +201,6 @@ class Titration(Bjerrum):
         phi = numerator / denominator
         volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
         return volume, phi
-
-    def plot_titration_curve(self, title="Titration Curve", xlabel="Volume Titrant", ylabel="pH"):
-
-        plt.plot(self.volume_titrant_t, self.ph_t)
-
-        # Plot formatting
-        plt.title = title
-        plt.xlabel = xlabel
-        plt.ylabel = ylabel
-
-        plt.show()
 
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         # Make dataframe.
