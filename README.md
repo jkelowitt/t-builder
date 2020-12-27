@@ -1,4 +1,4 @@
-# Titration Generator
+# T-Builder
 
 Allows the user to plot any polyprotic or polyfunctional titration curve.
 
