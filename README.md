@@ -2,17 +2,7 @@
 
 Allows the user to plot any polyprotic or polyfunctional titration curve.
 
-Use:
-
-```python
-from titration_class import Titration
-``` 
-
-to import the Titration class used. Requires matplotlib, numpy, and pandas to be installed.
-
-## Examples
-
-To be done later.
+Use, run the main_gui.py or the executable to open the GUI. Requires pandas, numpy, matplotlib, and dearpygui to be installed.
 
 ## TODO:
 
