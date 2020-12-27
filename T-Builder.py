@@ -79,7 +79,6 @@ def save_titr_data(sender, data):
     titr = make_titration(sender, data)
     title = f"{get_value('aname')}_{get_value('tname')}_titr".replace(' ', '_')
     titr.write_titration_data(title=title)
-    print("Saved!")
     with window("File Saved!##1"):
         add_text(f"File saved to {title}.csv")
 
