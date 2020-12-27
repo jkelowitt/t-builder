@@ -94,7 +94,12 @@ def save_bjer_data(sender, data):
 
 # Main gui formatting
 with window("Main Window", label="Something Else"):
-    set_main_window_size(width=1270, height=800)
+    set_main_window_size(width=1270, height=820)
+
+    # Project name
+    add_text("T-Builder")
+    add_dummy(height=10)
+
     # Get the analyte data
     with group("Analyte", width=data_width):
         add_text("Analyte Data")
