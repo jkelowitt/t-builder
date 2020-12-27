@@ -6,20 +6,20 @@ Use, run the main_gui.py or the executable to open the GUI. Requires pandas, num
 
 ## TODO:
 
-* <del>"Show Plot" method</del> *Done*
-* <del>"Save Data CSV" method</del> *Done*
-* <del>Make a N-Functional analyte option</del> *Done*
-* <del>Make a M-Functional titrant option</del> *Done*
-* <del>Support for showing Bjerrum Plots </del> *Done*
+* <del>"Show Plot" method</del> ***Done 7/31/2020***
+* <del>"Save Data CSV" method</del> ***Done 7/31/2020***
+* <del>Make a N-Functional analyte option</del> ***Done 12/23/2020***
+* <del>Make a M-Functional titrant option</del> ***Done 12/23/2020***
+* <del>Support for showing Bjerrum Plots </del> ***Done 12/23/2020***
 * <del>EQ point finder (either mathematically or with 2nd deriv.)</del> (
   See [OpenTitration](https://github.com/dalevens/OpenTitration), by Dale Evans.)
-* <del>Support for different temperatures </del> *Done*
+* <del>Support for different temperatures </del> ***Done 12/24/2020***
+* <del>A GUI</del> ***Done 12/26/2020***
+* <del>Make a better name</del> ***Done 12/26/2020***
 * More Plot options
     * Probably just pass through matplotlib figure **kwargs
-* A GUI
 * Figure out how to make the titration curve of a mixture of analytes
-* Make a better name
-* Optional activity coefficients. 
+* Optional activity coefficients.
 
 ## Math
 
