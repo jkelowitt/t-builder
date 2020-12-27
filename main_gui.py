@@ -1,22 +1,11 @@
 from dearpygui.core import *
 from dearpygui.simple import *
-import titration_class as ts
 
-plot_width = 620
+from titration_class import Compound, Titration
+
+plot_width = 615
+plot_height = 510
 data_width = 200
-
-
-def apply_theme(sender, data):
-    theme = get_value("Themes")
-    set_theme(theme)
-
-
-themes = ["Grey", "Dark Grey", "Light", "Dark", "Dark 2", "Classic", "Cherry", "Purple", "Gold", "Red"]
-
-
-def apply_text_multiplier(sender, data):
-    font_multiplier = get_value("Font Size Multiplier")
-    set_global_font_scale(font_multiplier)
 
 
 def query_titr(sender, data):
@@ -31,36 +20,43 @@ def query_bjer(sender, data):
     set_plot_ylimits("bjerrum_curve", data[2], data[3])
 
 
-def plot_callback(sender, data):
-    clear_plot("titration_plot")
-    clear_plot("bjerrum_plot")
-
+def make_titration(sender, data):
     # Create compounds
-    Analyte = ts.Compound(name=get_value("Analyte Name"),
-                          acidic=get_value("Analyte is acidic"),
-                          pKs=[float(i) for i in get_value("Analyte pK value(s)").split(",")],
-                          strong=get_value("Analyte is strong")
-                          )
+    Analyte = Compound(name=get_value("Analyte Name"),
+                       acidic=get_value("aa"),
+                       pKs=[float(i) for i in get_value("apk").split(",")],
+                       strong=get_value("as")
+                       )
 
-    Titrant = ts.Compound(name=get_value("Titrant Name"),
-                          acidic=not get_value("Analyte is acidic"),
-                          pKs=[float(i) for i in get_value("Titrant pK value(s)").split(",")],
-                          strong=get_value("Titrant is strong")
-                          )
+    Titrant = Compound(name=get_value("tname"),
+                       acidic=not get_value("aa"),
+                       pKs=[float(i) for i in get_value("tpk").split(",")],
+                       strong=get_value("ts")
+                       )
 
     # Create titration object
-    titr = ts.Titration(analyte=Analyte,
-                        titrant=Titrant,
-                        concentration_analyte=get_value("Analyte Concentration (M)"),
-                        concentration_titrant=get_value("Titrant Concentration (M)"),
-                        volume_analyte=get_value("Analyte Volume (mL)"))
+    titr = Titration(analyte=Analyte,
+                     titrant=Titrant,
+                     concentration_analyte=get_value("aconc"),
+                     concentration_titrant=get_value("tconc"),
+                     volume_analyte=get_value("avol")
+                     )
+
+    return titr
+
+
+def plot_callback(sender, data):
+    clear_plot("Titration")
+    clear_plot("Relative Species")
+
+    titr = make_titration(sender, data)
 
     # Perform titration calculations
     tx = list(titr.volume_titrant_t)
     ty = list(titr.ph_t)
 
     # plot the calculations
-    add_line_series(plot="titration_plot",
+    add_line_series(plot="Titration",
                     name="",
                     x=tx,
                     y=ty,
@@ -72,69 +68,136 @@ def plot_callback(sender, data):
 
     # For every alpha value list, plot the alpha values at every pH and add the line to the plot
     for num, alpha in enumerate(bys):
-        add_line_series(plot="bjerrum_plot",
+        add_line_series(plot="Relative Species",
                         name=f"species{num}",
                         x=bx,
                         y=alpha,
                         weight=2)
 
 
+def save_titr_data(sender, data):
+    titr = make_titration(sender, data)
+    title = f"{get_value('aname')}_{get_value('tname')}_titr".replace(' ', '_')
+    titr.write_titration_data(title=title)
+    print("Saved!")
+    with window("File Saved!##1"):
+        add_text(f"File saved to {title}.csv")
+
+
+def save_bjer_data(sender, data):
+    titr = make_titration(sender, data)
+    title = f"{get_value('aname')}_{get_value('tname')}_bjer".replace(' ', '_')
+    titr.write_alpha_data(title=title)
+    with window("File Saved!##2"):
+        add_text(f"File saved to {title}.csv")
+
+
 # Main gui formatting
-with window("Main Window"):
-    # Change the theme and make the text a little bigger.
-    set_theme("Grey")
-    set_global_font_scale(1.05)
+with window("Main Window", label="Something Else"):
+    set_main_window_size(width=1270, height=800)
+    # Get the analyte data
+    with group("Analyte", width=data_width):
+        add_text("Analyte Data")
+        add_input_text('aname',
+                       label="Analyte Name",
+                       default_value="Citric Acid",
+                       callback=plot_callback,
+                       tip="This is used when making the data file."
+                       )
 
-    with tab_bar("Tab Bar"):
-        with tab("Data Entry"):
-            # Get the analyte data
-            with group("Analyte", width=data_width):
-                add_text("Analyte Data")
-                add_input_text("Analyte Name", default_value="Citric Acid", callback=plot_callback)
-                add_input_float("Analyte Concentration (M)", default_value=0.10, callback=plot_callback)
-                add_input_text("Analyte pK value(s)", default_value="3.13, 4.76, 6.40", callback=plot_callback)
-                add_input_float("Analyte Volume (mL)", default_value=25, callback=plot_callback)
-                add_checkbox("Analyte is acidic", default_value=True, callback=plot_callback)
-                add_checkbox("Analyte is strong", default_value=False, callback=plot_callback)
+        add_input_float('aconc',
+                        label="Analyte Concentration (M)",
+                        default_value=0.10,
+                        callback=plot_callback,
+                        tip="Enter the concentration of the analyte in molarity."
+                        )
 
-            # Add some spacing between the analyte and titrant data collection
-            add_same_line()
-            add_dummy(width=100)
+        add_input_text('apk',
+                       label="Analyte pK value(s)",
+                       default_value="3.13, 4.76, 6.40",
+                       callback=plot_callback,
+                       tip="Enter the pK values of the analyte. Separate them with commas if there are more than one."
+                       )
 
-            # Get the titrant data
-            add_same_line()
-            with group("Titrant", width=data_width):
-                add_text("Titrant Data")
-                add_input_text("Titrant Name", default_value="KOH", callback=plot_callback)
-                add_input_float("Titrant Concentration (M)", default_value=0.10, callback=plot_callback)
-                add_input_text("Titrant pK value(s)", default_value="0.20", callback=plot_callback)
-                add_checkbox("Titrant is strong", default_value=True, callback=plot_callback)
+        add_input_float('avol',
+                        label="Analyte Volume (mL)",
+                        default_value=25,
+                        callback=plot_callback,
+                        tip="Enter the volume of the analyte in mL."
+                        )
 
-            add_button("Plot data", callback=plot_callback, width=data_width * 2)
+        add_checkbox('aa',
+                     label="Analyte is acidic",
+                     default_value=True,
+                     callback=plot_callback,
+                     tip="Check this box if the analyte acts as an acid during this titration."
+                     )
 
-            # Put the titration curve under the data entry section
-            add_next_column()
-            with group("TitrationPlotGroup"):
-                add_text("Titration Curve")
-                add_plot("titration_plot", query_callback=query_titr, width=plot_width)
+        add_checkbox('as',
+                     label="Analyte is strong",
+                     default_value=False,
+                     callback=plot_callback,
+                     tip="Check this box if the titrant is a strong acid or base."
+                     )
 
-            # Put the bjerrum plot to the right of the titration curve
-            add_same_line()
-            with group("BjerrumPlotGroup"):
-                add_text("Relative Species Plot")
-                add_plot("bjerrum_plot", query_callback=query_bjer, width=plot_width)
+    # Add some spacing between the analyte and titrant data collection
+    add_same_line()
+    add_dummy(width=10)
 
-            # TODO add file saving support. Both data and image.
+    # Get the titrant data
+    add_same_line()
+    with group("Titrant", width=data_width):
+        add_text("Titrant Data")
 
-        # Added a help placeholder
-        with tab("Help"):
-            add_text("This is where I plan on putting information which may be helpful to the user.")
+        add_input_text("tname",
+                       label="Titrant Name",
+                       default_value="KOH",
+                       callback=plot_callback,
+                       tip="This is used when naming the data file."
+                       )
 
-        # Style tab for testing styles.
-        with tab("Style Settings"):
-            add_combo("Themes", items=themes, default_value="Dark", callback=apply_theme)
-            add_slider_float("Font Size Multiplier", default_value=1.0, min_value=0.0, max_value=2.0,
-                             callback=apply_text_multiplier)
+        add_input_float("tconc",
+                        label="Titrant Concentration (M)",
+                        default_value=0.10,
+                        callback=plot_callback,
+                        tip="Enter the concentration of the titrant in molarity."
+                        )
 
-# Run the curve.
-start_dearpygui(primary_window="Main Window")
+        add_input_text("tpk",
+                       label="Titrant pK value(s)",
+                       default_value="0.20",
+                       callback=plot_callback,
+                       tip="Enter the pK values of the titrant. Separate them with commas if there are more than one."
+                       )
+
+        add_checkbox("ts",
+                     label="Titrant is strong",
+                     default_value=True,
+                     callback=plot_callback,
+                     tip="Check this box if the titrant is a strong acid or base."
+                     )
+
+    add_button("Plot data", callback=plot_callback, width=data_width * 2)
+    add_dummy(height=10)
+
+    # Put the titration curve under the data entry section
+    add_next_column()
+    with group("TitrationPlotGroup"):
+        add_plot("Titration", query_callback=query_titr, width=plot_width, height=plot_height)
+
+        # Put the bjerrum plot to the right of the titration curve
+    add_same_line()
+    with group("BjerrumPlotGroup"):
+        add_plot("Relative Species", query_callback=query_bjer, width=plot_width, height=plot_height)
+
+    with group("SaveData"):
+        add_button("Save Titration Data to CSV", callback=save_titr_data)
+
+        add_same_line()
+        add_dummy(width=417)
+
+        add_same_line()
+        add_button("Save Bjerrum Data to CSV", callback=save_bjer_data)
+
+    # Run the curve.
+    start_dearpygui(primary_window="Main Window")
