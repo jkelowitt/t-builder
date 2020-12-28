@@ -106,7 +106,7 @@ with window("Main Window", label="Something Else"):
                        label="Analyte Name",
                        default_value="Citric Acid",
                        callback=plot_callback,
-                       tip="This is used when making the data file."
+                       tip="Enter the name of the analyte. This is used when making the data files."
                        )
 
         add_input_float('aconc',
@@ -157,7 +157,7 @@ with window("Main Window", label="Something Else"):
                        label="Titrant Name",
                        default_value="KOH",
                        callback=plot_callback,
-                       tip="This is used when naming the data file."
+                       tip="Enter the name of the titrant. This is used when naming the data files."
                        )
 
         add_input_float("tconc",
