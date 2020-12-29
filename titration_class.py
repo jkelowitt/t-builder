@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from scipy.interpolate import *
+from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
 
 def pk_to_k(pk):
@@ -243,7 +243,7 @@ class Titration(Bjerrum):
         pH, volume = self.trim_values()
 
         # An object which makes splines
-        spline_maker = InterpolatedUnivariateSpline(volume, pH)
+        spline_maker = IUS(volume, pH)
 
         # An object which calculates the derivative of those splines
         deriv_function = spline_maker.derivative(n=degree)
