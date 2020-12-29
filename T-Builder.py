@@ -254,7 +254,7 @@ with window("Main Window", label="Something Else"):
                      label="Show Buffering Points",
                      default_value=False,
                      callback=plot_callback,
-                     tip="Show the center of the buffering regions on the Titration plots.")
+                     tip="Show the center of the buffering regions on the Titration plot.")
 
         add_checkbox("equiv",
                      label="Show Equivalence Points",
@@ -266,13 +266,13 @@ with window("Main Window", label="Something Else"):
                      label="Show normalized y'",
                      default_value=False,
                      callback=plot_callback,
-                     tip="Currently does nothing")
+                     tip="Show the normalized 1st Derivative of the Titration plot")
 
         add_checkbox("2ndderiv",
                      label="Show normalized y''",
                      default_value=False,
                      callback=plot_callback,
-                     tip="Currently does nothing")
+                     tip="Show the normalized 2nd Derivative of the Titration plot.")
 
     add_same_line()
     with group("analysis modifiers"):
@@ -287,6 +287,7 @@ with window("Main Window", label="Something Else"):
                        width=80,
                        format='%0.2f',
                        callback=plot_callback,
+                       tip="Scale the 1st Derivative of the Titration plot."
                        )
 
         add_drag_float("2dscaler",
@@ -298,6 +299,7 @@ with window("Main Window", label="Something Else"):
                        width=80,
                        format='%0.2f',
                        callback=plot_callback,
+                       tip="Scale the 2nd Derivative of the Titration plot."
                        )
 
     add_button("Plot data", callback=plot_callback, width=data_width * 2)
