@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from scipy.interpolate import *
 
 
 def pk_to_k(pk):
@@ -221,3 +222,47 @@ class Titration(Bjerrum):
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
+
+    def find_buffer_points(self):
+        pH, volume = self.trim_values()
+        pKas = np.array(self.pk_analyte)
+        # All the volumes where the pH equals pKa
+        volume = volume[[np.where(pH == pKa)[0][0] for pKa in pKas]]
+        return volume, pKas
+
+    def find_equiv_points(self):
+        pH, volume, phi = self.trim_values(phi=self.phi)
+        points = []
+        for i in range(1, len(self.pk_analyte) + 1):
+            closest_value = min(phi, key=lambda x: abs(x - i))
+            points.append(np.where(phi == closest_value)[0][0])
+
+        return volume[points], pH[points]
+
+    def deriv(self, degree):
+        pH, volume = self.trim_values()
+
+        # An object which makes splines
+        spline_maker = InterpolatedUnivariateSpline(volume, pH)
+
+        # An object which calculates the derivative of those splines
+        deriv_function = spline_maker.derivative(n=degree)
+
+        # Calculate the deritvative at all of the splines
+        d = deriv_function(volume)
+
+        return volume, d
+
+    @staticmethod
+    def scale_data(data, a):
+
+        # """Linear Scale"""
+        # return data * a
+
+        # """See min-max feature scaling for where this equation came from"""
+        # return a + ((data - np.average(data)) * (a)) / (max(data) - min(data))
+
+        """Sigmoid scaling"""
+        ee = np.e ** data
+        return a * (ee / (ee + 1))
+
