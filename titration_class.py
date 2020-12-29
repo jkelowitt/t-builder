@@ -210,7 +210,7 @@ class Titration(Bjerrum):
         # Make dataframe.
         pH, volume = self.trim_values(ph=self.ph, volume=self.volume_titrant)
         data = DataFrame({"volume": volume,
-                             "pH": pH})
+                          "pH": pH})
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
@@ -257,7 +257,7 @@ class Titration(Bjerrum):
         # """Linear Scale"""
         # return data * a
 
-        # """See min-max feature scaling for where this equation came from"""
+        # """See min-max feature scaling for where this equation came from. (b=0)"""
         # return a + ((data - np.average(data)) * (a)) / (max(data) - min(data))
 
         """Sigmoid scaling"""
