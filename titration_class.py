@@ -245,7 +245,7 @@ class Titration(Bjerrum):
         # An object which calculates the derivative of those splines
         deriv_function = spline_maker.derivative(n=degree)
 
-        # Calculate the deritvative at all of the splines
+        # Calculate the derivative at all of the splines
         d = deriv_function(volume)
 
         return volume, d
@@ -262,4 +262,3 @@ class Titration(Bjerrum):
         """Sigmoid scaling"""
         ee = np.e ** data
         return a * (ee / (ee + 1))
-
