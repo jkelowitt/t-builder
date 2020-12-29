@@ -3,6 +3,10 @@ from dearpygui.simple import *
 
 from titration_class import Compound, Titration
 
+__author__ = "jkelowitt"
+__version__ = "v2.2"
+__license__ = "MIT"
+
 plot_width = 615
 plot_height = 510
 data_width = 200
@@ -325,4 +329,5 @@ with window("Main Window", label="Something Else"):
         add_button("Save Bjerrum Data to CSV", callback=save_bjer_data)
 
 # Run the curve.
-start_dearpygui(primary_window="Main Window")
+if __name__ == "__main__":
+    start_dearpygui(primary_window="Main Window")
