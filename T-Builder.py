@@ -74,6 +74,64 @@ def plot_callback(sender, data):
                         y=alpha,
                         weight=2)
 
+    if get_value("buffer_regions"):
+        vols, pHs = titr.find_buffer_points()
+
+        vols = list(vols)
+        pHs = list(pHs)
+
+        add_scatter_series(plot="Titration",
+                           name="Buffer Points",
+                           x=vols,
+                           y=pHs,
+                           fill=[255, 0, 0, 255],
+                           outline=[255, 0, 0, 255],
+                           weight=2)
+
+        # Add labels to the volumes of each point
+        for vol, pH in zip(vols, pHs):
+            add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
+
+    if get_value("equiv"):
+        vols, pHs = titr.find_equiv_points()
+
+        vols = list(vols)
+        pHs = list(pHs)
+
+        add_scatter_series(plot="Titration",
+                           name="Equivalence Points",
+                           x=vols,
+                           y=pHs,
+                           fill=[0, 255, 0, 255],
+                           outline=[0, 255, 0, 255],
+                           weight=2)
+
+        # Add labels to the volumes of each point
+        for vol, pH in zip(vols, pHs):
+            add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
+
+    if get_value("1stderiv"):
+        volume, pHderiv = titr.deriv(degree=1)
+
+        data = titr.scale_data(pHderiv, get_value("1dscaler"))
+
+        add_line_series(plot="Titration",
+                        name="First Derivative",
+                        x=list(volume),
+                        y=list(data),
+                        weight=2)
+
+    if get_value("2ndderiv"):
+        volume, pHderiv = titr.deriv(degree=2)
+
+        data = titr.scale_data(pHderiv, get_value("2dscaler"))
+
+        add_line_series(plot="Titration",
+                        name="Second Derivative",
+                        x=list(volume),
+                        y=list(data),
+                        weight=2)
+
 
 def save_titr_data(sender, data):
     titr = make_titration(sender, data)
@@ -181,6 +239,64 @@ with window("Main Window", label="Something Else"):
                      tip="Check this box if the titrant is a strong acid or base."
                      )
 
+    # Add some spacing between the titrant and analysis section
+    add_same_line()
+    add_dummy(width=10)
+
+    # Put the analysis options
+    add_same_line()
+    with group("analysis"):
+        add_text("Perform Analysis")
+        add_checkbox("buffer_regions",
+                     label="Show Buffering Points",
+                     default_value=False,
+                     callback=plot_callback,
+                     tip="Show the center of the buffering regions on the Titration plots.")
+
+        add_checkbox("equiv",
+                     label="Show Equivalence Points",
+                     default_value=False,
+                     callback=plot_callback,
+                     tip="Show the equivalence points on the Titration plot.")
+
+        add_checkbox("1stderiv",
+                     label="Show normalized y'",
+                     default_value=False,
+                     callback=plot_callback,
+                     tip="Currently does nothing")
+
+        add_checkbox("2ndderiv",
+                     label="Show normalized y''",
+                     default_value=False,
+                     callback=plot_callback,
+                     tip="Currently does nothing")
+
+    add_same_line()
+    with group("analysis modifiers"):
+        add_dummy(height=62)
+
+        add_drag_float("1dscaler",
+                       label="Scale y'",
+                       default_value=1,
+                       min_value=0,
+                       max_value=30,
+                       speed=0.1,
+                       width=80,
+                       format='%0.2f',
+                       callback=plot_callback,
+                       )
+
+        add_drag_float("2dscaler",
+                       label="Scale y''",
+                       default_value=1,
+                       min_value=0,
+                       max_value=30,
+                       speed=0.1,
+                       width=80,
+                       format='%0.2f',
+                       callback=plot_callback,
+                       )
+
     add_button("Plot data", callback=plot_callback, width=data_width * 2)
     add_dummy(height=10)
 
@@ -203,5 +319,5 @@ with window("Main Window", label="Something Else"):
         add_same_line()
         add_button("Save Bjerrum Data to CSV", callback=save_bjer_data)
 
-    # Run the curve.
-    start_dearpygui(primary_window="Main Window")
+# Run the curve.
+start_dearpygui(primary_window="Main Window")
