@@ -57,10 +57,11 @@ def plot_callback(sender, data):
 
     # plot the calculations
     add_line_series(plot="Titration",
-                    name="",
+                    name="Titration Curve",
                     x=tx,
                     y=ty,
-                    weight=2)
+                    weight=2,
+                    color=[0, 255, 255, 255])
 
     # Perform bjerrum calculations
     bx = list(titr.ph)
@@ -119,7 +120,8 @@ def plot_callback(sender, data):
                         name="First Derivative",
                         x=list(volume),
                         y=list(data),
-                        weight=2)
+                        weight=2,
+                        color=[255, 0, 255, 255])
 
     if get_value("2ndderiv"):
         volume, pHderiv = titr.deriv(degree=2)
@@ -130,7 +132,8 @@ def plot_callback(sender, data):
                         name="Second Derivative",
                         x=list(volume),
                         y=list(data),
-                        weight=2)
+                        weight=2,
+                        color=[255, 255, 0, 255])
 
 
 def save_titr_data(sender, data):
