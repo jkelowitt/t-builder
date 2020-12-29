@@ -7,6 +7,16 @@ Run the executable to open the GUI.
 Enter the data as indicated into the data entry area of the GUI. Click "Save Titration Data" or "Save Bjerrum Data" to
 save the data plotted above to a CSV file.
 
+## Features
+
+* Plot Titration curves and Relative Species Plots
+* Arbitrarily protic or functional analyte
+* Arbitrarily protic or functional titrant
+* Calculate Equivalence Points
+* Calculate where pH = pKa or pKb
+* View Derivatives of plots
+* Save Titration or Relative Species plots to CSV
+
 ## TODO:
 
 * <del>"Show Plot" method</del> ***Done 7/31/2020***
@@ -14,8 +24,7 @@ save the data plotted above to a CSV file.
 * <del>Make a N-Functional analyte option</del> ***Done 12/23/2020***
 * <del>Make a M-Functional titrant option</del> ***Done 12/23/2020***
 * <del>Support for showing Bjerrum Plots </del> ***Done 12/23/2020***
-* <del>EQ point finder (either mathematically or with 2nd deriv.)</del> (
-  See [OpenTitration](https://github.com/dalevens/OpenTitration), by Dale Evans.)
+* <del>EQ point finder (either with phi or with 2nd deriv.)</del> ***Done 12/28/2020***
 * <del>Support for different temperatures </del> ***Done 12/24/2020***
 * <del>A GUI</del> ***Done 12/26/2020***
 * <del>Make a better name</del> ***Done 12/26/2020***
@@ -24,11 +33,12 @@ save the data plotted above to a CSV file.
 * Figure out how to make the titration curve of a mixture of analytes
 * Optional activity coefficients.
 * Optional Species Names
-* Advanced Features (These combined could make a new major version)
-    * Calculate the equivalence points
-    * Plot the derivatives
+* Advanced Features
+    * <del>Calculate the equivalence points</del> ***Done 12/28/2020***
+    * <del>Plot the derivatives</del> ***Done 12/28/2020***
     * Allow for preset compounds
     * Saving and loading compounds
+* In GUI support for different temperatures
 
 ## Math
 
@@ -47,8 +57,8 @@ value for a given species at a certain concentration of hydronium can be given b
 where Omega_s is equal to the component of the sum in the denominator with the index equal to the absolute value of the
 charge on the species (assuming the un-reacted species is neutral). The un-reacted species, the species with no charge,
 s = 0, and thus Omega_s would equal the first component of the summation in the denominator. The value of gamma is the
-degree of functionality for the analyte. K_i represents the indexed dissociation constant for the analyte.These values
-can be directly ported into a bjerrum plot or predominance zone diagram.
+degree of functionality for the analyte. K_i represents the indexed dissociation constant for the analyte (For this
+notation, assume K_0 = 1). These values can be directly ported into a bjerrum plot or predominance zone diagram.
 
 With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
@@ -70,14 +80,3 @@ equation to find:
 This equation is then solved thousands of times to produce a plot of volumes to pH values. The volume of titrant is set
 as the x-axis, and the pH the y-axis, and a titration curve is born.
 
-## Observations
-
-1) On average, the class takes about 0.1s to initialize on my computer, and the precision set to 0.01.
-2) The initialization time is majorly dependent on the precision and to a lesser degree the number of pK values.
-3) I'd like to do some more research into what would be useful to have with a titration simulator. It will probably end
-   up copying a lot of what [OpenTitration](https://github.com/dalevens/OpenTitration) has already done. I'll try to do
-   something similar.
-4) I dread making a gui more than anything else. I dread making a *web app* even more, even though that is probably
-   where this program will be heading. This is the last of the items on my list for now. I'll find excuses to not work
-   on them for now though.
-5) I know that TitraSim exists, but I haven't looked into it yet. I may be making the open source version of it.     
