@@ -43,7 +43,8 @@ def make_titration(sender, data):
                      titrant=Titrant,
                      concentration_analyte=get_value("aconc"),
                      concentration_titrant=get_value("tconc"),
-                     volume_analyte=get_value("avol")
+                     volume_analyte=get_value("avol"),
+                     precision=get_value("precision")
                      )
 
     return titr
@@ -278,6 +279,15 @@ with window("Main Window", label="Something Else"):
                      callback=plot_callback,
                      tip="Show the normalized 2nd Derivative of the Titration plot.")
 
+        add_input_float("precision",
+                        label="Precision",
+                        default_value=0.01,
+                        callback=plot_callback,
+                        format='%.4f',
+                        step=0.0001,
+                        tip="The decimal point to which the pH should be calculated to. Smaller = more precise.",
+                        width=150)
+
     add_same_line()
     with group("analysis modifiers"):
         add_dummy(height=62)
@@ -312,12 +322,12 @@ with window("Main Window", label="Something Else"):
     # Put the titration curve under the data entry section
     add_next_column()
     with group("TitrationPlotGroup"):
-        add_plot("Titration", query_callback=query_titr, width=plot_width, height=plot_height)
+        add_plot("Titration", query_callback=query_titr, width=plot_width, height=plot_height, anti_aliased=True)
 
         # Put the bjerrum plot to the right of the titration curve
     add_same_line()
     with group("BjerrumPlotGroup"):
-        add_plot("Relative Species", query_callback=query_bjer, width=plot_width, height=plot_height)
+        add_plot("Relative Species", query_callback=query_bjer, width=plot_width, height=plot_height, anti_aliased=True)
 
     with group("SaveData"):
         add_button("Save Titration Data to CSV", callback=save_titr_data)
