@@ -10,6 +10,7 @@ class Compound:
     def __init__(self, name, acidic, pKs, strong):
         self.name = name
         self.acidic = acidic
+        self.pKs = pKs
         self.K = pk_to_k(pKs)
         self.strong = strong
 
@@ -17,9 +18,11 @@ class Compound:
 class AcidBase:
     def __init__(self, analyte, titrant, precision=0.01, pKw=None, temp=None):
         self.analyte_is_acidic = analyte.acidic
+        self.pk_analyte = analyte.pKs
         self.k_analyte = pk_to_k(analyte.K)
         self.titrant_acidity = titrant.acidic
         self.k_titrant = pk_to_k(titrant.K)
+        self.pk_titrant = titrant.pKs
 
         if pKw is not None:
             self.kw = 10 ** (-pKw)
