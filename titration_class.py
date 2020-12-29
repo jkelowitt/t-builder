@@ -215,7 +215,7 @@ class Titration(Bjerrum):
 
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         # Make dataframe.
-        volume, pH = self.trim_values()
+        pH, volume = self.trim_values()
         data = pd.DataFrame({"volume": volume,
                              "pH": pH})
 
