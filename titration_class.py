@@ -1,10 +1,11 @@
-import numpy as np
-import pandas as pd
+from numpy import array, e, arange, divide, where, multiply, flip
+from numpy.core.fromnumeric import prod, sum, transpose
+from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
 
 def pk_to_k(pk):
-    return np.array(10. ** (- np.array(pk)))
+    return array(10. ** (- array(pk)))
 
 
 class Compound:
@@ -38,7 +39,7 @@ class AcidBase:
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
     def starting_phs(self, min_ph=0, max_ph=14):
-        ph = np.array(np.arange(min_ph, max_ph + self.precision, step=self.precision))
+        ph = array(arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
         return ph, h, oh
@@ -78,42 +79,42 @@ class Bjerrum(AcidBase):
                 sub_item *= i
                 sub_arr.append(sub_item)
             new_arr.append(sub_arr)
-        new_arr = np.array(new_arr)
+        new_arr = array(new_arr)
 
         return new_arr
 
     def alpha_values(self, k, acid=True):
         # Convert the k values to a list to help with matrix transformations.
-        k = np.array(k)
+        k = array(k)
 
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
-            k = self.kw / np.flip(k)
+            k = self.kw / flip(k)
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
 
         # Get the values for the [H+]^n power
-        powers = np.array([x for x in range(n, -1, -1)])  # List of powers
-        h_vals = np.array([np.array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
+        powers = array([x for x in range(n, -1, -1)])  # List of powers
+        h_vals = array([array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
 
         # Get the products of the k values.
-        k_vals = [np.prod(k[0:x]) for x in range(n + 1)]
+        k_vals = [prod(k[0:x]) for x in range(n + 1)]
 
         # Prod and Sum the h and k values
-        h_vals = h_vals.T  # Reorient the array for multiplication
-        denoms_arr = np.multiply(h_vals, k_vals)  # Product of the sub-elements of the denominator
-        denoms = np.sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
+        h_vals = transpose(h_vals)  # Reorient the array for multiplication
+        denoms_arr = multiply(h_vals, k_vals)  # Product of the sub-elements of the denominator
+        denoms = sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
 
         # Do the outermost alpha value calculation
-        tda = np.transpose(denoms_arr)  # Transpose the array to the correct orientation for the division
-        div_arr = np.divide(tda, denoms)  # Divide
-        alphas = np.transpose(div_arr)  # Re-transpose to the logically correct orientation
+        tda = transpose(denoms_arr)  # Transpose the array to the correct orientation for the division
+        div_arr = divide(tda, denoms)  # Divide
+        alphas = transpose(div_arr)  # Re-transpose to the logically correct orientation
 
         if not acid:
-            return np.flip(alphas, axis=0)
+            return flip(alphas, axis=0)
 
-        return np.array(alphas)
+        return array(alphas)
 
     def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
         # Initialize the dataframe with the ph values
@@ -121,17 +122,17 @@ class Bjerrum(AcidBase):
 
         # Add the alpha values for each analyte species
         if species_names is None:  # If names are not specified, just use generics.
-            for num, alpha in enumerate(self.alpha_analyte.T):
+            for num, alpha in enumerate(transpose(self.alpha_analyte)):
                 data_dict[f"alpha{num}"] = alpha
         else:  # If names are specified, use them.
-            for num, alpha in enumerate(self.alpha_analyte.T):
+            for num, alpha in enumerate(transpose(self.alpha_analyte)):
                 try:
                     data_dict[species_names[num]] = alpha
                 except IndexError:
                     raise ValueError("You have not supplied enough species names!")
 
         # Make and write the data frame to a csv
-        data = pd.DataFrame(data_dict)
+        data = DataFrame(data_dict)
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
 
 
@@ -163,7 +164,7 @@ class Titration(Bjerrum):
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
-        good_val_index = np.where((self.phi >= 0) & (self.phi <= limiter))
+        good_val_index = where((self.phi >= 0) & (self.phi <= limiter))
 
         # Trim the values for every chosen data set
         rets = (kwargs[kw][good_val_index] for kw in kwargs)  # Add the trimmed dataset to the return variable
@@ -181,14 +182,14 @@ class Titration(Bjerrum):
         # The alpha values are calculated to be almost exactly 1 anyways, but letting it calculate as normal breaks the
         #  calculation
         if self.strong_analyte:
-            summed_scaled_alphas_analyte = np.array([1])
+            summed_scaled_alphas_analyte = array([1])
         else:
-            summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
+            summed_scaled_alphas_analyte = sum(scaled_alphas_analyte, axis=1)
 
         if self.strong_titrant:
-            summed_scaled_alphas_titrant = np.array([1])
+            summed_scaled_alphas_titrant = array([1])
         else:
-            summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
+            summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
 
         beta = self.hydronium - self.hydroxide  # No technical definition
 
@@ -208,7 +209,7 @@ class Titration(Bjerrum):
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         # Make dataframe.
         pH, volume = self.trim_values(ph=self.ph, volume=self.volume_titrant)
-        data = pd.DataFrame({"volume": volume,
+        data = DataFrame({"volume": volume,
                              "pH": pH})
 
         # Write to a csv.
@@ -216,12 +217,12 @@ class Titration(Bjerrum):
 
     def find_buffer_points(self):
         pH, volume = self.trim_values(ph=self.ph, volume=self.volume_titrant)
-        pKas = np.array(self.pk_analyte)
+        pKas = array(self.pk_analyte)
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
             try:
-                volume_indices.append(np.where(pH == pKa)[0][0])
+                volume_indices.append(where(pH == pKa)[0][0])
             except IndexError:
                 pass
 
@@ -232,7 +233,7 @@ class Titration(Bjerrum):
         points = []
         for i in range(1, len(self.pk_analyte) + 1):
             closest_value = min(phi, key=lambda x: abs(x - i))
-            points.append(np.where(phi == closest_value)[0][0])
+            points.append(where(phi == closest_value)[0][0])
 
         return volume[points], pH[points]
 
@@ -260,5 +261,5 @@ class Titration(Bjerrum):
         # return a + ((data - np.average(data)) * (a)) / (max(data) - min(data))
 
         """Sigmoid scaling"""
-        ee = np.e ** data
+        ee = e ** data
         return a * (ee / (ee + 1))
