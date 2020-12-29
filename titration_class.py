@@ -155,7 +155,7 @@ class Titration(Bjerrum):
         # Trimmed values for gui plot
         self.ph_t, self.volume_titrant_t = self.trim_values()
 
-    def trim_values(self):
+    def trim_values(self, **kwargs):
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
@@ -165,7 +165,15 @@ class Titration(Bjerrum):
         volume_titrant = self.volume_titrant[good_val_index]
         ph = self.ph[good_val_index]
 
-        return ph, volume_titrant
+        # If you want to trim any extra values, do so heres
+        rets = []
+        for kw in kwargs:
+            rets.append(kwargs[kw][good_val_index])
+
+        if rets != []:
+            return ph, volume_titrant, *tuple(rets)
+        else:
+            return ph, volume_titrant
 
     def calculate_volume(self, acid_titrant):
 
