@@ -12,16 +12,11 @@ plot_height = 510
 data_width = 200
 
 
-def query_titr(sender, data):
-    show_item("Plot Window")
-    set_plot_xlimits("titration_curve", data[0], data[1])
-    set_plot_ylimits("titration_curve", data[2], data[3])
+def query(sender, data):
+    set_plot_xlimits(sender, data[0], data[1])
+    set_plot_ylimits(sender, data[2], data[3])
 
 
-def query_bjer(sender, data):
-    show_item("Plot Window")
-    set_plot_xlimits("bjerrum_curve", data[0], data[1])
-    set_plot_ylimits("bjerrum_curve", data[2], data[3])
 
 
 def make_titration(sender, data):
@@ -322,12 +317,12 @@ with window("Main Window", label="Something Else"):
     # Put the titration curve under the data entry section
     add_next_column()
     with group("TitrationPlotGroup"):
-        add_plot("Titration", query_callback=query_titr, width=plot_width, height=plot_height, anti_aliased=True)
+        add_plot("Titration", query_callback=query, width=plot_width, height=plot_height, anti_aliased=True)
 
         # Put the bjerrum plot to the right of the titration curve
     add_same_line()
     with group("BjerrumPlotGroup"):
-        add_plot("Relative Species", query_callback=query_bjer, width=plot_width, height=plot_height, anti_aliased=True)
+        add_plot("Relative Species", query_callback=query, width=plot_width, height=plot_height, anti_aliased=True)
 
     with group("SaveData"):
         add_button("Save Titration Data to CSV", callback=save_titr_data)
