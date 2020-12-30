@@ -47,6 +47,18 @@ def plot_callback(sender, data):
     clear_plot("Titration")
     clear_plot("Relative Species")
 
+    value = get_value(sender)
+
+    # Band-aid fix to issue #10. Everything which needs to be kept in a certain range must have callback_data
+    try:
+        if value < data[0]:
+            set_value(sender, data[0])
+            clear_plot("Titration")
+            clear_plot("Relative Species")
+            return
+    except TypeError:  # If the widget doesn't give you a number to check, don't check its value.
+        pass
+
     titr = make_titration(sender, data)
 
     # Perform titration calculations
@@ -172,6 +184,7 @@ with window("Main Window", label="Something Else"):
                         label="Analyte Concentration (M)",
                         default_value=0.10,
                         callback=plot_callback,
+                        callback_data=[0],
                         tip="Enter the concentration of the analyte in molarity.",
                         )
 
@@ -186,6 +199,7 @@ with window("Main Window", label="Something Else"):
                         label="Analyte Volume (mL)",
                         default_value=25,
                         callback=plot_callback,
+                        callback_data=[0],
                         tip="Enter the volume of the analyte in mL."
                         )
 
@@ -223,6 +237,7 @@ with window("Main Window", label="Something Else"):
                         label="Titrant Concentration (M)",
                         default_value=0.10,
                         callback=plot_callback,
+                        callback_data=[0],
                         tip="Enter the concentration of the titrant in molarity."
                         )
 
@@ -275,8 +290,6 @@ with window("Main Window", label="Something Else"):
         add_input_int("precision",
                       label="Precision",
                       default_value=2,
-                      # min_value=0,
-                      # max_value=4,
                       callback=plot_callback,
                       tip="The number of decimal points to calculate the pH to.",
                       width=65)
