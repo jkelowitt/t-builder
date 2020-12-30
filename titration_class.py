@@ -8,6 +8,11 @@ def pk_to_k(pk):
     return array(10. ** (- array(pk)))
 
 
+def closest_value(num, arr):
+    """Returns the closest value to the number in the array."""
+    return min(arr, key=lambda x: abs(x - num))
+
+
 class Compound:
     def __init__(self, name, acidic, pKs, strong):
         self.name = name
@@ -232,8 +237,8 @@ class Titration(Bjerrum):
         pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
         points = []
         for i in range(1, len(self.pk_analyte) + 1):
-            closest_value = min(phi, key=lambda x: abs(x - i))
-            points.append(where(phi == closest_value)[0][0])
+            closest = closest_value(i, phi)
+            points.append(where(phi == closest)[0][0])
 
         return volume[points], pH[points]
 

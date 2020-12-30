@@ -17,8 +17,6 @@ def query(sender, data):
     set_plot_ylimits(sender, data[2], data[3])
 
 
-
-
 def make_titration(sender, data):
     # Create compounds
     Analyte = Compound(name=get_value("Analyte Name"),
@@ -77,6 +75,9 @@ def plot_callback(sender, data):
 
     if get_value("buffer_regions"):
         vols, pHs = titr.find_buffer_points()
+
+        vols = list(vols)
+        pHs = list(pHs)
 
         add_scatter_series(plot="Titration",
                            name="Buffer Points",
