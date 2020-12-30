@@ -1,4 +1,4 @@
-dearpygui~=0.6.42
+dearpygui~=0.6.117
 numpy~=1.20.0rc2
 pandas~=1.2.0
 scipy~=1.5.4
