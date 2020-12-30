@@ -158,16 +158,16 @@ class Titration(Bjerrum):
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant_acidity)
 
         # Trimmed values for gui plot
-        self.ph_t, self.volume_titrant_t = self.trim_values(ph=self.ph, volume=self.volume_titrant)
+        self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
 
-    def trim_values(self, **kwargs):
+    def trim_values(self, *args):
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
         good_val_index = where((self.phi >= 0) & (self.phi <= limiter))
 
         # Trim the values for every chosen data set
-        rets = (kwargs[kw][good_val_index] for kw in kwargs)  # Add the trimmed dataset to the return variable
+        rets = (arg[good_val_index] for arg in args)  # Add the trimmed dataset to the return variable
 
         return rets
 
@@ -208,7 +208,7 @@ class Titration(Bjerrum):
 
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         # Make dataframe.
-        pH, volume = self.trim_values(ph=self.ph, volume=self.volume_titrant)
+        pH, volume = self.trim_values(self.ph, self.volume_titrant)
         data = DataFrame({"volume": volume,
                           "pH": pH})
 
@@ -216,7 +216,7 @@ class Titration(Bjerrum):
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
 
     def find_buffer_points(self):
-        pH, volume = self.trim_values(ph=self.ph, volume=self.volume_titrant)
+        pH, volume = self.trim_values(self.ph, self.volume_titrant)
         pKas = array(self.pk_analyte)
         # All the volumes where the pH equals pKa
         volume_indices = []
@@ -229,7 +229,7 @@ class Titration(Bjerrum):
         return volume[volume_indices], pKas
 
     def find_equiv_points(self):
-        pH, volume, phi = self.trim_values(ph=self.ph, volume=self.volume_titrant, phi=self.phi)
+        pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
         points = []
         for i in range(1, len(self.pk_analyte) + 1):
             closest_value = min(phi, key=lambda x: abs(x - i))
@@ -238,7 +238,7 @@ class Titration(Bjerrum):
         return volume[points], pH[points]
 
     def deriv(self, degree):
-        pH, volume = self.trim_values(pH=self.ph, volume=self.volume_titrant)
+        pH, volume = self.trim_values(self.ph, self.volume_titrant)
 
         # An object which makes splines
         spline_maker = IUS(volume, pH)
