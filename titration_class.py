@@ -1,4 +1,4 @@
-from numpy import array, e, arange, divide, where, multiply, flip
+from numpy import array, e, arange, divide, where, multiply, flip, average
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -254,11 +254,14 @@ class Titration(Bjerrum):
     @staticmethod
     def scale_data(data, a):
 
-        # """Linear Scale"""
+        # """Linear Scale, Garbage. Allows for negative values"""
         # return data * a
 
-        # """See min-max feature scaling for where this equation came from. (b=0)"""
-        # return a + ((data - np.average(data)) * (a)) / (max(data) - min(data))
+        # """min-max normalization (b=0), """
+        # return a + ((data - average(data)) * (a)) / (max(data) - min(data))
+
+        # """Mean normalization"""
+        # return a * (data - average(data)) / (max(data) - min(data))
 
         """Sigmoid scaling"""
         ee = e ** data
