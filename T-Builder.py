@@ -281,6 +281,7 @@ with window("Main Window", label="Something Else"):
                         tip="The decimal point to which the pH should be calculated to. Smaller = more precise.",
                         width=150)
 
+    # Modifications to the analysis methods
     add_same_line()
     with group("analysis modifiers"):
         add_dummy(height=62)
