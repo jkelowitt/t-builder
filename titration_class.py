@@ -71,7 +71,7 @@ class AcidBase:
 
 class Bjerrum(AcidBase):
 
-    def __init__(self, analyte, titrant, precision=2, pKw=None, temp=None):
+    def __init__(self, analyte, titrant, precision, pKw=None, temp=None):
 
         super().__init__(analyte, titrant, precision, pKw, temp)
 
@@ -149,7 +149,7 @@ class Titration(Bjerrum):
     A class which defines a titration and predominance curve based on the used analyte and titrant.
     """
 
-    def __init__(self, analyte, titrant, volume_analyte, concentration_analyte, concentration_titrant, precision=0.01,
+    def __init__(self, analyte, titrant, volume_analyte, concentration_analyte, concentration_titrant, precision,
                  pKw=None, temp=None):
         super().__init__(analyte, titrant, precision, pKw, temp)
 
