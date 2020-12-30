@@ -1,4 +1,4 @@
-from numpy import array, e, arange, divide, where, multiply, flip, average, round
+from numpy import array, e, arange, divide, where, multiply, flip
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -226,15 +226,11 @@ class Titration(Bjerrum):
     def find_buffer_points(self):
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         pKas = array(self.pk_analyte)
-        pH = round(pH, 5)
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
-            try:
-                places = where(pKa == pH)[0][0]
-                volume_indices.append(places)
-            except IndexError:
-                print("An Index Error has occurred in the find_buffer_points function.")
+            places = where(pH == closest_value(pKa, pH))[0][0]
+            volume_indices.append(places)
 
         return volume[volume_indices], pKas
 
@@ -263,16 +259,6 @@ class Titration(Bjerrum):
 
     @staticmethod
     def scale_data(data, a):
-
-        # """Linear Scale, Garbage. Allows for negative values"""
-        # return data * a
-
-        # """min-max normalization (b=0), """
-        # return a + ((data - average(data)) * (a)) / (max(data) - min(data))
-
-        # """Mean normalization"""
-        # return a * (data - average(data)) / (max(data) - min(data))
-
         """Sigmoid scaling"""
         ee = e ** data
         return a * (ee / (ee + 1))
