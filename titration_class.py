@@ -47,7 +47,10 @@ class AcidBase:
         ph = array(arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
-        return ph, h, oh
+        if self.analyte_is_acidic:
+            return ph, h, oh
+        else:
+            return ph[::-1], h[::-1], oh[::-1]
 
     @staticmethod
     def get_kw(temp):
