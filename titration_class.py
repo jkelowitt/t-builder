@@ -1,4 +1,4 @@
-from numpy import array, e, arange, divide, where, multiply, flip, average
+from numpy import array, e, arange, divide, where, multiply, flip, average, round
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -223,13 +223,15 @@ class Titration(Bjerrum):
     def find_buffer_points(self):
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         pKas = array(self.pk_analyte)
+        pH = round(pH, 5)
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
             try:
-                volume_indices.append(where(pH == pKa)[0][0])
+                places = where(pKa == pH)[0][0]
+                volume_indices.append(places)
             except IndexError:
-                pass
+                print("An Index Error has occurred in the find_buffer_points function.")
 
         return volume[volume_indices], pKas
 
