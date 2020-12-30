@@ -78,9 +78,6 @@ def plot_callback(sender, data):
     if get_value("buffer_regions"):
         vols, pHs = titr.find_buffer_points()
 
-        vols = list(vols)
-        pHs = list(pHs)
-
         add_scatter_series(plot="Titration",
                            name="Buffer Points",
                            x=vols,
@@ -174,7 +171,7 @@ with window("Main Window", label="Something Else"):
                         label="Analyte Concentration (M)",
                         default_value=0.10,
                         callback=plot_callback,
-                        tip="Enter the concentration of the analyte in molarity."
+                        tip="Enter the concentration of the analyte in molarity.",
                         )
 
         add_input_text('apk',
@@ -319,7 +316,7 @@ with window("Main Window", label="Something Else"):
     with group("TitrationPlotGroup"):
         add_plot("Titration", query_callback=query, width=plot_width, height=plot_height, anti_aliased=True)
 
-        # Put the bjerrum plot to the right of the titration curve
+    # Put the bjerrum plot to the right of the titration curve
     add_same_line()
     with group("BjerrumPlotGroup"):
         add_plot("Relative Species", query_callback=query, width=plot_width, height=plot_height, anti_aliased=True)
