@@ -1,4 +1,4 @@
-from numpy import array, e, arange, divide, where, multiply, flip
+from numpy import array, e, arange, divide, where, multiply, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -259,6 +259,5 @@ class Titration(Bjerrum):
 
     @staticmethod
     def scale_data(data, a):
-        """Sigmoid scaling"""
-        ee = e ** data
-        return a * (ee / (ee + 1))
+        """abs normalization"""
+        return a * (data / (1 + abs(data)))
