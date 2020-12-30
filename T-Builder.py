@@ -301,9 +301,8 @@ with window("Main Window", label="Something Else"):
 
         add_drag_float("1dscaler",
                        label="Scale y'",
-                       default_value=1,
+                       default_value=8,
                        min_value=1,
-                       max_value=30,
                        speed=0.1,
                        width=80,
                        format='%0.2f',
@@ -313,9 +312,8 @@ with window("Main Window", label="Something Else"):
 
         add_drag_float("2dscaler",
                        label="Scale y''",
-                       default_value=1,
+                       default_value=2,
                        min_value=1,
-                       max_value=30,
                        speed=0.1,
                        width=80,
                        format='%0.2f',
