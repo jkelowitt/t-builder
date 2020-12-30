@@ -23,7 +23,7 @@ class Compound:
 
 
 class AcidBase:
-    def __init__(self, analyte, titrant, precision=0.01, pKw=None, temp=None):
+    def __init__(self, analyte, titrant, precision=2, pKw=None, temp=None):
         self.analyte_is_acidic = analyte.acidic
         self.pk_analyte = analyte.pKs
         self.k_analyte = pk_to_k(analyte.K)
@@ -40,7 +40,7 @@ class AcidBase:
 
         self.strong_analyte = analyte.strong
         self.strong_titrant = titrant.strong
-        self.precision = precision
+        self.precision = 10 ** -precision
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
     def starting_phs(self, min_ph=0, max_ph=14):
@@ -68,7 +68,7 @@ class AcidBase:
 
 class Bjerrum(AcidBase):
 
-    def __init__(self, analyte, titrant, precision=0.01, pKw=None, temp=None):
+    def __init__(self, analyte, titrant, precision=2, pKw=None, temp=None):
 
         super().__init__(analyte, titrant, precision, pKw, temp)
 

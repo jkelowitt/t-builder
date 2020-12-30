@@ -272,14 +272,14 @@ with window("Main Window", label="Something Else"):
                      callback=plot_callback,
                      tip="Show the normalized 2nd Derivative of the Titration plot.")
 
-        add_input_float("precision",
-                        label="Precision",
-                        default_value=0.01,
-                        callback=plot_callback,
-                        format='%.4f',
-                        step=0.0001,
-                        tip="The decimal point to which the pH should be calculated to. Smaller = more precise.",
-                        width=150)
+        add_input_int("precision",
+                      label="Precision",
+                      default_value=2,
+                      # min_value=0,
+                      # max_value=4,
+                      callback=plot_callback,
+                      tip="The number of decimal points to calculate the pH to.",
+                      width=65)
 
     # Modifications to the analysis methods
     add_same_line()
