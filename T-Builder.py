@@ -26,7 +26,7 @@ from dearpygui.simple import window, group
 from titration_class import Compound, Titration
 
 __author__ = "jkelowitt"
-__version__ = "v2.2.5"
+__version__ = "v2.2.6"
 __license__ = "MIT"
 
 plot_width = 615
@@ -190,16 +190,12 @@ def save_titr_data(sender, data):
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_titr".replace(" ", "_")
     titr.write_titration_data(title=title)
-    with window("File Saved!##1"):
-        add_text(f"File saved to {title}.csv")
 
 
 def save_bjer_data(sender, data):
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_bjer".replace(" ", "_")
     titr.write_alpha_data(title=title)
-    with window("File Saved!##2"):
-        add_text(f"File saved to {title}.csv")
 
 
 # Main gui formatting
