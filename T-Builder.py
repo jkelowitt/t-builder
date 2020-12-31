@@ -1,8 +1,26 @@
-from dearpygui.core import set_plot_xlimits, set_plot_ylimits, get_value, clear_plot
-from dearpygui.core import add_scatter_series, add_text, set_main_window_size, add_annotation
-from dearpygui.core import add_input_float, add_checkbox, add_same_line, add_input_int
-from dearpygui.core import add_next_column, add_plot, set_value, add_line_series
-from dearpygui.core import add_dummy, add_input_text, add_drag_float, add_button, start_dearpygui
+from dearpygui.core import (
+    set_plot_xlimits,
+    set_plot_ylimits,
+    get_value,
+    clear_plot,
+    add_scatter_series,
+    add_text,
+    set_main_window_size,
+    add_annotation,
+    add_input_float,
+    add_checkbox,
+    add_same_line,
+    add_input_int,
+    add_next_column,
+    add_plot,
+    set_value,
+    add_line_series,
+    add_dummy,
+    add_input_text,
+    add_drag_float,
+    add_button,
+    start_dearpygui,
+)
 from dearpygui.simple import window, group
 
 from titration_class import Compound, Titration
@@ -21,28 +39,31 @@ def query(sender, data):
     set_plot_ylimits(sender, data[2], data[3])
 
 
-def make_titration(sender, data):
+def make_titration():
     # Create compounds
-    Analyte = Compound(name=get_value("Analyte Name"),
-                       acidic=get_value("aa"),
-                       pKs=[float(i) for i in get_value("apk").split(",")],
-                       strong=get_value("as")
-                       )
+    Analyte = Compound(
+        name=get_value("Analyte Name"),
+        acidic=get_value("aa"),
+        pKs=[float(i) for i in get_value("apk").split(",")],
+        strong=get_value("as"),
+    )
 
-    Titrant = Compound(name=get_value("tname"),
-                       acidic=not get_value("aa"),
-                       pKs=[float(i) for i in get_value("tpk").split(",")],
-                       strong=get_value("ts")
-                       )
+    Titrant = Compound(
+        name=get_value("tname"),
+        acidic=not get_value("aa"),
+        pKs=[float(i) for i in get_value("tpk").split(",")],
+        strong=get_value("ts"),
+    )
 
     # Create titration object
-    titr = Titration(analyte=Analyte,
-                     titrant=Titrant,
-                     concentration_analyte=get_value("aconc"),
-                     concentration_titrant=get_value("tconc"),
-                     volume_analyte=get_value("avol"),
-                     precision=get_value("precision")
-                     )
+    titr = Titration(
+        analyte=Analyte,
+        titrant=Titrant,
+        concentration_analyte=get_value("aconc"),
+        concentration_titrant=get_value("tconc"),
+        volume_analyte=get_value("avol"),
+        precision=get_value("precision"),
+    )
 
     return titr
 
@@ -63,19 +84,21 @@ def plot_callback(sender, data):
     except TypeError:  # If the widget doesn't give you a number to check, don't check its value.
         pass
 
-    titr = make_titration(sender, data)
+    titr = make_titration()
 
     # Perform titration calculations
     tx = list(titr.volume_titrant_t)
     ty = list(titr.ph_t)
 
     # plot the calculations
-    add_line_series(plot="Titration",
-                    name="Titration Curve",
-                    x=tx,
-                    y=ty,
-                    weight=2,
-                    color=[0, 255, 255, 255])
+    add_line_series(
+        plot="Titration",
+        name="Titration Curve",
+        x=tx,
+        y=ty,
+        weight=2,
+        color=[0, 255, 255, 255],
+    )
 
     # Perform bjerrum calculations
     bx = list(titr.ph)
@@ -83,11 +106,7 @@ def plot_callback(sender, data):
 
     # For every alpha value list, plot the alpha values at every pH and add the line to the plot
     for num, alpha in enumerate(bys):
-        add_line_series(plot="Relative Species",
-                        name=f"species{num}",
-                        x=bx,
-                        y=alpha,
-                        weight=2)
+        add_line_series(plot="Relative Species", name=f"species{num}", x=bx, y=alpha, weight=2)
 
     if get_value("buffer_regions"):
         vols, pHs = titr.find_buffer_points()
@@ -95,13 +114,15 @@ def plot_callback(sender, data):
         vols = list(vols)
         pHs = list(pHs)
 
-        add_scatter_series(plot="Titration",
-                           name="Buffer Points",
-                           x=vols,
-                           y=pHs,
-                           fill=[255, 0, 0, 255],
-                           outline=[255, 0, 0, 255],
-                           weight=2)
+        add_scatter_series(
+            plot="Titration",
+            name="Buffer Points",
+            x=vols,
+            y=pHs,
+            fill=[255, 0, 0, 255],
+            outline=[255, 0, 0, 255],
+            weight=2,
+        )
 
         # Add labels to the volumes of each point
         for vol, pH in zip(vols, pHs):
@@ -113,13 +134,15 @@ def plot_callback(sender, data):
         vols = list(vols)
         pHs = list(pHs)
 
-        add_scatter_series(plot="Titration",
-                           name="Equivalence Points",
-                           x=vols,
-                           y=pHs,
-                           fill=[0, 255, 0, 255],
-                           outline=[0, 255, 0, 255],
-                           weight=2)
+        add_scatter_series(
+            plot="Titration",
+            name="Equivalence Points",
+            x=vols,
+            y=pHs,
+            fill=[0, 255, 0, 255],
+            outline=[0, 255, 0, 255],
+            weight=2,
+        )
 
         # Add labels to the volumes of each point
         for vol, pH in zip(vols, pHs):
@@ -130,44 +153,48 @@ def plot_callback(sender, data):
 
         data = titr.scale_data(pHderiv, get_value("1dscaler"))
 
-        add_line_series(plot="Titration",
-                        name="First Derivative",
-                        x=list(volume),
-                        y=list(data),
-                        weight=2,
-                        color=[255, 0, 255, 255])
+        add_line_series(
+            plot="Titration",
+            name="First Derivative",
+            x=list(volume),
+            y=list(data),
+            weight=2,
+            color=[255, 0, 255, 255],
+        )
 
     if get_value("2ndderiv"):
         volume, pHderiv = titr.deriv(degree=2)
 
         data = titr.scale_data(pHderiv, get_value("2dscaler"))
 
-        add_line_series(plot="Titration",
-                        name="Second Derivative",
-                        x=list(volume),
-                        y=list(data),
-                        weight=2,
-                        color=[255, 255, 0, 255])
+        add_line_series(
+            plot="Titration",
+            name="Second Derivative",
+            x=list(volume),
+            y=list(data),
+            weight=2,
+            color=[255, 255, 0, 255],
+        )
 
 
 def save_titr_data(sender, data):
-    titr = make_titration(sender, data)
-    title = f"{get_value('aname')}_{get_value('tname')}_titr".replace(' ', '_')
+    titr = make_titration()
+    title = f"{get_value('aname')}_{get_value('tname')}_titr".replace(" ", "_")
     titr.write_titration_data(title=title)
     with window("File Saved!##1"):
         add_text(f"File saved to {title}.csv")
 
 
 def save_bjer_data(sender, data):
-    titr = make_titration(sender, data)
-    title = f"{get_value('aname')}_{get_value('tname')}_bjer".replace(' ', '_')
+    titr = make_titration()
+    title = f"{get_value('aname')}_{get_value('tname')}_bjer".replace(" ", "_")
     titr.write_alpha_data(title=title)
     with window("File Saved!##2"):
         add_text(f"File saved to {title}.csv")
 
 
 # Main gui formatting
-with window("Main Window", label="Something Else"):
+with window("Main Window", label="Something Else", autosize=True):
     set_main_window_size(width=1270, height=820)
 
     # Project name
@@ -177,49 +204,55 @@ with window("Main Window", label="Something Else"):
     # Get the analyte data
     with group("Analyte", width=data_width):
         add_text("Analyte Data")
-        add_input_text('aname',
-                       label="Analyte Name",
-                       default_value="Citric Acid",
-                       callback=plot_callback,
-                       tip="Enter the name of the analyte. This is used when making the data files."
-                       )
+        add_input_text(
+            "aname",
+            label="Analyte Name",
+            default_value="Citric Acid",
+            callback=plot_callback,
+            tip="Enter the name of the analyte. This is used when making the data files.",
+        )
 
-        add_input_float('aconc',
-                        label="Analyte Concentration (M)",
-                        default_value=0.10,
-                        callback=plot_callback,
-                        callback_data=[0],
-                        tip="Enter the concentration of the analyte in molarity.",
-                        )
+        add_input_float(
+            "aconc",
+            label="Analyte Concentration (M)",
+            default_value=0.10,
+            callback=plot_callback,
+            callback_data=[0],
+            tip="Enter the concentration of the analyte in molarity.",
+        )
 
-        add_input_text('apk',
-                       label="Analyte pK value(s)",
-                       default_value="3.13, 4.76, 6.40",
-                       callback=plot_callback,
-                       tip="Enter the pK values of the analyte. Separate them with commas if there are more than one."
-                       )
+        add_input_text(
+            "apk",
+            label="Analyte pK value(s)",
+            default_value="3.13, 4.76, 6.40",
+            callback=plot_callback,
+            tip="Enter the pK values of the analyte. Separate them with commas if there are more than one.",
+        )
 
-        add_input_float('avol',
-                        label="Analyte Volume (mL)",
-                        default_value=25,
-                        callback=plot_callback,
-                        callback_data=[0],
-                        tip="Enter the volume of the analyte in mL."
-                        )
+        add_input_float(
+            "avol",
+            label="Analyte Volume (mL)",
+            default_value=25,
+            callback=plot_callback,
+            callback_data=[0],
+            tip="Enter the volume of the analyte in mL.",
+        )
 
-        add_checkbox('aa',
-                     label="Analyte is acidic",
-                     default_value=True,
-                     callback=plot_callback,
-                     tip="Check this box if the analyte acts as an acid during this titration."
-                     )
+        add_checkbox(
+            "aa",
+            label="Analyte is acidic",
+            default_value=True,
+            callback=plot_callback,
+            tip="Check this box if the analyte acts as an acid during this titration.",
+        )
 
-        add_checkbox('as',
-                     label="Analyte is strong",
-                     default_value=False,
-                     callback=plot_callback,
-                     tip="Check this box if the titrant is a strong acid or base."
-                     )
+        add_checkbox(
+            "as",
+            label="Analyte is strong",
+            default_value=False,
+            callback=plot_callback,
+            tip="Check this box if the titrant is a strong acid or base.",
+        )
 
     # Add some spacing between the analyte and titrant data collection
     add_same_line()
@@ -230,34 +263,38 @@ with window("Main Window", label="Something Else"):
     with group("Titrant", width=data_width):
         add_text("Titrant Data")
 
-        add_input_text("tname",
-                       label="Titrant Name",
-                       default_value="KOH",
-                       callback=plot_callback,
-                       tip="Enter the name of the titrant. This is used when naming the data files."
-                       )
+        add_input_text(
+            "tname",
+            label="Titrant Name",
+            default_value="KOH",
+            callback=plot_callback,
+            tip="Enter the name of the titrant. This is used when naming the data files.",
+        )
 
-        add_input_float("tconc",
-                        label="Titrant Concentration (M)",
-                        default_value=0.10,
-                        callback=plot_callback,
-                        callback_data=[0],
-                        tip="Enter the concentration of the titrant in molarity."
-                        )
+        add_input_float(
+            "tconc",
+            label="Titrant Concentration (M)",
+            default_value=0.10,
+            callback=plot_callback,
+            callback_data=[0],
+            tip="Enter the concentration of the titrant in molarity.",
+        )
 
-        add_input_text("tpk",
-                       label="Titrant pK value(s)",
-                       default_value="0.20",
-                       callback=plot_callback,
-                       tip="Enter the pK values of the titrant. Separate them with commas if there are more than one."
-                       )
+        add_input_text(
+            "tpk",
+            label="Titrant pK value(s)",
+            default_value="0.20",
+            callback=plot_callback,
+            tip="Enter the pK values of the titrant. Separate them with commas if there are more than one.",
+        )
 
-        add_checkbox("ts",
-                     label="Titrant is strong",
-                     default_value=True,
-                     callback=plot_callback,
-                     tip="Check this box if the titrant is a strong acid or base."
-                     )
+        add_checkbox(
+            "ts",
+            label="Titrant is strong",
+            default_value=True,
+            callback=plot_callback,
+            tip="Check this box if the titrant is a strong acid or base.",
+        )
 
     # Add some spacing between the titrant and analysis section
     add_same_line()
@@ -267,63 +304,75 @@ with window("Main Window", label="Something Else"):
     add_same_line()
     with group("analysis"):
         add_text("Perform Analysis")
-        add_checkbox("buffer_regions",
-                     label="Show Buffering Points",
-                     default_value=False,
-                     callback=plot_callback,
-                     tip="Show the center of the buffering regions on the Titration plot.")
+        add_checkbox(
+            "buffer_regions",
+            label="Show Buffering Points",
+            default_value=False,
+            callback=plot_callback,
+            tip="Show the center of the buffering regions on the Titration plot.",
+        )
 
-        add_checkbox("equiv",
-                     label="Show Equivalence Points",
-                     default_value=False,
-                     callback=plot_callback,
-                     tip="Show the equivalence points on the Titration plot.")
+        add_checkbox(
+            "equiv",
+            label="Show Equivalence Points",
+            default_value=False,
+            callback=plot_callback,
+            tip="Show the equivalence points on the Titration plot.",
+        )
 
-        add_checkbox("1stderiv",
-                     label="Show normalized y'",
-                     default_value=False,
-                     callback=plot_callback,
-                     tip="Show the normalized 1st Derivative of the Titration plot")
+        add_checkbox(
+            "1stderiv",
+            label="Show normalized y'",
+            default_value=False,
+            callback=plot_callback,
+            tip="Show the normalized 1st Derivative of the Titration plot",
+        )
 
-        add_checkbox("2ndderiv",
-                     label="Show normalized y''",
-                     default_value=False,
-                     callback=plot_callback,
-                     tip="Show the normalized 2nd Derivative of the Titration plot.")
+        add_checkbox(
+            "2ndderiv",
+            label="Show normalized y''",
+            default_value=False,
+            callback=plot_callback,
+            tip="Show the normalized 2nd Derivative of the Titration plot.",
+        )
 
-        add_input_int("precision",
-                      label="Precision",
-                      default_value=2,
-                      callback=plot_callback,
-                      tip="The number of decimal points to calculate the pH to. (>=1)",
-                      width=65)
+        add_input_int(
+            "precision",
+            label="Precision",
+            default_value=2,
+            callback=plot_callback,
+            tip="The number of decimal points to calculate the pH to. (>=1)",
+            width=65,
+        )
 
     # Modifications to the analysis methods
     add_same_line()
     with group("analysis modifiers"):
         add_dummy(height=62)
 
-        add_drag_float("1dscaler",
-                       label="Scale y'",
-                       default_value=8,
-                       min_value=1,
-                       speed=0.1,
-                       width=80,
-                       format='%0.2f',
-                       callback=plot_callback,
-                       tip="Scale the 1st Derivative of the Titration plot."
-                       )
+        add_drag_float(
+            "1dscaler",
+            label="Scale y'",
+            default_value=8,
+            min_value=1,
+            speed=0.1,
+            width=80,
+            format="%0.2f",
+            callback=plot_callback,
+            tip="Scale the 1st Derivative of the Titration plot.",
+        )
 
-        add_drag_float("2dscaler",
-                       label="Scale y''",
-                       default_value=2,
-                       min_value=1,
-                       speed=0.1,
-                       width=80,
-                       format='%0.2f',
-                       callback=plot_callback,
-                       tip="Scale the 2nd Derivative of the Titration plot."
-                       )
+        add_drag_float(
+            "2dscaler",
+            label="Scale y''",
+            default_value=2,
+            min_value=1,
+            speed=0.1,
+            width=80,
+            format="%0.2f",
+            callback=plot_callback,
+            tip="Scale the 2nd Derivative of the Titration plot.",
+        )
 
     add_button("Plot data", callback=plot_callback, width=data_width * 2)
     add_dummy(height=10)
@@ -331,12 +380,24 @@ with window("Main Window", label="Something Else"):
     # Put the titration curve under the data entry section
     add_next_column()
     with group("TitrationPlotGroup"):
-        add_plot("Titration", query_callback=query, width=plot_width, height=plot_height, anti_aliased=True)
+        add_plot(
+            "Titration",
+            query_callback=query,
+            width=plot_width,
+            height=plot_height,
+            anti_aliased=True,
+        )
 
     # Put the bjerrum plot to the right of the titration curve
     add_same_line()
     with group("BjerrumPlotGroup"):
-        add_plot("Relative Species", query_callback=query, width=plot_width, height=plot_height, anti_aliased=True)
+        add_plot(
+            "Relative Species",
+            query_callback=query,
+            width=plot_width,
+            height=plot_height,
+            anti_aliased=True,
+        )
 
     with group("SaveData"):
         add_button("Save Titration Data to CSV", callback=save_titr_data)

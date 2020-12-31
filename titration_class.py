@@ -5,7 +5,7 @@ from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
 
 def pk_to_k(pk):
-    return array(10. ** (- array(pk)))
+    return array(10.0 ** (-array(pk)))
 
 
 def closest_value(num, arr):
@@ -55,8 +55,10 @@ class AcidBase:
     @staticmethod
     def get_kw(temp):
         if temp > 350 or temp < 0:
-            print("Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
-                  "\nProceed with caution, or set a pKw value rather than a temperature.")
+            print(
+                "Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
+                "\nProceed with caution, or set a pKw value rather than a temperature."
+            )
 
         # Variables for a quartic function found to have an R^2 > 0.9999 in Desmos for n=40 Kw values at different temps
         # This most likely works only on the range of data used: 0C to 350C
@@ -70,7 +72,6 @@ class AcidBase:
 
 
 class Bjerrum(AcidBase):
-
     def __init__(self, analyte, titrant, precision, pKw=None, temp=None):
 
         super().__init__(analyte, titrant, precision, pKw, temp)
@@ -149,8 +150,17 @@ class Titration(Bjerrum):
     A class which defines a titration and predominance curve based on the used analyte and titrant.
     """
 
-    def __init__(self, analyte, titrant, volume_analyte, concentration_analyte, concentration_titrant, precision,
-                 pKw=None, temp=None):
+    def __init__(
+        self,
+        analyte,
+        titrant,
+        volume_analyte,
+        concentration_analyte,
+        concentration_titrant,
+        precision,
+        pKw=None,
+        temp=None,
+    ):
         super().__init__(analyte, titrant, precision, pKw, temp)
 
         # Analyte information
@@ -217,8 +227,7 @@ class Titration(Bjerrum):
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
         # Make dataframe.
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
-        data = DataFrame({"volume": volume,
-                          "pH": pH})
+        data = DataFrame({"volume": volume, "pH": pH})
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
