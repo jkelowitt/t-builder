@@ -186,13 +186,13 @@ def plot_callback(sender, data):
         )
 
 
-def save_titr_data(sender, data):
+def save_titr_data():
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_titr".replace(" ", "_")
     titr.write_titration_data(title=title)
 
 
-def save_bjer_data(sender, data):
+def save_bjer_data():
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_bjer".replace(" ", "_")
     titr.write_alpha_data(title=title)
