@@ -126,7 +126,12 @@ def plot_callback(sender, data):
 
         # Add labels to the volumes of each point
         for vol, pH in zip(vols, pHs):
-            add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
+
+            if titr.analyte_is_acidic:
+                add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
+            else:
+                # The annotations need to be above the line if the solution is basic to prevent the line from clipping
+                add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=-5)
 
     if get_value("equiv"):
         vols, pHs = titr.find_equiv_points()
@@ -146,7 +151,11 @@ def plot_callback(sender, data):
 
         # Add labels to the volumes of each point
         for vol, pH in zip(vols, pHs):
-            add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
+            if titr.analyte_is_acidic:
+                add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
+            else:
+                # The annotations need to be above the line if the solution is basic to prevent the line from clipping
+                add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=-5)
 
     if get_value("1stderiv"):
         volume, pHderiv = titr.deriv(degree=1)
