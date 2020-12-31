@@ -100,23 +100,30 @@ class Bjerrum(AcidBase):
         if not acid:
             k = self.kw / flip(k)
 
-        # The functionality of an acid or base can be determined by the number of dissociation constants it has.
+        # The functionality of an acid or base can be determined
+        # by the number of dissociation constants it has.
         n = len(k)
 
         # Get the values for the [H+]^n power
         powers = array([x for x in range(n, -1, -1)])  # List of powers
-        h_vals = array([array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
+        h_vals = array(
+            [array(self.hydronium ** i) for i in powers]
+        )  # List of H values raised to the powers
 
         # Get the products of the k values.
         k_vals = [prod(k[0:x]) for x in range(n + 1)]
 
         # Prod and Sum the h and k values
         h_vals = transpose(h_vals)  # Reorient the array for multiplication
-        denoms_arr = multiply(h_vals, k_vals)  # Product of the sub-elements of the denominator
+        denoms_arr = multiply(
+            h_vals, k_vals
+        )  # Product of the sub-elements of the denominator
         denoms = sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
 
         # Do the outermost alpha value calculation
-        tda = transpose(denoms_arr)  # Transpose the array to the correct orientation for the division
+        tda = transpose(
+            denoms_arr
+        )  # Transpose the array to the correct orientation for the division
         div_arr = divide(tda, denoms)  # Divide
         alphas = transpose(div_arr)  # Re-transpose to the logically correct orientation
 
@@ -125,7 +132,9 @@ class Bjerrum(AcidBase):
 
         return array(alphas)
 
-    def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
+    def write_alpha_data(
+        self, title="Alpha Value Data", file_headers=False, species_names=None
+    ):
         # Initialize the dataframe with the ph values
         data_dict = {"pH": self.ph}
 
@@ -157,7 +166,7 @@ class Titration(Bjerrum):
         volume_analyte,
         concentration_analyte,
         concentration_titrant,
-        precision,
+        precision=2,
         pKw=None,
         temp=None,
     ):
@@ -176,7 +185,9 @@ class Titration(Bjerrum):
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant_acidity)
 
         # Trimmed values for gui plot
-        self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
+        self.ph_t, self.volume_titrant_t = self.trim_values(
+            self.ph, self.volume_titrant
+        )
 
     def trim_values(self, *args):
         # Go until you are 1 past the last sub-reaction.
@@ -185,7 +196,9 @@ class Titration(Bjerrum):
         good_val_index = where((self.phi >= 0) & (self.phi <= limiter))
 
         # Trim the values for every chosen data set
-        rets = (arg[good_val_index] for arg in args)  # Add the trimmed dataset to the return variable
+        rets = (
+            arg[good_val_index] for arg in args
+        )  # Add the trimmed dataset to the return variable
 
         return rets
 
@@ -213,15 +226,28 @@ class Titration(Bjerrum):
 
         # Conditional addition or subtraction based on the titrant.
         if acid_titrant:
-            numerator = summed_scaled_alphas_analyte + (beta / self.concentration_analyte)
-            denominator = summed_scaled_alphas_titrant - (beta / self.concentration_titrant)
+            numerator = summed_scaled_alphas_analyte + (
+                beta / self.concentration_analyte
+            )
+            denominator = summed_scaled_alphas_titrant - (
+                beta / self.concentration_titrant
+            )
         else:
-            numerator = summed_scaled_alphas_analyte - (beta / self.concentration_analyte)
-            denominator = summed_scaled_alphas_titrant + (beta / self.concentration_titrant)
+            numerator = summed_scaled_alphas_analyte - (
+                beta / self.concentration_analyte
+            )
+            denominator = summed_scaled_alphas_titrant + (
+                beta / self.concentration_titrant
+            )
 
         # Solve for the volume
         phi = numerator / denominator
-        volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
+        volume = (
+            phi
+            * self.volume_analyte
+            * self.concentration_analyte
+            / self.concentration_titrant
+        )
         return volume, phi
 
     def write_titration_data(self, title="Titration Curve Data", file_headers=False):
@@ -250,7 +276,7 @@ class Titration(Bjerrum):
             closest = closest_value(i, phi)
             points.append(where(phi == closest)[0][0])
 
-        return volume[points], pH[points]
+        return list(volume[points]), list(pH[points])
 
     def deriv(self, degree):
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
