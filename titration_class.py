@@ -1,4 +1,4 @@
-from numpy import array, e, arange, divide, where, multiply, flip, abs
+from numpy import array, arange, divide, where, multiply, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS

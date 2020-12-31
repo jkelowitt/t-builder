@@ -1,5 +1,9 @@
-from dearpygui.core import *
-from dearpygui.simple import *
+from dearpygui.core import set_plot_xlimits, set_plot_ylimits, get_value, clear_plot
+from dearpygui.core import add_scatter_series, add_text, set_main_window_size, add_annotation
+from dearpygui.core import add_input_float, add_checkbox, add_same_line, add_input_int
+from dearpygui.core import add_next_column, add_plot, set_value, add_line_series
+from dearpygui.core import add_dummy, add_input_text, add_drag_float, add_button, start_dearpygui
+from dearpygui.simple import window, group
 
 from titration_class import Compound, Titration
 
@@ -291,7 +295,7 @@ with window("Main Window", label="Something Else"):
                       label="Precision",
                       default_value=2,
                       callback=plot_callback,
-                      tip="The number of decimal points to calculate the pH to.",
+                      tip="The number of decimal points to calculate the pH to. (>=1)",
                       width=65)
 
     # Modifications to the analysis methods
