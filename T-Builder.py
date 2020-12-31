@@ -8,7 +8,7 @@ from dearpygui.simple import window, group
 from titration_class import Compound, Titration
 
 __author__ = "jkelowitt"
-__version__ = "v2.2"
+__version__ = "v2.2.4"
 __license__ = "MIT"
 
 plot_width = 615
