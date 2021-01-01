@@ -1,11 +1,11 @@
-import unittest
-from titration_class import *
-import os
-import pandas as pd
-from compounds import *
+from unittest import TestCase, main
+from titration_class import array, Titration
+from os import path, remove
+from pandas import read_csv
+from compounds import basic_titrants, basic_analytes, acidic_titrants, acidic_analytes
 
 
-class TestTitrationClassModule(unittest.TestCase):
+class TestTitrationClassModule(TestCase):
     def setUp(self):
         self.titrations = []
 
@@ -42,34 +42,34 @@ class TestTitrationClassModule(unittest.TestCase):
     def test_titration_file_can_be_made(self):
         for titration in self.titrations:
             titration.write_titration_data()
-            self.assertTrue(os.path.exists("Titration Curve Data.csv"))
-            os.remove("Titration Curve Data.csv")
+            self.assertTrue(path.exists("Titration Curve Data.csv"))
+            remove("Titration Curve Data.csv")
 
     def test_relative_species_file_can_be_made(self):
         for titration in self.titrations:
             titration.write_alpha_data()
-            self.assertTrue(os.path.exists("Alpha Value Data.csv"))
-            os.remove("Alpha Value Data.csv")
+            self.assertTrue(path.exists("Alpha Value Data.csv"))
+            remove("Alpha Value Data.csv")
 
     def test_titration_file_has_data(self):
         for titration in self.titrations:
             titration.write_titration_data(file_headers=True)
-            data = pd.read_csv("Titration Curve Data.csv")
+            data = read_csv("Titration Curve Data.csv")
             self.assertIsNotNone(data.head())
-            os.remove("Titration Curve Data.csv")
+            remove("Titration Curve Data.csv")
 
     def test_relative_species_file_has_data(self):
         for titration in self.titrations:
             titration.write_alpha_data(file_headers=True)
-            data = pd.read_csv("Alpha Value Data.csv")
+            data = read_csv("Alpha Value Data.csv")
             self.assertIsNotNone(data.head())
-            os.remove("Alpha Value Data.csv")
+            remove("Alpha Value Data.csv")
 
     def test_titration_file_has_correct_data(self):
         for titration in self.titrations:
             titration.write_titration_data(file_headers=True)
-            data = pd.read_csv("Titration Curve Data.csv")
-            check = pd.read_csv(
+            data = read_csv("Titration Curve Data.csv")
+            check = read_csv(
                 f"test_data/{titration.aname}_{titration.tname}_titration_data.csv".replace(
                     " ", "_"
                 ).lower()
@@ -78,13 +78,13 @@ class TestTitrationClassModule(unittest.TestCase):
                 data.head().to_dict(), check.head().to_dict(), seq_type=dict
             )
 
-            os.remove("Titration Curve Data.csv")
+            remove("Titration Curve Data.csv")
 
     def test_relative_species_file_has_correct_data(self):
         for titration in self.titrations:
             titration.write_alpha_data(file_headers=True)
-            data = pd.read_csv("Alpha Value Data.csv")
-            check = pd.read_csv(
+            data = read_csv("Alpha Value Data.csv")
+            check = read_csv(
                 f"test_data/{titration.aname}_{titration.tname}_alpha_data.csv".replace(
                     " ", "_"
                 ).lower()
@@ -93,7 +93,7 @@ class TestTitrationClassModule(unittest.TestCase):
                 data.head().to_dict(), check.head().to_dict(), seq_type=dict
             )
 
-            os.remove("Alpha Value Data.csv")
+            remove("Alpha Value Data.csv")
 
     """Value checks"""
 
@@ -164,4 +164,4 @@ class TestTitrationClassModule(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()
