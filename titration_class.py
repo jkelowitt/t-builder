@@ -265,3 +265,39 @@ class Titration(Bjerrum):
     def scale_data(data, a):
         """abs normalization"""
         return a * (data / (1 + abs(data)))
+
+    def write_analysis_data(self, title="Analysis Data", file_headers=False):
+        # Make dataframe.
+        pH, volume = self.trim_values(self.ph, self.volume_titrant)
+        volumeD1, deriv1 = self.deriv(1)
+        volumeD2, deriv2 = self.deriv(2)
+        volumeEq, pHEq = self.find_equiv_points()
+        volumeBf, pHBf = self.find_buffer_points()
+
+        analysis_row_labels = [*[f"eq pt {n}" for n in range(1, len(volumeEq) + 1)],
+                               *[f"bf pt {n}" for n in range(1, len(volumeBf) + 1)]
+                               ]
+
+        analysis_volumes = [*[n for n in volumeEq],
+                            *[n for n in volumeBf]
+                            ]
+        analysis_pHs = [*[n for n in pHEq],
+                        *[n for n in pHBf]
+                        ]
+
+        while len(analysis_row_labels) < len(deriv1):
+            analysis_row_labels.append(None)
+            analysis_volumes.append(None)
+            analysis_pHs.append(None)
+
+        data = DataFrame({"volume": volume,
+                          "1st Derivative": deriv1,
+                          "2nd Derivative": deriv2,
+                          " ": [" " for _ in range(len(deriv1))],
+                          "Analysis": analysis_row_labels,
+                          "Volume at Point": analysis_volumes,
+                          "pH at Point": analysis_pHs
+                          })
+
+        # Write to a csv.
+        data.to_csv(f"{title}.csv", index=False, header=True)
