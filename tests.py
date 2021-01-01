@@ -11,13 +11,19 @@ class TestTitrationClassModule(TestCase):
 
         for t in acidic_titrants:
             for a in basic_analytes:
-                self.titrations.append(Titration(analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10,
-                                                 concentration_analyte=0.10))
+                self.titrations.append(
+                    Titration(
+                        analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
+                    )
+                )
 
         for t in basic_titrants:
             for a in acidic_analytes:
-                self.titrations.append(Titration(analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10,
-                                                 concentration_analyte=0.10))
+                self.titrations.append(
+                    Titration(
+                        analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
+                    )
+                )
 
     """First Derivative Tests"""
 
@@ -94,7 +100,8 @@ class TestTitrationClassModule(TestCase):
             titration.write_analysis_data(file_headers=True)
             data = read_csv("Analysis Data.csv")
             check = read_csv(
-                f"test_data/{titration.aname}_{titration.tname}_analysis_data.csv".replace(" ", "_").lower())
+                f"test_data/{titration.aname}_{titration.tname}_analysis_data.csv".replace(" ", "_").lower()
+            )
 
             self.assertDictEqual(data.head(2).to_dict(), check.head(2).to_dict())
 

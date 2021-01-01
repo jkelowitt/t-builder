@@ -146,15 +146,15 @@ class Titration(Bjerrum):
     """
 
     def __init__(
-            self,
-            analyte,
-            titrant,
-            volume_analyte,
-            concentration_analyte,
-            concentration_titrant,
-            precision=2,
-            pKw=None,
-            temp=None,
+        self,
+        analyte,
+        titrant,
+        volume_analyte,
+        concentration_analyte,
+        concentration_titrant,
+        precision=2,
+        pKw=None,
+        temp=None,
     ):
         super().__init__(analyte, titrant, precision, pKw, temp)
 
@@ -274,30 +274,30 @@ class Titration(Bjerrum):
         volumeEq, pHEq = self.find_equiv_points()
         volumeBf, pHBf = self.find_buffer_points()
 
-        analysis_row_labels = [*[f"eq pt {n}" for n in range(1, len(volumeEq) + 1)],
-                               *[f"bf pt {n}" for n in range(1, len(volumeBf) + 1)]
-                               ]
+        analysis_row_labels = [
+            *[f"eq pt {n}" for n in range(1, len(volumeEq) + 1)],
+            *[f"bf pt {n}" for n in range(1, len(volumeBf) + 1)],
+        ]
 
-        analysis_volumes = [*[n for n in volumeEq],
-                            *[n for n in volumeBf]
-                            ]
-        analysis_pHs = [*[n for n in pHEq],
-                        *[n for n in pHBf]
-                        ]
+        analysis_volumes = [*[n for n in volumeEq], *[n for n in volumeBf]]
+        analysis_pHs = [*[n for n in pHEq], *[n for n in pHBf]]
 
         while len(analysis_row_labels) < len(deriv1):
             analysis_row_labels.append(None)
             analysis_volumes.append(None)
             analysis_pHs.append(None)
 
-        data = DataFrame({"volume": volume,
-                          "1st Derivative": deriv1,
-                          "2nd Derivative": deriv2,
-                          " ": [" " for _ in range(len(deriv1))],
-                          "Analysis": analysis_row_labels,
-                          "Volume at Point": analysis_volumes,
-                          "pH at Point": analysis_pHs
-                          })
+        data = DataFrame(
+            {
+                "volume": volume,
+                "1st Derivative": deriv1,
+                "2nd Derivative": deriv2,
+                " ": [" " for _ in range(len(deriv1))],
+                "Analysis": analysis_row_labels,
+                "Volume at Point": analysis_volumes,
+                "pH at Point": analysis_pHs,
+            }
+        )
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=True)
