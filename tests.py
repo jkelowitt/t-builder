@@ -76,7 +76,7 @@ class TestTitrationClassModule(TestCase):
             check = read_csv(
                 f"test_data/{titration.aname}_{titration.tname}_titration_data.csv".replace(" ", "_").lower()
             )
-            self.assertSequenceEqual(data.head().to_dict(), check.head().to_dict(), seq_type=dict)
+            self.assertDictEqual(data.to_dict(), check.to_dict(), seq_type=dict)
 
             remove("Titration Curve Data.csv")
 
@@ -85,7 +85,7 @@ class TestTitrationClassModule(TestCase):
             titration.write_alpha_data(file_headers=True)
             data = read_csv("Alpha Value Data.csv")
             check = read_csv(f"test_data/{titration.aname}_{titration.tname}_alpha_data.csv".replace(" ", "_").lower())
-            self.assertSequenceEqual(data.head().to_dict(), check.head().to_dict(), seq_type=dict)
+            self.assertDictEqual(data.head().to_dict(), check.head().to_dict())
 
             remove("Alpha Value Data.csv")
 
