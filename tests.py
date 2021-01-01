@@ -5,7 +5,7 @@ import pandas as pd
 from compounds import *
 
 
-class TestTitrationMath(unittest.TestCase):
+class TestTitrationClassModule(unittest.TestCase):
     def setUp(self):
         self.titrations = []
 
