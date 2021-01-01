@@ -11,11 +11,13 @@ class TestTitrationClassModule(TestCase):
 
         for t in acidic_titrants:
             for a in basic_analytes:
-                self.titrations.append(Titration(a, t, 0.10, 0.10, 25))
+                self.titrations.append(Titration(analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10,
+                                                 concentration_analyte=0.10))
 
         for t in basic_titrants:
             for a in acidic_analytes:
-                self.titrations.append(Titration(a, t, 0.10, 0.10, 25))
+                self.titrations.append(Titration(analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10,
+                                                 concentration_analyte=0.10))
 
     """First Derivative Tests"""
 
