@@ -3,19 +3,6 @@ from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
-from datetime import datetime
-
-
-def timing(f):
-    def wrapper(*args, **kwargs):
-        start = datetime.now()
-        result = f(*args, **kwargs)
-        end = datetime.now()
-        print(f"Elapsed time: {end - start}")
-        return result
-
-    return wrapper
-
 
 def pk_to_k(pk):
     return array(10.0 ** (-array(pk)))
@@ -159,15 +146,15 @@ class Titration(Bjerrum):
     """
 
     def __init__(
-        self,
-        analyte,
-        titrant,
-        volume_analyte,
-        concentration_analyte,
-        concentration_titrant,
-        precision=2,
-        pKw=None,
-        temp=None,
+            self,
+            analyte,
+            titrant,
+            volume_analyte,
+            concentration_analyte,
+            concentration_titrant,
+            precision=2,
+            pKw=None,
+            temp=None,
     ):
         super().__init__(analyte, titrant, precision, pKw, temp)
 
