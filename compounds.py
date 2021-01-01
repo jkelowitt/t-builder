@@ -17,15 +17,23 @@ NaOH = ts.Compound(name="NaOH", acidic=False, pKs=[0.2], strong=True)
 """Weak Compounds"""
 
 # Acids
-EDTA = ts.Compound(name="EDTA", acidic=True, pKs=[0.0, 1.5, 2.00, 2.69, 6.13, 10.37], strong=False)  # Pg 268 QCA
-citric = ts.Compound(name="Citric Acid", acidic=True, pKs=[3.13, 4.76, 6.40], strong=False)
-carbonic = ts.Compound(name="Carbonic Acid", acidic=True, pKs=[6.37, 10.25], strong=False)
+EDTA = ts.Compound(
+    name="EDTA", acidic=True, pKs=[0.0, 1.5, 2.00, 2.69, 6.13, 10.37], strong=False
+)  # Pg 268 QCA
+citric = ts.Compound(
+    name="Citric Acid", acidic=True, pKs=[3.13, 4.76, 6.40], strong=False
+)
+carbonic = ts.Compound(
+    name="Carbonic Acid", acidic=True, pKs=[6.37, 10.25], strong=False
+)
 acetic = ts.Compound(name="Acetic Acid", acidic=True, pKs=[4.75], strong=False)
 ammonium = ts.Compound(name="Phenol", acidic=True, pKs=[9.2], strong=False)
 
 # Bases
 ammonia = ts.Compound(name="ammonia", acidic=False, pKs=[4.75], strong=False)
-calcium_hydroxide = ts.Compound(name="calcium_hydroxide", acidic=False, pKs=[1.4, 2.43], strong=False)
+calcium_hydroxide = ts.Compound(
+    name="calcium_hydroxide", acidic=False, pKs=[1.4, 2.43], strong=False
+)
 methylamine = ts.Compound(name="methylamine", acidic=False, pKs=[3.36], strong=False)
 ethylamine = ts.Compound(name="ethylamine", acidic=False, pKs=[3.25], strong=False)
 aniline = ts.Compound(name="aniline", acidic=False, pKs=[9.4], strong=False)
