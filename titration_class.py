@@ -3,6 +3,19 @@ from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
+from datetime import datetime
+
+
+def timing(f):
+    def wrapper(*args, **kwargs):
+        start = datetime.now()
+        result = f(*args, **kwargs)
+        end = datetime.now()
+        print(f"Elapsed time: {end-start}")
+        return result
+
+    return wrapper
+
 
 def pk_to_k(pk):
     return array(10.0 ** (-array(pk)))
@@ -85,15 +98,11 @@ class Bjerrum(AcidBase):
     @staticmethod
     def scale_alphas(arr):
         new_arr = []
-        for item in arr:
-            sub_arr = []
-            for i, sub_item in enumerate(item):
-                sub_item *= i
-                sub_arr.append(sub_item)
-            new_arr.append(sub_arr)
-        new_arr = array(new_arr)
+        for num, a in enumerate(array(arr).T):
+            a *= num
+            new_arr.append(a)
 
-        return new_arr
+        return array(new_arr).T
 
     def alpha_values(self, k, acid=True):
         # Convert the k values to a list to help with matrix transformations.
