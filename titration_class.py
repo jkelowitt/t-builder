@@ -1,4 +1,4 @@
-from numpy import array, arange, divide, where, multiply, flip, abs
+from numpy import array, arange, divide, where, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -11,7 +11,7 @@ def timing(f):
         start = datetime.now()
         result = f(*args, **kwargs)
         end = datetime.now()
-        print(f"Elapsed time: {end-start}")
+        print(f"Elapsed time: {end - start}")
         return result
 
     return wrapper
@@ -112,26 +112,21 @@ class Bjerrum(AcidBase):
         if not acid:
             k = self.kw / flip(k)
 
-        # The functionality of an acid or base can be determined
-        # by the number of dissociation constants it has.
+        # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
 
         # Get the values for the [H+]^n power
-        powers = array([x for x in range(n, -1, -1)])  # List of powers
-        h_vals = array([array(self.hydronium ** i) for i in powers])  # List of H values raised to the powers
+        h_vals = array([self.hydronium ** i for i in range(n, -1, -1)])
 
         # Get the products of the k values.
         k_vals = [prod(k[0:x]) for x in range(n + 1)]
 
         # Prod and Sum the h and k values
-        h_vals = transpose(h_vals)  # Reorient the array for multiplication
-        denoms_arr = multiply(h_vals, k_vals)  # Product of the sub-elements of the denominator
+        denoms_arr = h_vals.T * k_vals  # Product of the sub-elements of the denominator
         denoms = sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
 
         # Do the outermost alpha value calculation
-        tda = transpose(denoms_arr)  # Transpose the array to the correct orientation for the division
-        div_arr = divide(tda, denoms)  # Divide
-        alphas = transpose(div_arr)  # Re-transpose to the logically correct orientation
+        alphas = divide(denoms_arr.T, denoms).T  # Divide and re-transpose
 
         if not acid:
             return flip(alphas, axis=0)
