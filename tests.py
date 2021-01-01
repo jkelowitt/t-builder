@@ -159,7 +159,7 @@ class TestTitrationClassModule(TestCase):
                 self.assertTrue(scale <= 1)
 
     def test_alpha_index_scaling(self):
-        test_list = [[5, 4, 3, 2, 1], [5, 4, 3, 2, 1], [5, 4, 3, 2, 1], [5, 4, 3, 2, 1], [5, 4, 3, 2, 1]]
+        test_list = [[5, 4, 3, 2, 1] for _ in range(200)]
         f = self.titrations[0].scale_alphas(test_list)
         for sl in f:
             self.assertSequenceEqual(list(sl), [0, 4, 6, 6, 4])
