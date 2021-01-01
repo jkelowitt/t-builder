@@ -31,6 +31,9 @@ class AcidBase:
         self.k_titrant = pk_to_k(titrant.K)
         self.pk_titrant = titrant.pKs
 
+        self.aname = analyte.name
+        self.tname = titrant.name
+
         if pKw is not None:
             self.kw = 10 ** (-pKw)
         elif temp is not None:
