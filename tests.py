@@ -76,7 +76,7 @@ class TestTitrationClassModule(TestCase):
             check = read_csv(
                 f"test_data/{titration.aname}_{titration.tname}_titration_data.csv".replace(" ", "_").lower()
             )
-            self.assertDictEqual(data.to_dict(), check.to_dict(), seq_type=dict)
+            self.assertDictEqual(data.to_dict(), check.to_dict())
 
             remove("Titration Curve Data.csv")
 
