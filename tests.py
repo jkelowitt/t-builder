@@ -89,6 +89,17 @@ class TestTitrationClassModule(TestCase):
 
             remove("Alpha Value Data.csv")
 
+    def test_analysis_file_has_correct_data(self):
+        for titration in self.titrations:
+            titration.write_analysis_data(file_headers=True)
+            data = read_csv("Analysis Data.csv")
+            check = read_csv(
+                f"test_data/{titration.aname}_{titration.tname}_analysis_data.csv".replace(" ", "_").lower())
+
+            self.assertDictEqual(data.head(2).to_dict(), check.head(2).to_dict())
+
+            remove("Analysis Data.csv")
+
     """Value checks"""
 
     def test_values_have_same_length(self):
