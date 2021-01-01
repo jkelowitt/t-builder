@@ -106,9 +106,7 @@ def plot_callback(sender, data):
 
     # For every alpha value list, plot the alpha values at every pH and add the line to the plot
     for num, alpha in enumerate(bys):
-        add_line_series(
-            plot="Relative Species", name=f"species{num}", x=bx, y=alpha, weight=2
-        )
+        add_line_series(plot="Relative Species", name=f"species{num}", x=bx, y=alpha, weight=2)
 
     if get_value("buffer_regions"):
         vols, pHs = titr.find_buffer_points()
@@ -130,9 +128,7 @@ def plot_callback(sender, data):
         for vol, pH in zip(vols, pHs):
 
             if titr.analyte_is_acidic:
-                add_annotation(
-                    "Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5
-                )
+                add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
             else:
                 # The annotations need to be above the line if the solution is basic to prevent the line from clipping
                 add_annotation(
@@ -163,9 +159,7 @@ def plot_callback(sender, data):
         # Add labels to the volumes of each point
         for vol, pH in zip(vols, pHs):
             if titr.analyte_is_acidic:
-                add_annotation(
-                    "Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5
-                )
+                add_annotation("Titration", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
             else:
                 # The annotations need to be above the line if the solution is basic to prevent the line from clipping
                 add_annotation(
