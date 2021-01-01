@@ -17,6 +17,8 @@ class TestTitrationClassModule(TestCase):
             for a in acidic_analytes:
                 self.titrations.append(Titration(a, t, 0.10, 0.10, 25))
 
+    """First Derivative Tests"""
+
     def test_first_derivative_can_be_made(self):
         for titration in self.titrations:
             self.assertIsNotNone(titration.deriv(1))
