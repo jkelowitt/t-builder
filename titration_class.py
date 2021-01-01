@@ -130,8 +130,8 @@ class Bjerrum(AcidBase):
 
         if not acid:
             return flip(alphas, axis=0)
-
-        return array(alphas)
+        else:
+            return array(alphas)
 
     def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
         # Initialize the dataframe with the ph values
@@ -217,15 +217,15 @@ class Titration(Bjerrum):
         else:
             summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
 
-        beta = self.hydronium - self.hydroxide  # No technical definition
+        delta = self.hydronium - self.hydroxide  # I found this written as delta somewhere, and thus it will be named.
 
         # Conditional addition or subtraction based on the titrant.
         if acid_titrant:
-            numerator = summed_scaled_alphas_analyte + (beta / self.concentration_analyte)
-            denominator = summed_scaled_alphas_titrant - (beta / self.concentration_titrant)
+            numerator = summed_scaled_alphas_analyte + (delta / self.concentration_analyte)
+            denominator = summed_scaled_alphas_titrant - (delta / self.concentration_titrant)
         else:
-            numerator = summed_scaled_alphas_analyte - (beta / self.concentration_analyte)
-            denominator = summed_scaled_alphas_titrant + (beta / self.concentration_titrant)
+            numerator = summed_scaled_alphas_analyte - (delta / self.concentration_analyte)
+            denominator = summed_scaled_alphas_titrant + (delta / self.concentration_titrant)
 
         # Solve for the volume
         phi = numerator / denominator
