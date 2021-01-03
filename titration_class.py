@@ -57,11 +57,11 @@ class AcidBase:
 
     @staticmethod
     def get_kw(temp):
-        if temp > 350 or temp < 0:
-            print(
-                "Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
-                "\nProceed with caution, or set a pKw value rather than a temperature."
-            )
+        # if temp > 350 or temp < 0:
+        #     print(
+        #         "Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
+        #         "\nProceed with caution, or set a pKw value rather than a temperature."
+        #     )
 
         # Variables for a quartic function found to have an R^2 > 0.9999 in Desmos for n=40 Kw values at different temps
         # This most likely works only on the range of data used: 0C to 350C
