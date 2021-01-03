@@ -13,9 +13,16 @@ save the data plotted above to a CSV file.
 * Arbitrarily protic or functional analyte
 * Arbitrarily protic or functional titrant
 * Calculate Equivalence Points
-* Calculate where pH = pKa or pKb
+* Calculate buffer points. Where pH = pKa or pKb
 * View Derivatives of plots
 * Save Titration or Relative Species plots to CSV
+
+### Citric acid titrated with KOH:
+![citric_acid_koh_titration](https://i.imgur.com/gQIjOxH.png)
+
+
+### Species of Citric acid as pH increases:
+![citric_acid_relative_speciation](https://i.imgur.com/Ng8gZpb.png)
 
 ## TODO:
 
@@ -38,7 +45,7 @@ save the data plotted above to a CSV file.
     * <del>Plot the derivatives</del> ***Done 12/28/2020***
     * Allow for preset compounds
     * Saving and loading compounds
-* In GUI support for different temperatures
+* <del>In GUI support for different temperatures<\del> ***Done 1/2/2021***
 
 ## Math
 
