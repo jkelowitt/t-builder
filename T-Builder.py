@@ -1,15 +1,20 @@
 from dearpygui.core import *
 from dearpygui.simple import *
+from webbrowser import open
 
 from titration_class import Compound, Titration
 
 __author__ = "jkelowitt"
-__version__ = "v2.3.3"
+__version__ = "v2.3.4"
 __license__ = "MIT"
 
 plot_width = 905
 plot_height = 755
 data_width = 200
+
+
+def open_link(sender, data):
+    open("https://github.com/jkelowitt/t-builder", new=2)
 
 
 def query(sender, data):
@@ -203,11 +208,15 @@ with window("Main Window", label="Something Else", autosize=True):
     set_main_window_size(width=1270, height=850)
 
     # Project name
-    add_text("T-Builder")
 
     with tab_bar("Main Tab bar"):
         add_tab_button("t_tab_button", label="Titration", callback=plot_callback)
         add_tab_button("b_tab_button", label="Speciation", callback=plot_callback)
+
+        add_same_line()
+        add_text(" " * 129)  # TODO ask for right adjust text on DPG
+        add_same_line()
+        add_button("T-Builder by Jkelowitt", callback=open_link, tip="Open in github in browser")
 
         with group("Data Entry", width=data_width):
             add_text("Analyte Data")
