@@ -1,0 +1,165 @@
+T-Builder Changelog
+
+A log of all changes which affect code performance.
+
+-----------------------------------------------------------------------
+Version 2.4
+-----------------------------------------------------------------------
+
+New:
+-
+
+Fixed:
+-
+
+Updated:
+-
+
+Removed:
+-
+
+-----------------------------------------------------------------------
+Version 2.3
+-----------------------------------------------------------------------
+
+New:
+- Refactored / Redesigned Gui
+    - Larger Plots
+    - Temperature adjustment in GUI
+    - Save analysis data button
+- Testing suite so I can test class changes more quickly
+    - Test functions
+    - Test data to compare against
+- Save analysis function created and integrated to GUI.
+- GUI examples to the README.md
+- Link to jkelowitt/t-builder on title button.
+
+
+Fixed:
+- Labelled the titration generation setup.
+    - The volume input is never where I think it is. This brute forces
+        the input data to be put in the right places. New test data
+        has been generated.
+
+Updated:
+- Increased the speed of the scale_alphas method by an order of
+    magnitude
+- Simplified alpha value calculation
+- Removed temperature range warning from get_kw function.
+
+
+Removed:
+-
+
+
+
+-----------------------------------------------------------------------
+Version 2.1
+-----------------------------------------------------------------------
+
+New:
+- Author, version number, and license
+- Precision input
+- Code is now formatted to the black formatting standard
+
+Fixed:
+- Derivatives wouldn't work on basic solutions
+    - This fix has the unintended benefit that the saved data files for
+        basic solutions are now in the correct order. Since the basic
+        solutions were calculated from 14 --> 0 instead of the normal
+        0 --> 14, the data files were backwards and the derivatives
+        broken.
+- When the buffer point isn't exactly calculated due to precision errors
+    the closest value will be chosen. This is true for the equivalence
+    point.
+- Concentrations can no longer be negative. Zero concentrations are
+    calculated but not shown
+
+Updated:
+- Plots are now anti-aliased
+- query_callback functions are now a single function
+- Moved closest value calculating lambda function into a proper function
+- DearPyGui --> Version 0.6.117
+- Precision default kwargs
+- Scaling function changed from sigmoid to algebraic (x / (1+|x|))
+
+
+Removed:
+- Unused function imports
+
+
+-----------------------------------------------------------------------
+Version 2.1
+-----------------------------------------------------------------------
+
+New:
+- Icon
+- requirements.txt file
+- Equivalence point calculation
+- Buffering point calculation
+- Derivative calculations
+
+Fixed:
+- Various grammatical errors
+- The Titration data values were being saved in the wrong order
+
+
+Updated:
+- trim_values function now allows the user to input any list as an arg
+    to be trimmed to the correct length
+
+Removed:
+- Compounds file
+
+
+-----------------------------------------------------------------------
+Version 2.0
+-----------------------------------------------------------------------
+
+New:
+- GUI  -->  DearPyGui
+- Name! T-Builder
+
+Updated:
+- README.md instructions on how to run the program
+
+Removed:
+- Matplotlib
+    - Since the plotting is taken care of in the GUI, this is no longer
+       required.
+
+
+-----------------------------------------------------------------------
+Version 1.1
+-----------------------------------------------------------------------
+
+New:
+- Pulled Bjerrum and AcidBase classes out of the Titration class
+- Added compound classes (including acidic and basic water)
+- Tiny library of compound classes
+
+Fixed:
+- A call before definition error with __init__ of the AcidBase class
+
+Updated:
+- Titration class now requires you to make two compound classes and
+   pass them in with their concentrations and the volume of analyte.
+
+
+-----------------------------------------------------------------------
+Version 1.0
+-----------------------------------------------------------------------
+
+New:
+- Updated to Python 3.8
+- Titration class
+- Equivalence volume calculator
+- Alpha value curve plotting
+- Example classes
+
+Fixed:
+- Ordering of write titration data columns
+- All mathematical errors
+
+Removed:
+- All traces of GUI
