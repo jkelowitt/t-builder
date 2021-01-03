@@ -4,7 +4,7 @@ from dearpygui.simple import *
 from titration_class import Compound, Titration
 
 __author__ = "jkelowitt"
-__version__ = "v2.3.2"
+__version__ = "v2.3.3"
 __license__ = "MIT"
 
 plot_width = 905
@@ -41,6 +41,7 @@ def make_titration():
         concentration_titrant=get_value("tconc"),
         volume_analyte=get_value("avol"),
         precision=get_value("precision"),
+        temp=get_value("temperature"),
     )
 
     return titr
@@ -72,7 +73,6 @@ def plot_callback(sender, data):
         # For every alpha value list, plot the alpha values at every pH and add the line to the plot
         for num, alpha in enumerate(bys):
             add_line_series(plot="Main Plot", name=f"species{num}", x=bx, y=alpha, weight=2)
-
 
     else:
         # Perform titration calculations
@@ -191,10 +191,12 @@ def save_bjer_data(sender, data):
     title = f"{get_value('aname')}_{get_value('tname')}_species".replace(" ", "_")
     titr.write_alpha_data(title=title)
 
+
 def save_ana_data(sender, data):
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_analysis".replace(" ", "_")
     titr.write_analysis_data(title=title)
+
 
 # Main gui formatting
 with window("Main Window", label="Something Else", autosize=True):
@@ -296,6 +298,27 @@ with window("Main Window", label="Something Else", autosize=True):
             )
 
             add_dummy(height=25)
+            add_text("Titration Settings")
+
+            add_input_int(
+                "precision",
+                label="Precision",
+                default_value=2,
+                callback=plot_callback,
+                tip="The number of decimal points to calculate the pH to. (>=1)",
+                width=65,
+            )
+
+            add_input_int(
+                "temperature",
+                label="Temperature (C)",
+                default_value=25,
+                callback=plot_callback,
+                tip="The temperature at which the titration occurs. (Most accurate between 0 and 350 C)",
+                width=65,
+            )
+
+            add_dummy(height=25)
             add_text("Perform Titration Analysis")
 
             add_checkbox(
@@ -352,15 +375,6 @@ with window("Main Window", label="Something Else", autosize=True):
                 format="%0.2f",
                 callback=plot_callback,
                 tip="Scale the 2nd Derivative of the Titration plot.",
-            )
-
-            add_input_int(
-                "precision",
-                label="Precision",
-                default_value=2,
-                callback=plot_callback,
-                tip="The number of decimal points to calculate the pH to. (>=1)",
-                width=65,
             )
 
             add_dummy(height=25)
