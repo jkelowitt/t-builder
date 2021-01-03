@@ -110,7 +110,7 @@ def plot_callback(sender, data):
                 if titr.analyte_is_acidic:
                     add_annotation("Main Plot", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
                 else:
-                    # The annotations need to be above the line if the solution is basic to prevent the line from clipping
+                    # Annotations need to be above the line if the solution is basic to prevent the line from clipping
                     add_annotation(
                         "Main Plot",
                         x=vol,
@@ -141,7 +141,7 @@ def plot_callback(sender, data):
                 if titr.analyte_is_acidic:
                     add_annotation("Main Plot", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
                 else:
-                    # The annotations need to be above the line if the solution is basic to prevent the line from clipping
+                    # Annotations need to be above the line if the solution is basic to prevent the line from clipping
                     add_annotation(
                         "Main Plot",
                         x=vol,
