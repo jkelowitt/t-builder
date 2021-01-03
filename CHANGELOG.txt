@@ -13,7 +13,8 @@ Fixed:
 -
 
 Updated:
--
+- Updated to DearPyGUI v0.6.121
+- Updated to scipy v1.6.0
 
 Removed:
 -
