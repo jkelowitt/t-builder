@@ -2,23 +2,23 @@ from unittest import TestCase, main
 from titration_class import array, Titration
 from os import path, remove
 from pandas import read_csv
-from compounds import basic_titrants, basic_analytes, acidic_titrants, acidic_analytes
+from compounds import strong_bases, weak_bases, strong_acids, weak_acids
 
 
 class TestTitrationClassModule(TestCase):
     def setUp(self):
         self.titrations = []
 
-        for t in acidic_titrants:
-            for a in basic_analytes:
+        for t in strong_acids:
+            for a in weak_bases:
                 self.titrations.append(
                     Titration(
                         analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
                     )
                 )
 
-        for t in basic_titrants:
-            for a in acidic_analytes:
+        for t in strong_bases:
+            for a in weak_acids:
                 self.titrations.append(
                     Titration(
                         analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
