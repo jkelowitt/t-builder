@@ -59,19 +59,19 @@ The alpha value for a species tells the relative predominance of the species at 
 and 1. The larger the alpha value for the species, the higher concentration the species is in at that pH. The alpha
 value for a given species at a certain concentration of hydronium can be given by the equation:
 
-![alpha_equation](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\fn_cm&space;\alpha_s&space;=&space;\frac{\Omega_s}{\sum_{n,m=\gamma,0}&space;^{0,&space;\gamma}([H^&plus;]^{n}&space;*&space;\prod^{m}&space;_{i=0}(K_i))})
+![alpha_equation](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\fn_cm&space;\alpha_s&space;=&space;\frac{\Omega_s}{\sum_{n,m=\i,0}&space;^{0,&space;\i}([H^&plus;]^{n}&space;*&space;\prod^{m}&space;_{j=0}(K_j))})
 
 where Omega_s is equal to the component of the sum in the denominator with the index equal to the absolute value of the
 charge on the species (assuming the un-reacted species is neutral). The un-reacted species, the species with no charge,
-s = 0, and thus Omega_s would equal the first component of the summation in the denominator. The value of gamma is the
-degree of functionality for the analyte. K_i represents the indexed dissociation constant for the analyte (For this
+s = 0, and thus Omega_s would equal the first component of the summation in the denominator. The value of i is the
+degree of functionality for the analyte. K_j represents the indexed dissociation constant for the analyte (For this
 notation, assume K_0 = 1). These values can be directly ported into a bjerrum plot or predominance zone diagram.
 
 With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
-![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\gamma}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\theta}m\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
+![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\i}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\j}m\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
 
-where phi is defined as the "Fraction of the way to the equivalence point", and gamma and theta are the functionality of
+where phi is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of
 the analyte and titrant, respectively, alpha_an represents the indexed alpha values of the analyte, and the similarly,
 alpha_tm represents the indexed alpha values of the titrant. The ± in the numerator is positive if the analyte is a
 base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. C_a and V_a are
