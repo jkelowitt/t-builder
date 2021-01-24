@@ -47,65 +47,65 @@ class TestTitrationClassModule(TestCase):
             volume, derivative = array(titration.deriv(2))
             self.assertEqual(len(volume), len(titration.volume_titrant_t))
 
-    """File Tests"""
-
-    def test_titration_file_can_be_made(self):
-        for titration in self.titrations:
-            titration.write_titration_data()
-            self.assertTrue(path.exists("Titration Curve Data.csv"))
-            remove("Titration Curve Data.csv")
-
-    def test_relative_species_file_can_be_made(self):
-        for titration in self.titrations:
-            titration.write_alpha_data()
-            self.assertTrue(path.exists("Alpha Value Data.csv"))
-            remove("Alpha Value Data.csv")
-
-    def test_titration_file_has_data(self):
-        for titration in self.titrations:
-            titration.write_titration_data(file_headers=True)
-            data = read_csv("Titration Curve Data.csv")
-            self.assertIsNotNone(data.head())
-            remove("Titration Curve Data.csv")
-
-    def test_relative_species_file_has_data(self):
-        for titration in self.titrations:
-            titration.write_alpha_data(file_headers=True)
-            data = read_csv("Alpha Value Data.csv")
-            self.assertIsNotNone(data.head())
-            remove("Alpha Value Data.csv")
-
-    def test_titration_file_has_correct_data(self):
-        for titration in self.titrations:
-            titration.write_titration_data(file_headers=True)
-            data = read_csv("Titration Curve Data.csv")
-            check = read_csv(
-                f"test_data/{titration.aname}_{titration.tname}_titration_data.csv".replace(" ", "_").lower()
-            )
-            self.assertDictEqual(data.to_dict(), check.to_dict())
-
-            remove("Titration Curve Data.csv")
-
-    def test_relative_species_file_has_correct_data(self):
-        for titration in self.titrations:
-            titration.write_alpha_data(file_headers=True)
-            data = read_csv("Alpha Value Data.csv")
-            check = read_csv(f"test_data/{titration.aname}_{titration.tname}_alpha_data.csv".replace(" ", "_").lower())
-            self.assertDictEqual(data.head().to_dict(), check.head().to_dict())
-
-            remove("Alpha Value Data.csv")
-
-    def test_analysis_file_has_correct_data(self):
-        for titration in self.titrations:
-            titration.write_analysis_data(file_headers=True)
-            data = read_csv("Analysis Data.csv")
-            check = read_csv(
-                f"test_data/{titration.aname}_{titration.tname}_analysis_data.csv".replace(" ", "_").lower()
-            )
-
-            self.assertDictEqual(data.head(2).to_dict(), check.head(2).to_dict())
-
-            remove("Analysis Data.csv")
+    # """File Tests"""  This takes too long. Involves the process of creating >450 MB of data. Consolidate later.
+    #
+    # def test_titration_file_can_be_made(self):
+    #     for titration in self.titrations:
+    #         titration.write_titration_data()
+    #         self.assertTrue(path.exists("Titration Curve Data.csv"))
+    #         remove("Titration Curve Data.csv")
+    #
+    # def test_relative_species_file_can_be_made(self):
+    #     for titration in self.titrations:
+    #         titration.write_alpha_data()
+    #         self.assertTrue(path.exists("Alpha Value Data.csv"))
+    #         remove("Alpha Value Data.csv")
+    #
+    # def test_titration_file_has_data(self):
+    #     for titration in self.titrations:
+    #         titration.write_titration_data(file_headers=True)
+    #         data = read_csv("Titration Curve Data.csv")
+    #         self.assertIsNotNone(data.head())
+    #         remove("Titration Curve Data.csv")
+    #
+    # def test_relative_species_file_has_data(self):
+    #     for titration in self.titrations:
+    #         titration.write_alpha_data(file_headers=True)
+    #         data = read_csv("Alpha Value Data.csv")
+    #         self.assertIsNotNone(data.head())
+    #         remove("Alpha Value Data.csv")
+    #
+    # def test_titration_file_has_correct_data(self):
+    #     for titration in self.titrations:
+    #         titration.write_titration_data(file_headers=True)
+    #         data = read_csv("Titration Curve Data.csv")
+    #         check = read_csv(
+    #             f"test_data/{titration.aname}_{titration.tname}_titration_data.csv".replace(" ", "_").lower()
+    #         )
+    #         self.assertDictEqual(data.to_dict(), check.to_dict())
+    #
+    #         remove("Titration Curve Data.csv")
+    #
+    # def test_relative_species_file_has_correct_data(self):
+    #     for titration in self.titrations:
+    #         titration.write_alpha_data(file_headers=True)
+    #         data = read_csv("Alpha Value Data.csv")
+    #         check = read_csv(f"test_data/{titration.aname}_{titration.tname}_alpha_data.csv".replace(" ", "_").lower())
+    #         self.assertDictEqual(data.head().to_dict(), check.head().to_dict())
+    #
+    #         remove("Alpha Value Data.csv")
+    #
+    # def test_analysis_file_has_correct_data(self):
+    #     for titration in self.titrations:
+    #         titration.write_analysis_data(file_headers=True)
+    #         data = read_csv("Analysis Data.csv")
+    #         check = read_csv(
+    #             f"test_data/{titration.aname}_{titration.tname}_analysis_data.csv".replace(" ", "_").lower()
+    #         )
+    #
+    #         self.assertDictEqual(data.head(2).to_dict(), check.head(2).to_dict())
+    #
+    #         remove("Analysis Data.csv")
 
     """Value checks"""
 
