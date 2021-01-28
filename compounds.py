@@ -6,223 +6,215 @@ acidic_water = ts.Compound(name="Water", acidic=True, pKs=[14.0], strong=False)
 basic_water = ts.Compound(name="Water", acidic=False, pKs=[14.0], strong=False)
 
 # Acids
-HCl = ts.Compound(name="HCl", acidic=True, pKs=[-6.5], strong=True)
-HI = ts.Compound(name="HI", acidic=True, pKs=[-10], strong=True)
-HNO3 = ts.Compound(name="HNO3", acidic=True, pKs=[-1.4], strong=True)
-HBr = ts.Compound(name="HBr", acidic=True, pKs=[-8.7], strong=True)
-HCLO4 = ts.Compound(name="Perchloric Acid", acidic=True, pKs=[-8], strong=True)
-TsOH = ts.Compound(name="p-Toluenesolfonic Acid", acidic=True, pKs=[-2.8], strong=True)
-propane1sulfonicacid = ts.Compound(name="1-propanesulfonicacid", acidic=True, pKs=[-1.49], strong=True)
-propane2sulfonicacid = ts.Compound(name="2-propanesulfonicacid", acidic=True, pKs=[-1.79], strong=True)
-Amidosulfonicacid = ts.Compound(name="Amidosulfonicacid", acidic=True, pKs=[0.99], strong=True)
-Benzenesulfonicacid = ts.Compound(name="Benzenesulfonicacid", acidic=True, pKs=[-2.5], strong=True)
-Bromicacid = ts.Compound(name="Bromicacid", acidic=True, pKs=[0.0], strong=True)
-Hydrobromicacid = ts.Compound(name="Hydrobromicacid", acidic=True, pKs=[-8.72], strong=True)
-Butanesulfonicacid = ts.Compound(name="Butanesulfonicacid", acidic=True, pKs=[-1.68], strong=True)
-Chlorousacid = ts.Compound(name="Chlorousacid", acidic=True, pKs=[1.97], strong=True)
-Chlorosulfonicacid = ts.Compound(name="Chlorosulfonicacid", acidic=True, pKs=[-10.43], strong=True)
-Chloricacid = ts.Compound(name="Chloricacid", acidic=True, pKs=[-2.7], strong=True)
-Chromicacid = ts.Compound(name="Chromicacid", acidic=True, pKs=[-0.61], strong=True)
-Dibromoaceticacid = ts.Compound(name="Dibromoaceticacid", acidic=True, pKs=[1.39], strong=True)
-Dichloroaceticacid = ts.Compound(name="Dichloroaceticacid", acidic=True, pKs=[1.29], strong=True)
-Dichromicacid = ts.Compound(name="Dichromicacid", acidic=True, pKs=[-4.5], strong=True)
-Difluoroaceticacid = ts.Compound(name="Difluoroaceticacid", acidic=True, pKs=[1.24], strong=True)
-Difluorophosphoricacid = ts.Compound(name="Difluorophosphoricacid", acidic=True, pKs=[-1.5], strong=True)
-Diiodoaceticacid = ts.Compound(name="Diiodoaceticacid", acidic=True, pKs=[1.49], strong=True)
-Dimethylphosphonicacid = ts.Compound(name="Dimethylphosphonicacid", acidic=True, pKs=[1.29], strong=True)
-Disulfuricacid = ts.Compound(name="Disulfuricacid", acidic=True, pKs=[-12.0], strong=True)
-Dithionicacid = ts.Compound(name="Dithionicacid", acidic=True, pKs=[-3.4, 0.35], strong=True)
-Ethanesulfonicacid = ts.Compound(name="Ethanesulfonicacid", acidic=True, pKs=[-1.68], strong=True)
-Fluorosulfonicacid = ts.Compound(name="Fluorosulfonicacid", acidic=True, pKs=[-14.0], strong=True)
-Heptafluoropropanesulfonicacid = ts.Compound(name="Heptafluoropropanesulfonicacid", acidic=True, pKs=[-5.0],
-                                             strong=True)
+Hydrochloric = ts.Compound(name="HCl", acidic=True, pKs=[-6.5], strong=True)
+Hydroiodic= ts.Compound(name="HI", acidic=True, pKs=[-10], strong=True)
+Nitric = ts.Compound(name="HNO3", acidic=True, pKs=[-1.4], strong=True)
+Hydrobromic = ts.Compound(name="HBr", acidic=True, pKs=[-8.7], strong=True)
+Hydroperchloric= ts.Compound(name="Perchloric Acid", acidic=True, pKs=[-8], strong=True)
+P_toluenesulfonic= ts.Compound(name="p-Toluenesolfonic Acid", acidic=True, pKs=[-2.8], strong=True)
+Propane1sulfonic = ts.Compound(name="1-propanesulfonicacid", acidic=True, pKs=[-1.49], strong=True)
+Propane2sulfonic = ts.Compound(name="2-propanesulfonicacid", acidic=True, pKs=[-1.79], strong=True)
+Amidosulfonic = ts.Compound(name="Amidosulfonic", acidic=True, pKs=[0.99], strong=True)
+Benzenesulfonic = ts.Compound(name="Benzenesulfonic", acidic=True, pKs=[-2.5], strong=True)
+Bromic = ts.Compound(name="Bromic", acidic=True, pKs=[0.0], strong=True)
+Butanesulfonic = ts.Compound(name="Butanesulfonic", acidic=True, pKs=[-1.68], strong=True)
+Chlorous = ts.Compound(name="Chlorous", acidic=True, pKs=[1.97], strong=True)
+Chlorosulfonic = ts.Compound(name="Chlorosulfonic", acidic=True, pKs=[-10.43], strong=True)
+Chloric = ts.Compound(name="Chloric", acidic=True, pKs=[-2.7], strong=True)
+Chromic = ts.Compound(name="Chromic", acidic=True, pKs=[-0.61], strong=True)
+Dibromoacetic = ts.Compound(name="Dibromoacetic", acidic=True, pKs=[1.39], strong=True)
+Dichloroacetic = ts.Compound(name="Dichloroacetic", acidic=True, pKs=[1.29], strong=True)
+Dichromic = ts.Compound(name="Dichromic", acidic=True, pKs=[-4.5], strong=True)
+Difluoroacetic = ts.Compound(name="Difluoroacetic", acidic=True, pKs=[1.24], strong=True)
+Difluorophosphoric = ts.Compound(name="Difluorophosphoric", acidic=True, pKs=[-1.5], strong=True)
+Diiodoacetic = ts.Compound(name="Diiodoacetic", acidic=True, pKs=[1.49], strong=True)
+Dimethylphosphonic = ts.Compound(name="Dimethylphosphonic", acidic=True, pKs=[1.29], strong=True)
+Disulfuric = ts.Compound(name="Disulfuric", acidic=True, pKs=[-12.0], strong=True)
+Dithionic = ts.Compound(name="Dithionic", acidic=True, pKs=[-3.4, 0.35], strong=True)
+Ethanesulfonic = ts.Compound(name="Ethanesulfonic", acidic=True, pKs=[-1.68], strong=True)
+Fluorosulfonic = ts.Compound(name="Fluorosulfonic", acidic=True, pKs=[-14.0], strong=True)
+Heptafluoropropanesulfonic = ts.Compound(name="Heptafluoropropanesulfonic", acidic=True, pKs=[-5.0],strong=True)
 EDTA = ts.Compound(name="EDTA", acidic=True, pKs=[0.0, 1.5, 2.00, 2.69, 6.13, 10.37], strong=False)  # Pg 268 QCA
 Citric = ts.Compound(name="Citric Acid", acidic=True, pKs=[3.13, 4.76, 6.40], strong=False)
 Carbonic = ts.Compound(name="Carbonic Acid", acidic=True, pKs=[6.37, 10.25], strong=False)
 Acetic = ts.Compound(name="Acetic Acid", acidic=True, pKs=[4.75], strong=False)
 Ammonium = ts.Compound(name="Phenol", acidic=True, pKs=[9.2], strong=False)
-MalicAcid = ts.Compound(name="MalicAcid", acidic=True, pKs=[3.46], strong=False)
-Enanthicacid = ts.Compound(name="Enanthicacid", acidic=True, pKs=[4.89], strong=False)
-Acrylicacid = ts.Compound(name="Acrylicacid", acidic=True, pKs=[4.23], strong=False)
-Adipicacid = ts.Compound(name="Adipicacid", acidic=True, pKs=[4.43], strong=False)
+Malic = ts.Compound(name="Malic", acidic=True, pKs=[3.46], strong=False)
+Enanthic = ts.Compound(name="Enanthic", acidic=True, pKs=[4.89], strong=False)
+Acrylic = ts.Compound(name="Acrylic", acidic=True, pKs=[4.23], strong=False)
+Adipic = ts.Compound(name="Adipic", acidic=True, pKs=[4.43], strong=False)
 Alanine = ts.Compound(name="Alanine", acidic=True, pKs=[9.87], strong=False)
-Formicacid = ts.Compound(name="Formicacid", acidic=True, pKs=[3.75], strong=False)
-Amidophosphonicacid = ts.Compound(name="Amidophosphonicacid", acidic=True, pKs=[2.74], strong=False)
-Arsenicacid = ts.Compound(name="Arsenicacid", acidic=True, pKs=[2.25], strong=False)
-AzelaicAcid = ts.Compound(name="AzelaicAcid", acidic=True, pKs=[4.53], strong=False)
-Benzoicacid = ts.Compound(name="Benzoicacid", acidic=True, pKs=[4.21], strong=False)
-Succinicacid = ts.Compound(name="Succinicacid", acidic=True, pKs=[4.16], strong=False)
-Hydrocyanicacid = ts.Compound(name="Hydrocyanicacid", acidic=True, pKs=[9.21], strong=False)
-Bromoaceticacid = ts.Compound(name="Bromoaceticacid", acidic=True, pKs=[2.87], strong=False)
-Brominousacid = ts.Compound(name="Brominousacid", acidic=True, pKs=[2.85], strong=False)
+Formic = ts.Compound(name="Formic", acidic=True, pKs=[3.75], strong=False)
+Amidophosphonic = ts.Compound(name="Amidophosphonic", acidic=True, pKs=[2.74], strong=False)
+Arsenic = ts.Compound(name="Arsenic", acidic=True, pKs=[2.25], strong=False)
+Azelaic = ts.Compound(name="Azelaic", acidic=True, pKs=[4.53], strong=False)
+Benzoic = ts.Compound(name="Benzoic", acidic=True, pKs=[4.21], strong=False)
+Succinic = ts.Compound(name="Succinic", acidic=True, pKs=[4.16], strong=False)
+Hydrocyanic = ts.Compound(name="Hydrocyanic", acidic=True, pKs=[9.21], strong=False)
+Bromoacetic = ts.Compound(name="Bromoacetic", acidic=True, pKs=[2.87], strong=False)
+Brominous = ts.Compound(name="Brominous", acidic=True, pKs=[2.85], strong=False)
 Butanethiol = ts.Compound(name="Butanethiol", acidic=True, pKs=[10.66], strong=False)
-Butyricacid = ts.Compound(name="Butyricacid", acidic=True, pKs=[4.82], strong=False)
-Butylarsonicacid = ts.Compound(name="Butylarsonicacid", acidic=True, pKs=[4.23], strong=False)
-Butylphosphinicacid = ts.Compound(name="Butylphosphinicacid", acidic=True, pKs=[3.41], strong=False)
-Butylphosphonicacid = ts.Compound(name="Butylphosphonicacid", acidic=True, pKs=[2.79], strong=False)
-Capricacid = ts.Compound(name="Capricacid", acidic=True, pKs=[4.9], strong=False)
-Caproicacid = ts.Compound(name="Caproicacid", acidic=True, pKs=[4.88], strong=False)
-Caprylicacid = ts.Compound(name="Caprylicacid", acidic=True, pKs=[4.89], strong=False)
-Chloroaceticacid = ts.Compound(name="Chloroaceticacid", acidic=True, pKs=[2.83], strong=False)
-Citricacid = ts.Compound(name="Citricacid", acidic=True, pKs=[3.13], strong=False)
-Crotonicacid = ts.Compound(name="Crotonicacid", acidic=True, pKs=[4.69], strong=False)
-Cyanicacid = ts.Compound(name="Cyanicacid", acidic=True, pKs=[3.46], strong=False)
-Diamidophosphonicacid = ts.Compound(name="Diamidophosphonicacid", acidic=True, pKs=[4.83], strong=False)
+Butyric = ts.Compound(name="Butyric", acidic=True, pKs=[4.82], strong=False)
+Butylarsonic = ts.Compound(name="Butylarsonic", acidic=True, pKs=[4.23], strong=False)
+Butylphosphinic = ts.Compound(name="Butylphosphinic", acidic=True, pKs=[3.41], strong=False)
+Butylphosphonic = ts.Compound(name="Butylphosphonic", acidic=True, pKs=[2.79], strong=False)
+Capric = ts.Compound(name="Capric", acidic=True, pKs=[4.9], strong=False)
+Caproic = ts.Compound(name="Caproic", acidic=True, pKs=[4.88], strong=False)
+Caprylic = ts.Compound(name="Caprylic", acidic=True, pKs=[4.89], strong=False)
+Chloroacetic = ts.Compound(name="Chloroacetic", acidic=True, pKs=[2.83], strong=False)
+Crotonic = ts.Compound(name="Crotonic", acidic=True, pKs=[4.69], strong=False)
+Cyanic = ts.Compound(name="Cyanic", acidic=True, pKs=[3.46], strong=False)
+Diamidophosphonic = ts.Compound(name="Diamidophosphonic", acidic=True, pKs=[4.83], strong=False)
 Dihydrogenperoxodiphosphate = ts.Compound(name="Dihydrogenperoxodiphosphate", acidic=True, pKs=[5.18], strong=False)
 Disulfane = ts.Compound(name="Disulfane", acidic=True, pKs=[5.0], strong=False)
-Dithioarsenicacid = ts.Compound(name="Dithioarsenicacid", acidic=True, pKs=[2.4], strong=False)
-Iron_VI_acid = ts.Compound(name="Iron_VI_acid", acidic=True, pKs=[3.5], strong=False)
-Aceticacid = ts.Compound(name="Aceticacid", acidic=True, pKs=[4.76], strong=False)
+Dithioarsenic = ts.Compound(name="Dithioarsenic", acidic=True, pKs=[2.4], strong=False)
+Iron_VI_ = ts.Compound(name="Iron_VI_", acidic=True, pKs=[3.5], strong=False)
 Ethanethiol = ts.Compound(name="Ethanethiol", acidic=True, pKs=[10.5], strong=False)
-Ethylarsonicacid = ts.Compound(name="Ethylarsonicacid", acidic=True, pKs=[3.89], strong=False)
+Ethylarsonic = ts.Compound(name="Ethylarsonic", acidic=True, pKs=[3.89], strong=False)
 Ethylhydroperoxide = ts.Compound(name="Ethylhydroperoxide", acidic=True, pKs=[11.8], strong=False)
-Ethylphosphinicacid = ts.Compound(name="Ethylphosphinicacid", acidic=True, pKs=[3.29], strong=False)
-Ethylphosphonicacid = ts.Compound(name="Ethylphosphonicacid", acidic=True, pKs=[2.43], strong=False)
-Fluoroaceticacid = ts.Compound(name="Fluoroaceticacid", acidic=True, pKs=[2.57], strong=False)
-Hydrofluoricacid = ts.Compound(name="Hydrofluoricacid", acidic=True, pKs=[3.14], strong=False)
+Ethylphosphinic = ts.Compound(name="Ethylphosphinic", acidic=True, pKs=[3.29], strong=False)
+Ethylphosphonic = ts.Compound(name="Ethylphosphonic", acidic=True, pKs=[2.43], strong=False)
+Fluoroacetic = ts.Compound(name="Fluoroacetic", acidic=True, pKs=[2.57], strong=False)
+Hydrofluoric = ts.Compound(name="Hydrofluoric", acidic=True, pKs=[3.14], strong=False)
 Glycine = ts.Compound(name="Glycine", acidic=True, pKs=[9.6], strong=False)
-Glycolicacid = ts.Compound(name="Glycolicacid", acidic=True, pKs=[3.83], strong=False)
-Hexafluoroantimonicacid = ts.Compound(name="Hexafluoroantimonicacid", acidic=True, pKs=[-17.0], strong=True)
-Hexafluoroarsenicacid = ts.Compound(name="Hexafluoroarsenicacid", acidic=True, pKs=[-13.0], strong=True)
-Hexafluorophosphoricacid = ts.Compound(name="Hexafluorophosphoricacid", acidic=True, pKs=[-10.0], strong=True)
-Hexafluorotitan_IV_acid = ts.Compound(name="Hexafluorotitan_IV_acid", acidic=True, pKs=[2.14], strong=False)
-Hexafluorosilicicacid = ts.Compound(name="Hexafluorosilicicacid", acidic=True, pKs=[-3.0], strong=True)
+Glycolic = ts.Compound(name="Glycolic", acidic=True, pKs=[3.83], strong=False)
+Hexafluoroantimonic = ts.Compound(name="Hexafluoroantimonic", acidic=True, pKs=[-17.0], strong=True)
+Hexafluoroarsenic = ts.Compound(name="Hexafluoroarsenic", acidic=True, pKs=[-13.0], strong=True)
+Hexafluorophosphoric = ts.Compound(name="Hexafluorophosphoric", acidic=True, pKs=[-10.0], strong=True)
+Hexafluorotitan_IV_ = ts.Compound(name="Hexafluorotitan_IV_", acidic=True, pKs=[2.14], strong=False)
+Hexafluorosilicic = ts.Compound(name="Hexafluorosilicic", acidic=True, pKs=[-3.0], strong=True)
 Hexasulfane = ts.Compound(name="Hexasulfane", acidic=True, pKs=[3.2], strong=False)
-Hydrazidosulfonicacid = ts.Compound(name="Hydrazidosulfonicacid", acidic=True, pKs=[3.85], strong=False)
+Hydrazidosulfonic = ts.Compound(name="Hydrazidosulfonic", acidic=True, pKs=[3.85], strong=False)
 Hydrogenperoxodiphosphate = ts.Compound(name="Hydrogenperoxodiphosphate", acidic=True, pKs=[7.67], strong=False)
-Hypobromousacid = ts.Compound(name="Hypobromousacid", acidic=True, pKs=[8.68], strong=False)
-Hypochlorousacid = ts.Compound(name="Hypochlorousacid", acidic=True, pKs=[7.54], strong=False)
-Hypodiphosphoricacid = ts.Compound(name="Hypodiphosphoricacid", acidic=True, pKs=[2.22], strong=False)
-HypoiodousAcid = ts.Compound(name="HypoiodousAcid", acidic=True, pKs=[10.64], strong=False)
-Hypophosphorousacid = ts.Compound(name="Hypophosphorousacid", acidic=True, pKs=[2.23], strong=False)
-Hypo_nitrousacid = ts.Compound(name="Hypo-nitrousacid", acidic=True, pKs=[7.21], strong=False)
-Hypothiocyaniticacid = ts.Compound(name="Hypothiocyaniticacid", acidic=True, pKs=[5.3], strong=False)
-Imidodiphosphoricacid = ts.Compound(name="Imidodiphosphoricacid", acidic=True, pKs=[2.0], strong=False)
-Iodicacid = ts.Compound(name="Iodicacid", acidic=True, pKs=[0.804], strong=True)
-Iodoaceticacid = ts.Compound(name="Iodoaceticacid", acidic=True, pKs=[3.13], strong=False)
-HydroiodicAcid = ts.Compound(name="HydroiodicAcid", acidic=True, pKs=[-9.5], strong=True)
-Isocyanicacid = ts.Compound(name="Isocyanicacid", acidic=True, pKs=[3.92], strong=False)
+Hypobromous = ts.Compound(name="Hypobromous", acidic=True, pKs=[8.68], strong=False)
+Hypochlorous = ts.Compound(name="Hypochlorous", acidic=True, pKs=[7.54], strong=False)
+Hypodiphosphoric = ts.Compound(name="Hypodiphosphoric", acidic=True, pKs=[2.22], strong=False)
+Hypoiodous = ts.Compound(name="Hypoiodous", acidic=True, pKs=[10.64], strong=False)
+Hypophosphorous = ts.Compound(name="Hypophosphorous", acidic=True, pKs=[2.23], strong=False)
+Hypo_nitrous = ts.Compound(name="Hypo-nitrousacid", acidic=True, pKs=[7.21], strong=False)
+Hypothiocyanitic = ts.Compound(name="Hypothiocyanitic", acidic=True, pKs=[5.3], strong=False)
+Imidodiphosphoric = ts.Compound(name="Imidodiphosphoric", acidic=True, pKs=[2.0], strong=False)
+Iodic = ts.Compound(name="Iodic", acidic=True, pKs=[0.804], strong=True)
+Iodoacetic = ts.Compound(name="Iodoacetic", acidic=True, pKs=[3.13], strong=False)
+Isocyanic = ts.Compound(name="Isocyanic", acidic=True, pKs=[3.92], strong=False)
 Isopropylhydroperoxide = ts.Compound(name="Isopropylhydroperoxide", acidic=True, pKs=[12.1], strong=False)
 Isopropyloxonium = ts.Compound(name="Isopropyloxonium", acidic=True, pKs=[-3.2], strong=True)
-Isothiocyanicacid = ts.Compound(name="Isothiocyanicacid", acidic=True, pKs=[-1.28], strong=True)
-Carbonicacid = ts.Compound(name="Carbonicacid", acidic=True, pKs=[6.46], strong=False)
-Subericacid = ts.Compound(name="Subericacid", acidic=True, pKs=[4.51], strong=False)
-Malonicacid = ts.Compound(name="Malonicacid", acidic=True, pKs=[2.83], strong=False)
-Manganese_VI_acid = ts.Compound(name="Manganese_VI_acid", acidic=True, pKs=[5.0], strong=False)
-Melliticacid = ts.Compound(name="Melliticacid", acidic=True, pKs=[1.4], strong=True)
-Metaarsenousacid = ts.Compound(name="Metaarsenousacid", acidic=True, pKs=[9.28], strong=False)
-Metaboricacid = ts.Compound(name="Metaboricacid", acidic=True, pKs=[9.12], strong=False)
-Metagermanicacid = ts.Compound(name="Metagermanicacid", acidic=True, pKs=[8.59], strong=False)
-Metasilicicacid = ts.Compound(name="Metasilicicacid", acidic=True, pKs=[9.51], strong=False)
-Metaniobicacid = ts.Compound(name="Metaniobicacid", acidic=True, pKs=[7.4], strong=False)
-Metaperiodicacid = ts.Compound(name="Metaperiodicacid", acidic=True, pKs=[1.64], strong=True)
-Metatantalicacid = ts.Compound(name="Metatantalicacid", acidic=True, pKs=[9.6], strong=False)
-Metavanadium_V_acid = ts.Compound(name="Metavanadium_V_acid", acidic=True, pKs=[3.8], strong=False)
+Isothiocyanic = ts.Compound(name="Isothiocyanic", acidic=True, pKs=[-1.28], strong=True)
+Suberic = ts.Compound(name="Suberic", acidic=True, pKs=[4.51], strong=False)
+Malonic = ts.Compound(name="Malonic", acidic=True, pKs=[2.83], strong=False)
+Manganese_VI_ = ts.Compound(name="Manganese_VI_", acidic=True, pKs=[5.0], strong=False)
+Mellitic = ts.Compound(name="Mellitic", acidic=True, pKs=[1.4], strong=True)
+Metaarsenous = ts.Compound(name="Metaarsenous", acidic=True, pKs=[9.28], strong=False)
+Metaboric = ts.Compound(name="Metaboric", acidic=True, pKs=[9.12], strong=False)
+Metagermanic = ts.Compound(name="Metagermanic", acidic=True, pKs=[8.59], strong=False)
+Metasilicic = ts.Compound(name="Metasilicic", acidic=True, pKs=[9.51], strong=False)
+Metaniobic = ts.Compound(name="Metaniobic", acidic=True, pKs=[7.4], strong=False)
+Metaperiodic = ts.Compound(name="Metaperiodic", acidic=True, pKs=[1.64], strong=True)
+Metatantalic = ts.Compound(name="Metatantalic", acidic=True, pKs=[9.6], strong=False)
+Metavanadium_V_ = ts.Compound(name="Metavanadium_V_", acidic=True, pKs=[3.8], strong=False)
 Methanal = ts.Compound(name="Methanal", acidic=True, pKs=[13.3], strong=False)
 Methaneselenol = ts.Compound(name="Methaneselenol", acidic=True, pKs=[5.2], strong=False)
-Methanesulfonicacid = ts.Compound(name="Methanesulfonicacid", acidic=True, pKs=[-1.92], strong=True)
+Methanesulfonic = ts.Compound(name="Methanesulfonic", acidic=True, pKs=[-1.92], strong=True)
 Methanethiol = ts.Compound(name="Methanethiol", acidic=True, pKs=[10.4], strong=False)
-Methylarsonicacid = ts.Compound(name="Methylarsonicacid", acidic=True, pKs=[3.41], strong=False)
+Methylarsonic = ts.Compound(name="Methylarsonic", acidic=True, pKs=[3.41], strong=False)
 Methylhydroperoxide = ts.Compound(name="Methylhydroperoxide", acidic=True, pKs=[11.5], strong=False)
-Methylphosphinicacid = ts.Compound(name="Methylphosphinicacid", acidic=True, pKs=[3.08], strong=False)
-Methylphosphonicacid = ts.Compound(name="Methylphosphonicacid", acidic=True, pKs=[2.38], strong=False)
-Methylsulfinicacid = ts.Compound(name="Methylsulfinicacid", acidic=True, pKs=[2.28], strong=False)
-Lacticacid = ts.Compound(name="Lacticacid", acidic=True, pKs=[3.9], strong=False)
-Molybdicacid = ts.Compound(name="Molybdicacid", acidic=True, pKs=[3.7], strong=False)
-Monofluorophosphoricacid = ts.Compound(name="Monofluorophosphoricacid", acidic=True, pKs=[0.5], strong=True)
+Methylphosphinic = ts.Compound(name="Methylphosphinic", acidic=True, pKs=[3.08], strong=False)
+Methylphosphonic = ts.Compound(name="Methylphosphonic", acidic=True, pKs=[2.38], strong=False)
+Methylsulfinic = ts.Compound(name="Methylsulfinic", acidic=True, pKs=[2.28], strong=False)
+Lactic = ts.Compound(name="Lactic", acidic=True, pKs=[3.9], strong=False)
+Molybdic = ts.Compound(name="Molybdic", acidic=True, pKs=[3.7], strong=False)
+Monofluorophosphoric = ts.Compound(name="Monofluorophosphoric", acidic=True, pKs=[0.5], strong=True)
 Nitramine = ts.Compound(name="Nitramine", acidic=True, pKs=[6.6], strong=False)
 Nitromethane = ts.Compound(name="Nitromethane", acidic=True, pKs=[10.2], strong=False)
-Octanesulfonicacid = ts.Compound(name="Octanesulfonicacid", acidic=True, pKs=[-1.41], strong=True)
-Ortho_periodicacid = ts.Compound(name="Ortho-periodicacid", acidic=True, pKs=[3.29], strong=False)
-Orthoantimonicacid = ts.Compound(name="Orthoantimonicacid", acidic=True, pKs=[2.55], strong=False)
-Orthoboricacid = ts.Compound(name="Orthoboricacid", acidic=True, pKs=[9.25], strong=False)
-Orthogermanicacid = ts.Compound(name="Orthogermanicacid", acidic=True, pKs=[8.68], strong=False)
-Orthosilicicacid = ts.Compound(name="Orthosilicicacid", acidic=True, pKs=[9.66], strong=False)
-Orthotelluricacid = ts.Compound(name="Orthotelluricacid", acidic=True, pKs=[7.7], strong=False)
-Orthovanadicacid = ts.Compound(name="Orthovanadicacid", acidic=True, pKs=[2.6], strong=False)
-Oxalicacid = ts.Compound(name="Oxalicacid", acidic=True, pKs=[1.23], strong=True)
-p_Toluenesulfonicacid = ts.Compound(name="p-Toluenesulfonicacid", acidic=True, pKs=[-2.8], strong=True)
-Pelargonicacid = ts.Compound(name="Pelargonicacid", acidic=True, pKs=[4.95], strong=False)
+Octanesulfonic = ts.Compound(name="Octanesulfonic", acidic=True, pKs=[-1.41], strong=True)
+Ortho_periodic = ts.Compound(name="Ortho-periodicacid", acidic=True, pKs=[3.29], strong=False)
+Orthoantimonic = ts.Compound(name="Orthoantimonic", acidic=True, pKs=[2.55], strong=False)
+Orthoboric = ts.Compound(name="Orthoboric", acidic=True, pKs=[9.25], strong=False)
+Orthogermanic = ts.Compound(name="Orthogermanic", acidic=True, pKs=[8.68], strong=False)
+Orthosilicic = ts.Compound(name="Orthosilicic", acidic=True, pKs=[9.66], strong=False)
+Orthotelluric = ts.Compound(name="Orthotelluric", acidic=True, pKs=[7.7], strong=False)
+Orthovanadic = ts.Compound(name="Orthovanadic", acidic=True, pKs=[2.6], strong=False)
+Oxalic = ts.Compound(name="Oxalic", acidic=True, pKs=[1.23], strong=True)
+p_Toluenesulfonic = ts.Compound(name="p-Toluenesulfonicacid", acidic=True, pKs=[-2.8], strong=True)
+Pelargonic = ts.Compound(name="Pelargonic", acidic=True, pKs=[4.95], strong=False)
 Pentacarbonylmanganese = ts.Compound(name="Pentacarbonylmanganese", acidic=True, pKs=[7.1], strong=False)
-Pentafluoroethanesulfonicacid = ts.Compound(name="Pentafluoroethanesulfonicacid", acidic=True, pKs=[-5.1], strong=True)
+Pentafluoroethanesulfonic = ts.Compound(name="Pentafluoroethanesulfonic", acidic=True, pKs=[-5.1], strong=True)
 Pentasulfane = ts.Compound(name="Pentasulfane", acidic=True, pKs=[3.5], strong=False)
 Perchlorylamide = ts.Compound(name="Perchlorylamide", acidic=True, pKs=[8.6], strong=False)
 Perchlorylamine = ts.Compound(name="Perchlorylamine", acidic=True, pKs=[3.7], strong=False)
-Perchromicacid = ts.Compound(name="Perchromicacid", acidic=True, pKs=[4.95], strong=False)
-Permanganicacid = ts.Compound(name="Permanganicacid", acidic=True, pKs=[-2.25], strong=True)
-Perosmicacid = ts.Compound(name="Perosmicacid", acidic=True, pKs=[7.2], strong=False)
-Peroxoformicacid = ts.Compound(name="Peroxoformicacid", acidic=True, pKs=[7.1], strong=False)
-Peroxobutyricacid = ts.Compound(name="Peroxobutyricacid", acidic=True, pKs=[8.2], strong=False)
-Peroxodiphosphoricacid = ts.Compound(name="Peroxodiphosphoricacid", acidic=True, pKs=[-3.0], strong=True)
-Peroxodisulfuricacid = ts.Compound(name="Peroxodisulfuricacid", acidic=True, pKs=[-3.5], strong=True)
-Peroxyaceticacid = ts.Compound(name="Peroxyaceticacid", acidic=True, pKs=[8.2], strong=False)
-Peroxohypositrousacid = ts.Compound(name="Peroxohypositrousacid", acidic=True, pKs=[2.51], strong=False)
-Peroxopropionicacid = ts.Compound(name="Peroxopropionicacid", acidic=True, pKs=[8.1], strong=False)
-Peroxonitricacid = ts.Compound(name="Peroxonitricacid", acidic=True, pKs=[-5.0], strong=True)
-Peroxo_nitrousacid = ts.Compound(name="Peroxo-nitrousacid", acidic=True, pKs=[6.8], strong=False)
-Peroxosulphuricacid = ts.Compound(name="Peroxosulphuricacid", acidic=True, pKs=[0.8], strong=True)
-Perrhenicacid = ts.Compound(name="Perrhenicacid", acidic=True, pKs=[-1.25], strong=True)
-Perruthenicacid = ts.Compound(name="Perruthenicacid", acidic=True, pKs=[11.2], strong=False)
-Pertechneticacid = ts.Compound(name="Pertechneticacid", acidic=True, pKs=[0.3], strong=True)
+Perchromic = ts.Compound(name="Perchromic", acidic=True, pKs=[4.95], strong=False)
+Permanganic = ts.Compound(name="Permanganic", acidic=True, pKs=[-2.25], strong=True)
+Perosmic = ts.Compound(name="Perosmic", acidic=True, pKs=[7.2], strong=False)
+Peroxoformic = ts.Compound(name="Peroxoformic", acidic=True, pKs=[7.1], strong=False)
+Peroxobutyric = ts.Compound(name="Peroxobutyric", acidic=True, pKs=[8.2], strong=False)
+Peroxodiphosphoric = ts.Compound(name="Peroxodiphosphoric", acidic=True, pKs=[-3.0], strong=True)
+Peroxodisulfuric = ts.Compound(name="Peroxodisulfuric", acidic=True, pKs=[-3.5], strong=True)
+Peroxyacetic = ts.Compound(name="Peroxyacetic", acidic=True, pKs=[8.2], strong=False)
+Peroxohypositrous = ts.Compound(name="Peroxohypositrous", acidic=True, pKs=[2.51], strong=False)
+Peroxopropionic = ts.Compound(name="Peroxopropionic", acidic=True, pKs=[8.1], strong=False)
+Peroxonitric = ts.Compound(name="Peroxonitric", acidic=True, pKs=[-5.0], strong=True)
+Peroxo_nitrous = ts.Compound(name="Peroxo-nitrousacid", acidic=True, pKs=[6.8], strong=False)
+Peroxosulphuric = ts.Compound(name="Peroxosulphuric", acidic=True, pKs=[0.8], strong=True)
+Perrhenic = ts.Compound(name="Perrhenic", acidic=True, pKs=[-1.25], strong=True)
+Perruthenic = ts.Compound(name="Perruthenic", acidic=True, pKs=[11.2], strong=False)
+Pertechnetic = ts.Compound(name="Pertechnetic", acidic=True, pKs=[0.3], strong=True)
 Phenol = ts.Compound(name="Phenol", acidic=True, pKs=[9.99], strong=False)
-Phenylphosphonicacid = ts.Compound(name="Phenylphosphonicacid", acidic=True, pKs=[1.83], strong=True)
-Phenylsulfinicacid = ts.Compound(name="Phenylsulfinicacid", acidic=True, pKs=[1.84], strong=True)
-Phosphorousacid = ts.Compound(name="Phosphorousacid", acidic=True, pKs=[1.92], strong=True)
-Phosphoricacid = ts.Compound(name="Phosphoricacid", acidic=True, pKs=[2.13], strong=False)
-Pimelicacid = ts.Compound(name="Pimelicacid", acidic=True, pKs=[4.47], strong=False)
-Polyacid = ts.Compound(name="Polyacid", acidic=True, pKs=[4.09], strong=False)
+Phenylphosphonic = ts.Compound(name="Phenylphosphonic", acidic=True, pKs=[1.83], strong=True)
+Phenylsulfinic = ts.Compound(name="Phenylsulfinic", acidic=True, pKs=[1.84], strong=True)
+Phosphorous = ts.Compound(name="Phosphorous", acidic=True, pKs=[1.92], strong=True)
+Phosphoric = ts.Compound(name="Phosphoric", acidic=True, pKs=[2.13], strong=False)
+Pimelic = ts.Compound(name="Pimelic", acidic=True, pKs=[4.47], strong=False)
+Poly = ts.Compound(name="Poly", acidic=True, pKs=[4.09], strong=False)
 Propanethiol = ts.Compound(name="Propanethiol", acidic=True, pKs=[10.65], strong=False)
-Propionicacid = ts.Compound(name="Propionicacid", acidic=True, pKs=[4.87], strong=False)
-Propylarsonicacid = ts.Compound(name="Propylarsonicacid", acidic=True, pKs=[4.21], strong=False)
-Propylphosphinicacid = ts.Compound(name="Propylphosphinicacid", acidic=True, pKs=[3.46], strong=False)
-Propylphosphonicacid = ts.Compound(name="Propylphosphonicacid", acidic=True, pKs=[2.49], strong=False)
-SalicylicAcid = ts.Compound(name="SalicylicAcid", acidic=True, pKs=[2.75], strong=False)
-Nitricacid = ts.Compound(name="Nitricacid", acidic=True, pKs=[-1.33], strong=True)
-Nitrousacid = ts.Compound(name="Nitrousacid", acidic=True, pKs=[3.35], strong=False)
-Hydrochloricacid = ts.Compound(name="Hydrochloricacid", acidic=True, pKs=[-6.0], strong=True)
-Sulfuricacid = ts.Compound(name="Sulfuricacid", acidic=True, pKs=[-3.0], strong=True)
+Propionic = ts.Compound(name="Propionic", acidic=True, pKs=[4.87], strong=False)
+Propylarsonic = ts.Compound(name="Propylarsonic", acidic=True, pKs=[4.21], strong=False)
+Propylphosphinic = ts.Compound(name="Propylphosphinic", acidic=True, pKs=[3.46], strong=False)
+Propylphosphonic = ts.Compound(name="Propylphosphonic", acidic=True, pKs=[2.49], strong=False)
+Salicylic = ts.Compound(name="Salicylic", acidic=True, pKs=[2.75], strong=False)
+Nitrous = ts.Compound(name="Nitrous", acidic=True, pKs=[3.35], strong=False)
+Sulfuric = ts.Compound(name="Sulfuric", acidic=True, pKs=[-3.0], strong=True)
 Hydrogensulfide = ts.Compound(name="Hydrogensulfide", acidic=True, pKs=[7.06], strong=False)
-Sulphurousacid = ts.Compound(name="Sulphurousacid", acidic=True, pKs=[1.92], strong=True)
-Seaborgium_VI_acid = ts.Compound(name="Seaborgium_VI_acid", acidic=True, pKs=[3.75], strong=False)
-Sebacicacid = ts.Compound(name="Sebacicacid", acidic=True, pKs=[4.72], strong=False)
-Selenousacid = ts.Compound(name="Selenousacid", acidic=True, pKs=[2.62], strong=False)
+Sulphurous = ts.Compound(name="Sulphurous", acidic=True, pKs=[1.92], strong=True)
+Seaborgium_VI_ = ts.Compound(name="Seaborgium_VI_", acidic=True, pKs=[3.75], strong=False)
+Sebacic = ts.Compound(name="Sebacic", acidic=True, pKs=[4.72], strong=False)
+Selenous = ts.Compound(name="Selenous", acidic=True, pKs=[2.62], strong=False)
 Selenophenol = ts.Compound(name="Selenophenol", acidic=True, pKs=[5.9], strong=False)
-Selenophosphoricacid = ts.Compound(name="Selenophosphoricacid", acidic=True, pKs=[0.02], strong=True)
-Selenicacid = ts.Compound(name="Selenicacid", acidic=True, pKs=[-3.0], strong=True)
-Hydroselenicacid = ts.Compound(name="Hydroselenicacid", acidic=True, pKs=[3.73], strong=False)
-Hydrazoicacid = ts.Compound(name="Hydrazoicacid", acidic=True, pKs=[4.76], strong=False)
-Tartronicacid = ts.Compound(name="Tartronicacid", acidic=True, pKs=[2.3], strong=False)
-Telluricacid = ts.Compound(name="Telluricacid", acidic=True, pKs=[2.64, 2.7], strong=False)
+Selenophosphoric = ts.Compound(name="Selenophosphoric", acidic=True, pKs=[0.02], strong=True)
+Selenic = ts.Compound(name="Selenic", acidic=True, pKs=[-3.0], strong=True)
+Hydroselenic = ts.Compound(name="Hydroselenic", acidic=True, pKs=[3.73], strong=False)
+Hydrazoic = ts.Compound(name="Hydrazoic", acidic=True, pKs=[4.76], strong=False)
+Tartronic = ts.Compound(name="Tartronic", acidic=True, pKs=[2.3], strong=False)
+Telluric = ts.Compound(name="Telluric", acidic=True, pKs=[2.64, 2.7], strong=False)
 Tetracarbonyliron = ts.Compound(name="Tetracarbonyliron", acidic=True, pKs=[4.4], strong=False)
-Tetrafluoroboricacid = ts.Compound(name="Tetrafluoroboricacid", acidic=True, pKs=[-0.4], strong=True)
-Tetraphosphoricacid = ts.Compound(name="Tetraphosphoricacid", acidic=True, pKs=[0.5], strong=True)
+Tetrafluoroboric = ts.Compound(name="Tetrafluoroboric", acidic=True, pKs=[-0.4], strong=True)
+Tetraphosphoric = ts.Compound(name="Tetraphosphoric", acidic=True, pKs=[0.5], strong=True)
 Tetrasulfane = ts.Compound(name="Tetrasulfane", acidic=True, pKs=[3.8], strong=False)
-Tetrathiophosphoricacid = ts.Compound(name="Tetrathiophosphoricacid", acidic=True, pKs=[1.5], strong=True)
-Thioarsenicacid = ts.Compound(name="Thioarsenicacid", acidic=True, pKs=[3.3], strong=False)
-Thiocyanicacid = ts.Compound(name="Thiocyanicacid", acidic=True, pKs=[-1.85], strong=True)
+Tetrathiophosphoric = ts.Compound(name="Tetrathiophosphoric", acidic=True, pKs=[1.5], strong=True)
+Thioarsenic = ts.Compound(name="Thioarsenic", acidic=True, pKs=[3.3], strong=False)
+Thiocyanic = ts.Compound(name="Thiocyanic", acidic=True, pKs=[-1.85], strong=True)
 Thiophenol = ts.Compound(name="Thiophenol", acidic=True, pKs=[6.52], strong=False)
-Thiophosphoricacid = ts.Compound(name="Thiophosphoricacid", acidic=True, pKs=[1.79], strong=True)
-Thiosulfuricacid = ts.Compound(name="Thiosulfuricacid", acidic=True, pKs=[0.6], strong=True)
-Thioselenicacid = ts.Compound(name="Thioselenicacid", acidic=True, pKs=[0.99], strong=True)
-Tribromoaceticacid = ts.Compound(name="Tribromoaceticacid", acidic=True, pKs=[0.72], strong=True)
-Trichloroaceticacid = ts.Compound(name="Trichloroaceticacid", acidic=True, pKs=[0.65], strong=True)
-Trifluoroaceticacid = ts.Compound(name="Trifluoroaceticacid", acidic=True, pKs=[0.23], strong=True)
-Trifluoromethanesulfonicacid = ts.Compound(name="Trifluoromethanesulfonicacid", acidic=True, pKs=[-5.21], strong=True)
+Thiophosphoric = ts.Compound(name="Thiophosphoric", acidic=True, pKs=[1.79], strong=True)
+Thiosulfuric = ts.Compound(name="Thiosulfuric", acidic=True, pKs=[0.6], strong=True)
+Thioselenic = ts.Compound(name="Thioselenic", acidic=True, pKs=[0.99], strong=True)
+Tribromoacetic = ts.Compound(name="Tribromoacetic", acidic=True, pKs=[0.72], strong=True)
+Trichloroacetic = ts.Compound(name="Trichloroacetic", acidic=True, pKs=[0.65], strong=True)
+Trifluoroacetic = ts.Compound(name="Trifluoroacetic", acidic=True, pKs=[0.23], strong=True)
+Trifluoromethanesulfonic = ts.Compound(name="Trifluoromethanesulfonic", acidic=True, pKs=[-5.21], strong=True)
 Trihydrogenperoxodiphosphate = ts.Compound(name="Trihydrogenperoxodiphosphate", acidic=True, pKs=[0.5], strong=True)
-Triiodoaceticacid = ts.Compound(name="Triiodoaceticacid", acidic=True, pKs=[0.9], strong=True)
+Triiodoacetic = ts.Compound(name="Triiodoacetic", acidic=True, pKs=[0.9], strong=True)
 Trioxide = ts.Compound(name="Trioxide", acidic=True, pKs=[9.5], strong=False)
-Triphosphoricacid = ts.Compound(name="Triphosphoricacid", acidic=True, pKs=[1.0], strong=True)
-Triselenocarbonicacid = ts.Compound(name="Triselenocarbonicacid", acidic=True, pKs=[1.16], strong=True)
+Triphosphoric = ts.Compound(name="Triphosphoric", acidic=True, pKs=[1.0], strong=True)
+Triselenocarbonic = ts.Compound(name="Triselenocarbonic", acidic=True, pKs=[1.16], strong=True)
 Trisulfane = ts.Compound(name="Trisulfane", acidic=True, pKs=[4.2], strong=False)
-Trithiocarbonicacid = ts.Compound(name="Trithiocarbonicacid", acidic=True, pKs=[2.68], strong=False)
-Valericacid = ts.Compound(name="Valericacid", acidic=True, pKs=[4.84], strong=False)
+Trithiocarbonic = ts.Compound(name="Trithiocarbonic", acidic=True, pKs=[2.68], strong=False)
+Valeric = ts.Compound(name="Valeric", acidic=True, pKs=[4.84], strong=False)
 Hydrogenhyperoxide = ts.Compound(name="Hydrogenhyperoxide", acidic=True, pKs=[4.7], strong=False)
 Hydrogenozonide = ts.Compound(name="Hydrogenozonide", acidic=True, pKs=[8.2], strong=False)
 Hydrogenperoxide = ts.Compound(name="Hydrogenperoxide", acidic=True, pKs=[11.62], strong=False)
-Tartaricacid = ts.Compound(name="Tartaricacid", acidic=True, pKs=[2.98], strong=False)
-Tungsticacid = ts.Compound(name="Tungsticacid", acidic=True, pKs=[3.8], strong=False)
-Xenon_VI_acid = ts.Compound(name="Xenon_VI_acid", acidic=True, pKs=[10.5], strong=False)
-Xenon_VIII_acid = ts.Compound(name="Xenon_VIII_acid", acidic=True, pKs=[2.0], strong=False)
+Tartaric = ts.Compound(name="Tartaric", acidic=True, pKs=[2.98], strong=False)
+Tungstic = ts.Compound(name="Tungstic", acidic=True, pKs=[3.8], strong=False)
+Xenon_VI_ = ts.Compound(name="Xenon_VI_", acidic=True, pKs=[10.5], strong=False)
+Xenon_VIII = ts.Compound(name="Xenon_VIII_", acidic=True, pKs=[2.0], strong=False)
 
 # Bases
 KOH = ts.Compound(name="KOH", acidic=False, pKs=[0.5], strong=True)
@@ -336,222 +328,222 @@ Zirconium_IV_hydroxide = ts.Compound(name="Zirconium_IV_hydroxide", acidic=False
 
 # Lists of compound
 
-acids = [HCl,
-         HI,
-         HNO3,
-         HBr,
-         HCLO4,
-         TsOH,
-         propane1sulfonicacid,
-         propane2sulfonicacid,
-         Amidosulfonicacid,
-         Benzenesulfonicacid,
-         Bromicacid,
-         Hydrobromicacid,
-         Butanesulfonicacid,
-         Chlorousacid,
-         Chlorosulfonicacid,
-         Chloricacid,
-         Chromicacid,
-         Dibromoaceticacid,
-         Dichloroaceticacid,
-         Dichromicacid,
-         Difluoroaceticacid,
-         Difluorophosphoricacid,
-         Diiodoaceticacid,
-         Dimethylphosphonicacid,
-         Disulfuricacid,
-         Dithionicacid,
-         Ethanesulfonicacid,
-         Fluorosulfonicacid,
-         Heptafluoropropanesulfonicacid,
+acids = [Hydrochloric,
+         Hydroiodic,
+         Nitric,
+         Hydrobromic,
+         Hydroperchloric,
+         p_Toluenesulfonic,
+         Propane1sulfonic,
+         Propane2sulfonic,
+         Amidosulfonic,
+         Benzenesulfonic,
+         Bromic,
+         Hydrobromic,
+         Butanesulfonic,
+         Chlorous,
+         Chlorosulfonic,
+         Chloric,
+         Chromic,
+         Dibromoacetic,
+         Dichloroacetic,
+         Dichromic,
+         Difluoroacetic,
+         Difluorophosphoric,
+         Diiodoacetic,
+         Dimethylphosphonic,
+         Disulfuric,
+         Dithionic,
+         Ethanesulfonic,
+         Fluorosulfonic,
+         Heptafluoropropanesulfonic,
          EDTA,
          Citric,
          Carbonic,
          Acetic,
          Ammonium,
-         MalicAcid,
-         Enanthicacid,
-         Acrylicacid,
-         Adipicacid,
+         Malic,
+         Enanthic,
+         Acrylic,
+         Adipic,
          Alanine,
-         Formicacid,
-         Amidophosphonicacid,
-         Arsenicacid,
-         AzelaicAcid,
-         Benzoicacid,
-         Succinicacid,
-         Hydrocyanicacid,
-         Bromoaceticacid,
-         Brominousacid,
+         Formic,
+         Amidophosphonic,
+         Arsenic,
+         Azelaic,
+         Benzoic,
+         Succinic,
+         Hydrocyanic,
+         Bromoacetic,
+         Brominous,
          Butanethiol,
-         Butyricacid,
-         Butylarsonicacid,
-         Butylphosphinicacid,
-         Butylphosphonicacid,
-         Capricacid,
-         Caproicacid,
-         Caprylicacid,
-         Chloroaceticacid,
-         Citricacid,
-         Crotonicacid,
-         Cyanicacid,
-         Diamidophosphonicacid,
+         Butyric,
+         Butylarsonic,
+         Butylphosphinic,
+         Butylphosphonic,
+         Capric,
+         Caproic,
+         Caprylic,
+         Chloroacetic,
+         Citric,
+         Crotonic,
+         Cyanic,
+         Diamidophosphonic,
          Dihydrogenperoxodiphosphate,
          Disulfane,
-         Dithioarsenicacid,
-         Iron_VI_acid,
-         Aceticacid,
+         Dithioarsenic,
+         Iron_VI_,
+         Acetic,
          Ethanethiol,
-         Ethylarsonicacid,
+         Ethylarsonic,
          Ethylhydroperoxide,
-         Ethylphosphinicacid,
-         Ethylphosphonicacid,
-         Fluoroaceticacid,
-         Hydrofluoricacid,
+         Ethylphosphinic,
+         Ethylphosphonic,
+         Fluoroacetic,
+         Hydrofluoric,
          Glycine,
-         Glycolicacid,
-         Hexafluoroantimonicacid,
-         Hexafluoroarsenicacid,
-         Hexafluorophosphoricacid,
-         Hexafluorotitan_IV_acid,
-         Hexafluorosilicicacid,
+         Glycolic,
+         Hexafluoroantimonic,
+         Hexafluoroarsenic,
+         Hexafluorophosphoric,
+         Hexafluorotitan_IV_,
+         Hexafluorosilicic,
          Hexasulfane,
-         Hydrazidosulfonicacid,
+         Hydrazidosulfonic,
          Hydrogenperoxodiphosphate,
-         Hypobromousacid,
-         Hypochlorousacid,
-         Hypodiphosphoricacid,
-         HypoiodousAcid,
-         Hypophosphorousacid,
-         Hypo_nitrousacid,
-         Hypothiocyaniticacid,
-         Imidodiphosphoricacid,
-         Iodicacid,
-         Iodoaceticacid,
-         HydroiodicAcid,
-         Isocyanicacid,
+         Hypobromous,
+         Hypochlorous,
+         Hypodiphosphoric,
+         Hypoiodous,
+         Hypophosphorous,
+         Hypo_nitrous,
+         Hypothiocyanitic,
+         Imidodiphosphoric,
+         Iodic,
+         Iodoacetic,
+         Hydroiodic,
+         Isocyanic,
          Isopropylhydroperoxide,
          Isopropyloxonium,
-         Isothiocyanicacid,
-         Carbonicacid,
-         Subericacid,
-         Malonicacid,
-         Manganese_VI_acid,
-         Melliticacid,
-         Metaarsenousacid,
-         Metaboricacid,
-         Metagermanicacid,
-         Metasilicicacid,
-         Metaniobicacid,
-         Metaperiodicacid,
-         Metatantalicacid,
-         Metavanadium_V_acid,
+         Isothiocyanic,
+         Carbonic,
+         Suberic,
+         Malonic,
+         Manganese_VI_,
+         Mellitic,
+         Metaarsenous,
+         Metaboric,
+         Metagermanic,
+         Metasilicic,
+         Metaniobic,
+         Metaperiodic,
+         Metatantalic,
+         Metavanadium_V_,
          Methanal,
          Methaneselenol,
-         Methanesulfonicacid,
+         Methanesulfonic,
          Methanethiol,
-         Methylarsonicacid,
+         Methylarsonic,
          Methylhydroperoxide,
-         Methylphosphinicacid,
-         Methylphosphonicacid,
-         Methylsulfinicacid,
-         Lacticacid,
-         Molybdicacid,
-         Monofluorophosphoricacid,
+         Methylphosphinic,
+         Methylphosphonic,
+         Methylsulfinic,
+         Lactic,
+         Molybdic,
+         Monofluorophosphoric,
          Nitramine,
          Nitromethane,
-         Octanesulfonicacid,
-         Ortho_periodicacid,
-         Orthoantimonicacid,
-         Orthoboricacid,
-         Orthogermanicacid,
-         Orthosilicicacid,
-         Orthotelluricacid,
-         Orthovanadicacid,
-         Oxalicacid,
-         p_Toluenesulfonicacid,
-         Pelargonicacid,
+         Octanesulfonic,
+         Ortho_periodic,
+         Orthoantimonic,
+         Orthoboric,
+         Orthogermanic,
+         Orthosilicic,
+         Orthotelluric,
+         Orthovanadic,
+         Oxalic,
+         p_Toluenesulfonic,
+         Pelargonic,
          Pentacarbonylmanganese,
-         Pentafluoroethanesulfonicacid,
+         Pentafluoroethanesulfonic,
          Pentasulfane,
          Perchlorylamide,
          Perchlorylamine,
-         Perchromicacid,
-         Permanganicacid,
-         Perosmicacid,
-         Peroxoformicacid,
-         Peroxobutyricacid,
-         Peroxodiphosphoricacid,
-         Peroxodisulfuricacid,
-         Peroxyaceticacid,
-         Peroxohypositrousacid,
-         Peroxopropionicacid,
-         Peroxonitricacid,
-         Peroxo_nitrousacid,
-         Peroxosulphuricacid,
-         Perrhenicacid,
-         Perruthenicacid,
-         Pertechneticacid,
+         Perchromic,
+         Permanganic,
+         Perosmic,
+         Peroxoformic,
+         Peroxobutyric,
+         Peroxodiphosphoric,
+         Peroxodisulfuric,
+         Peroxyacetic,
+         Peroxohypositrous,
+         Peroxopropionic,
+         Peroxonitric,
+         Peroxo_nitrous,
+         Peroxosulphuric,
+         Perrhenic,
+         Perruthenic,
+         Pertechnetic,
          Phenol,
-         Phenylphosphonicacid,
-         Phenylsulfinicacid,
-         Phosphorousacid,
-         Phosphoricacid,
-         Pimelicacid,
-         Polyacid,
+         Phenylphosphonic,
+         Phenylsulfinic,
+         Phosphorous,
+         Phosphoric,
+         Pimelic,
+         Poly,
          Propanethiol,
-         Propionicacid,
-         Propylarsonicacid,
-         Propylphosphinicacid,
-         Propylphosphonicacid,
-         SalicylicAcid,
-         Nitricacid,
-         Nitrousacid,
-         Hydrochloricacid,
-         Sulfuricacid,
+         Propionic,
+         Propylarsonic,
+         Propylphosphinic,
+         Propylphosphonic,
+         Salicylic,
+         Nitric,
+         Nitrous,
+         Hydrochloric,
+         Sulfuric,
          Hydrogensulfide,
-         Sulphurousacid,
-         Seaborgium_VI_acid,
-         Sebacicacid,
-         Selenousacid,
+         Sulphurous,
+         Seaborgium_VI_,
+         Sebacic,
+         Selenous,
          Selenophenol,
-         Selenophosphoricacid,
-         Selenicacid,
-         Hydroselenicacid,
-         Hydrazoicacid,
-         Tartronicacid,
-         Telluricacid,
+         Selenophosphoric,
+         Selenic,
+         Hydroselenic,
+         Hydrazoic,
+         Tartronic,
+         Telluric,
          Tetracarbonyliron,
-         Tetrafluoroboricacid,
-         Tetraphosphoricacid,
+         Tetrafluoroboric,
+         Tetraphosphoric,
          Tetrasulfane,
-         Tetrathiophosphoricacid,
-         Thioarsenicacid,
-         Thiocyanicacid,
+         Tetrathiophosphoric,
+         Thioarsenic,
+         Thiocyanic,
          Thiophenol,
-         Thiophosphoricacid,
-         Thiosulfuricacid,
-         Thioselenicacid,
-         Tribromoaceticacid,
-         Trichloroaceticacid,
-         Trifluoroaceticacid,
-         Trifluoromethanesulfonicacid,
+         Thiophosphoric,
+         Thiosulfuric,
+         Thioselenic,
+         Tribromoacetic,
+         Trichloroacetic,
+         Trifluoroacetic,
+         Trifluoromethanesulfonic,
          Trihydrogenperoxodiphosphate,
-         Triiodoaceticacid,
+         Triiodoacetic,
          Trioxide,
-         Triphosphoricacid,
-         Triselenocarbonicacid,
+         Triphosphoric,
+         Triselenocarbonic,
          Trisulfane,
-         Trithiocarbonicacid,
-         Valericacid,
+         Trithiocarbonic,
+         Valeric,
          Hydrogenhyperoxide,
          Hydrogenozonide,
          Hydrogenperoxide,
-         Tartaricacid,
-         Tungsticacid,
-         Xenon_VI_acid,
-         Xenon_VIII_acid]
+         Tartaric,
+         Tungstic,
+         Xenon_VI_,
+         Xenon_VIII]
 
 bases = [KOH,
          LiOH,
@@ -662,7 +654,7 @@ bases = [KOH,
          Tin_IV_hydroxide,
          Zirconium_IV_hydroxide]
 
-strong_acids = [i for i in acids if i.strong == True]
-weak_acids = [i for i in acids if i.strong == False]
-strong_bases = [i for i in bases if i.strong == True]
-weak_bases = [i for i in bases if i.strong == False]
+strong_acids = [i for i in acids if i.strong is True]
+weak_acids = [i for i in acids if i.strong is False]
+strong_bases = [i for i in bases if i.strong is True]
+weak_bases = [i for i in bases if i.strong is False]
