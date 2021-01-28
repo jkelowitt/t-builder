@@ -262,7 +262,7 @@ class Titration(Bjerrum):
         return volume, d
 
     @staticmethod
-    def scale_data(data, a):
+    def _scale_data(data, a):
         """abs normalization"""
         return a * (data / (1 + abs(data)))
 

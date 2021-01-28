@@ -159,7 +159,7 @@ def plot_callback(sender, data):
         if get_value("1stderiv"):
             volume, pHderiv = titr.deriv(degree=1)
 
-            data = titr.scale_data(pHderiv, get_value("1dscaler"))
+            data = titr._scale_data(pHderiv, get_value("1dscaler"))
 
             add_line_series(
                 plot="Main Plot",
@@ -173,7 +173,7 @@ def plot_callback(sender, data):
         if get_value("2ndderiv"):
             volume, pHderiv = titr.deriv(degree=2)
 
-            data = titr.scale_data(pHderiv, get_value("2dscaler"))
+            data = titr._scale_data(pHderiv, get_value("2dscaler"))
 
             add_line_series(
                 plot="Main Plot",

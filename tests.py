@@ -1,7 +1,5 @@
 from unittest import TestCase, main
 from titration_class import array, Titration
-from os import path, remove
-from pandas import read_csv
 from compounds import strong_bases, weak_bases, strong_acids, weak_acids
 
 
@@ -164,7 +162,7 @@ class TestTitrationClassModule(TestCase):
 
     def test_scaled_data_less_than_one(self):
         for titration in self.titrations:
-            scaled = titration.scale_data(titration.ph, 1)
+            scaled = titration._scale_data(titration.ph, 1)
             for scale in scaled:
                 self.assertTrue(scale <= 1)
 
