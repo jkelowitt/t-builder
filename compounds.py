@@ -656,6 +656,3 @@ strong_acids = [i for i in acids if i.strong is True]
 weak_acids = [i for i in acids if i.strong is False]
 strong_bases = [i for i in bases if i.strong is True]
 weak_bases = [i for i in bases if i.strong is False]
-
-print(len(strong_acids) + len(weak_acids))
-print(len(strong_bases) + len(weak_bases))
