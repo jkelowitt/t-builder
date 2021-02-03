@@ -7,11 +7,11 @@ basic_water = ts.Compound(name="Water", acidic=False, pKs=[14.0], strong=False)
 
 # Acids
 Hydrochloric = ts.Compound(name="HCl", acidic=True, pKs=[-6.5], strong=True)
-Hydroiodic= ts.Compound(name="HI", acidic=True, pKs=[-10], strong=True)
+Hydroiodic = ts.Compound(name="HI", acidic=True, pKs=[-10], strong=True)
 Nitric = ts.Compound(name="HNO3", acidic=True, pKs=[-1.4], strong=True)
 Hydrobromic = ts.Compound(name="HBr", acidic=True, pKs=[-8.7], strong=True)
-Hydroperchloric= ts.Compound(name="Perchloric Acid", acidic=True, pKs=[-8], strong=True)
-P_toluenesulfonic= ts.Compound(name="p-Toluenesolfonic Acid", acidic=True, pKs=[-2.8], strong=True)
+Hydroperchloric = ts.Compound(name="Perchloric Acid", acidic=True, pKs=[-8], strong=True)
+P_Toluenesulfonic = ts.Compound(name="p-Toluenesolfonic Acid", acidic=True, pKs=[-2.8], strong=True)
 Propane1sulfonic = ts.Compound(name="1-propanesulfonicacid", acidic=True, pKs=[-1.49], strong=True)
 Propane2sulfonic = ts.Compound(name="2-propanesulfonicacid", acidic=True, pKs=[-1.79], strong=True)
 Amidosulfonic = ts.Compound(name="Amidosulfonic", acidic=True, pKs=[0.99], strong=True)
@@ -33,7 +33,7 @@ Disulfuric = ts.Compound(name="Disulfuric", acidic=True, pKs=[-12.0], strong=Tru
 Dithionic = ts.Compound(name="Dithionic", acidic=True, pKs=[-3.4, 0.35], strong=True)
 Ethanesulfonic = ts.Compound(name="Ethanesulfonic", acidic=True, pKs=[-1.68], strong=True)
 Fluorosulfonic = ts.Compound(name="Fluorosulfonic", acidic=True, pKs=[-14.0], strong=True)
-Heptafluoropropanesulfonic = ts.Compound(name="Heptafluoropropanesulfonic", acidic=True, pKs=[-5.0],strong=True)
+Heptafluoropropanesulfonic = ts.Compound(name="Heptafluoropropanesulfonic", acidic=True, pKs=[-5.0], strong=True)
 EDTA = ts.Compound(name="EDTA", acidic=True, pKs=[0.0, 1.5, 2.00, 2.69, 6.13, 10.37], strong=False)  # Pg 268 QCA
 Citric = ts.Compound(name="Citric Acid", acidic=True, pKs=[3.13, 4.76, 6.40], strong=False)
 Carbonic = ts.Compound(name="Carbonic Acid", acidic=True, pKs=[6.37, 10.25], strong=False)
@@ -68,7 +68,7 @@ Diamidophosphonic = ts.Compound(name="Diamidophosphonic", acidic=True, pKs=[4.83
 Dihydrogenperoxodiphosphate = ts.Compound(name="Dihydrogenperoxodiphosphate", acidic=True, pKs=[5.18], strong=False)
 Disulfane = ts.Compound(name="Disulfane", acidic=True, pKs=[5.0], strong=False)
 Dithioarsenic = ts.Compound(name="Dithioarsenic", acidic=True, pKs=[2.4], strong=False)
-Iron_VI_ = ts.Compound(name="Iron_VI_", acidic=True, pKs=[3.5], strong=False)
+Iron_VI = ts.Compound(name="Iron_VI_", acidic=True, pKs=[3.5], strong=False)
 Ethanethiol = ts.Compound(name="Ethanethiol", acidic=True, pKs=[10.5], strong=False)
 Ethylarsonic = ts.Compound(name="Ethylarsonic", acidic=True, pKs=[3.89], strong=False)
 Ethylhydroperoxide = ts.Compound(name="Ethylhydroperoxide", acidic=True, pKs=[11.8], strong=False)
@@ -81,7 +81,7 @@ Glycolic = ts.Compound(name="Glycolic", acidic=True, pKs=[3.83], strong=False)
 Hexafluoroantimonic = ts.Compound(name="Hexafluoroantimonic", acidic=True, pKs=[-17.0], strong=True)
 Hexafluoroarsenic = ts.Compound(name="Hexafluoroarsenic", acidic=True, pKs=[-13.0], strong=True)
 Hexafluorophosphoric = ts.Compound(name="Hexafluorophosphoric", acidic=True, pKs=[-10.0], strong=True)
-Hexafluorotitan_IV_ = ts.Compound(name="Hexafluorotitan_IV_", acidic=True, pKs=[2.14], strong=False)
+Hexafluorotitan_IV = ts.Compound(name="Hexafluorotitan_IV_", acidic=True, pKs=[2.14], strong=False)
 Hexafluorosilicic = ts.Compound(name="Hexafluorosilicic", acidic=True, pKs=[-3.0], strong=True)
 Hexasulfane = ts.Compound(name="Hexasulfane", acidic=True, pKs=[3.2], strong=False)
 Hydrazidosulfonic = ts.Compound(name="Hydrazidosulfonic", acidic=True, pKs=[3.85], strong=False)
@@ -102,7 +102,7 @@ Isopropyloxonium = ts.Compound(name="Isopropyloxonium", acidic=True, pKs=[-3.2],
 Isothiocyanic = ts.Compound(name="Isothiocyanic", acidic=True, pKs=[-1.28], strong=True)
 Suberic = ts.Compound(name="Suberic", acidic=True, pKs=[4.51], strong=False)
 Malonic = ts.Compound(name="Malonic", acidic=True, pKs=[2.83], strong=False)
-Manganese_VI_ = ts.Compound(name="Manganese_VI_", acidic=True, pKs=[5.0], strong=False)
+Manganese_VI = ts.Compound(name="Manganese_VI_", acidic=True, pKs=[5.0], strong=False)
 Mellitic = ts.Compound(name="Mellitic", acidic=True, pKs=[1.4], strong=True)
 Metaarsenous = ts.Compound(name="Metaarsenous", acidic=True, pKs=[9.28], strong=False)
 Metaboric = ts.Compound(name="Metaboric", acidic=True, pKs=[9.12], strong=False)
@@ -111,7 +111,7 @@ Metasilicic = ts.Compound(name="Metasilicic", acidic=True, pKs=[9.51], strong=Fa
 Metaniobic = ts.Compound(name="Metaniobic", acidic=True, pKs=[7.4], strong=False)
 Metaperiodic = ts.Compound(name="Metaperiodic", acidic=True, pKs=[1.64], strong=True)
 Metatantalic = ts.Compound(name="Metatantalic", acidic=True, pKs=[9.6], strong=False)
-Metavanadium_V_ = ts.Compound(name="Metavanadium_V_", acidic=True, pKs=[3.8], strong=False)
+Metavanadium_V = ts.Compound(name="Metavanadium_V_", acidic=True, pKs=[3.8], strong=False)
 Methanal = ts.Compound(name="Methanal", acidic=True, pKs=[13.3], strong=False)
 Methaneselenol = ts.Compound(name="Methaneselenol", acidic=True, pKs=[5.2], strong=False)
 Methanesulfonic = ts.Compound(name="Methanesulfonic", acidic=True, pKs=[-1.92], strong=True)
@@ -135,7 +135,6 @@ Orthosilicic = ts.Compound(name="Orthosilicic", acidic=True, pKs=[9.66], strong=
 Orthotelluric = ts.Compound(name="Orthotelluric", acidic=True, pKs=[7.7], strong=False)
 Orthovanadic = ts.Compound(name="Orthovanadic", acidic=True, pKs=[2.6], strong=False)
 Oxalic = ts.Compound(name="Oxalic", acidic=True, pKs=[1.23], strong=True)
-p_Toluenesulfonic = ts.Compound(name="p-Toluenesulfonicacid", acidic=True, pKs=[-2.8], strong=True)
 Pelargonic = ts.Compound(name="Pelargonic", acidic=True, pKs=[4.95], strong=False)
 Pentacarbonylmanganese = ts.Compound(name="Pentacarbonylmanganese", acidic=True, pKs=[7.1], strong=False)
 Pentafluoroethanesulfonic = ts.Compound(name="Pentafluoroethanesulfonic", acidic=True, pKs=[-5.1], strong=True)
@@ -175,7 +174,7 @@ Nitrous = ts.Compound(name="Nitrous", acidic=True, pKs=[3.35], strong=False)
 Sulfuric = ts.Compound(name="Sulfuric", acidic=True, pKs=[-3.0], strong=True)
 Hydrogensulfide = ts.Compound(name="Hydrogensulfide", acidic=True, pKs=[7.06], strong=False)
 Sulphurous = ts.Compound(name="Sulphurous", acidic=True, pKs=[1.92], strong=True)
-Seaborgium_VI_ = ts.Compound(name="Seaborgium_VI_", acidic=True, pKs=[3.75], strong=False)
+Seaborgium_VI = ts.Compound(name="Seaborgium_VI_", acidic=True, pKs=[3.75], strong=False)
 Sebacic = ts.Compound(name="Sebacic", acidic=True, pKs=[4.72], strong=False)
 Selenous = ts.Compound(name="Selenous", acidic=True, pKs=[2.62], strong=False)
 Selenophenol = ts.Compound(name="Selenophenol", acidic=True, pKs=[5.9], strong=False)
@@ -213,7 +212,7 @@ Hydrogenozonide = ts.Compound(name="Hydrogenozonide", acidic=True, pKs=[8.2], st
 Hydrogenperoxide = ts.Compound(name="Hydrogenperoxide", acidic=True, pKs=[11.62], strong=False)
 Tartaric = ts.Compound(name="Tartaric", acidic=True, pKs=[2.98], strong=False)
 Tungstic = ts.Compound(name="Tungstic", acidic=True, pKs=[3.8], strong=False)
-Xenon_VI_ = ts.Compound(name="Xenon_VI_", acidic=True, pKs=[10.5], strong=False)
+Xenon_VI = ts.Compound(name="Xenon_VI_", acidic=True, pKs=[10.5], strong=False)
 Xenon_VIII = ts.Compound(name="Xenon_VIII_", acidic=True, pKs=[2.0], strong=False)
 
 # Bases
@@ -260,9 +259,9 @@ Hafnium_IV_hydroxide = ts.Compound(name="Hafnium_IV_hydroxide", acidic=False, pK
 Urea = ts.Compound(name="Urea", acidic=False, pKs=[13.82], strong=False)
 Holmium_III_hydroxide = ts.Compound(name="Holmium_III_hydroxide", acidic=False, pKs=[5.6], strong=False)
 Hydrazine = ts.Compound(name="Hydrazine", acidic=False, pKs=[6.07], strong=False)
-Hydrogenxenonate_VIII_ = ts.Compound(name="Hydrogenxenonate_VIII_", acidic=False, pKs=[3.5], strong=False)
+Hydrogenxenonate_VIII = ts.Compound(name="Hydrogenxenonate_VIII_", acidic=False, pKs=[3.5], strong=False)
 Hydroxylamine = ts.Compound(name="Hydroxylamine", acidic=False, pKs=[5.8], strong=False)
-Indium_I_hydroxide_InOH_ = ts.Compound(name="Indium_I_hydroxide_InOH_", acidic=False, pKs=[2.17], strong=False)
+Indium_I_hydroxide_InOH = ts.Compound(name="Indium_I_hydroxide_InOH_", acidic=False, pKs=[2.17], strong=False)
 Indium_III_hydroxide_In = ts.Compound(name="Indium_III_hydroxide_In", acidic=False, pKs=[8.84], strong=False)
 Potassiumhydroxide = ts.Compound(name="Potassiumhydroxide", acidic=False, pKs=[-1.1], strong=True)
 Cobalt_II_hydroxide = ts.Compound(name="Cobalt_II_hydroxide", acidic=False, pKs=[4.37], strong=False)
@@ -333,7 +332,7 @@ acids = [Hydrochloric,
          Nitric,
          Hydrobromic,
          Hydroperchloric,
-         p_Toluenesulfonic,
+         P_Toluenesulfonic,
          Propane1sulfonic,
          Propane2sulfonic,
          Amidosulfonic,
@@ -392,7 +391,7 @@ acids = [Hydrochloric,
          Dihydrogenperoxodiphosphate,
          Disulfane,
          Dithioarsenic,
-         Iron_VI_,
+         Iron_VI,
          Acetic,
          Ethanethiol,
          Ethylarsonic,
@@ -406,7 +405,7 @@ acids = [Hydrochloric,
          Hexafluoroantimonic,
          Hexafluoroarsenic,
          Hexafluorophosphoric,
-         Hexafluorotitan_IV_,
+         Hexafluorotitan_IV,
          Hexafluorosilicic,
          Hexasulfane,
          Hydrazidosulfonic,
@@ -429,7 +428,7 @@ acids = [Hydrochloric,
          Carbonic,
          Suberic,
          Malonic,
-         Manganese_VI_,
+         Manganese_VI,
          Mellitic,
          Metaarsenous,
          Metaboric,
@@ -438,7 +437,7 @@ acids = [Hydrochloric,
          Metaniobic,
          Metaperiodic,
          Metatantalic,
-         Metavanadium_V_,
+         Metavanadium_V,
          Methanal,
          Methaneselenol,
          Methanesulfonic,
@@ -462,7 +461,6 @@ acids = [Hydrochloric,
          Orthotelluric,
          Orthovanadic,
          Oxalic,
-         p_Toluenesulfonic,
          Pelargonic,
          Pentacarbonylmanganese,
          Pentafluoroethanesulfonic,
@@ -504,7 +502,7 @@ acids = [Hydrochloric,
          Sulfuric,
          Hydrogensulfide,
          Sulphurous,
-         Seaborgium_VI_,
+         Seaborgium_VI,
          Sebacic,
          Selenous,
          Selenophenol,
@@ -542,7 +540,7 @@ acids = [Hydrochloric,
          Hydrogenperoxide,
          Tartaric,
          Tungstic,
-         Xenon_VI_,
+         Xenon_VI,
          Xenon_VIII]
 
 bases = [KOH,
@@ -588,9 +586,9 @@ bases = [KOH,
          Urea,
          Holmium_III_hydroxide,
          Hydrazine,
-         Hydrogenxenonate_VIII_,
+         Hydrogenxenonate_VIII,
          Hydroxylamine,
-         Indium_I_hydroxide_InOH_,
+         Indium_I_hydroxide_InOH,
          Indium_III_hydroxide_In,
          Potassiumhydroxide,
          Cobalt_II_hydroxide,
@@ -658,3 +656,6 @@ strong_acids = [i for i in acids if i.strong is True]
 weak_acids = [i for i in acids if i.strong is False]
 strong_bases = [i for i in bases if i.strong is True]
 weak_bases = [i for i in bases if i.strong is False]
+
+print(len(strong_acids) + len(weak_acids))
+print(len(strong_bases) + len(weak_bases))
