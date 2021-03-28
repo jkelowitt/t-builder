@@ -1,8 +1,8 @@
 from numpy import array, arange, divide, where, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
-from scipy.interpolate import InterpolatedUnivariateSpline as IUS
-from typing import List, Tuple, Generator
+from scipy.interpolate import InterpolatedUnivariateSpline as ius
+from typing import List, Tuple, Generator, Any
 
 
 def pk_to_k(pk) -> array:
@@ -173,7 +173,7 @@ class Titration(Bjerrum):
         # Trimmed values for gui plot
         self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
 
-    def trim_values(self, *args) -> Generator:
+    def trim_values(self, *args: Any) -> Generator:
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
@@ -241,7 +241,7 @@ class Titration(Bjerrum):
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
 
         # An object which makes splines
-        spline_maker = IUS(volume, pH)
+        spline_maker = ius(volume, pH)
 
         # An object which calculates the derivative of those splines
         deriv_function = spline_maker.derivative(n=degree)
@@ -291,55 +291,3 @@ class Titration(Bjerrum):
 
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=True)
-
-
-if __name__ == "__main__":
-
-    import time
-    from compounds import acids, bases
-
-
-    class TimerError(Exception):
-        """A custom exception used to report errors in use of Timer class"""
-
-
-    class Timer:
-        def __init__(self):
-            self._start_time = None
-
-        def start(self):
-            """Start a new timer"""
-            if self._start_time is not None:
-                raise TimerError(f"Timer is running. Use .stop() to stop it")
-            self._start_time = time.perf_counter()
-
-        def stop(self):
-            """Stop the timer, and report the elapsed time"""
-            if self._start_time is None:
-                raise TimerError(f"Timer is not running. Use .start() to start it")
-            elapsed_time = time.perf_counter() - self._start_time
-            self._start_time = None
-            print(f"Elapsed time: {elapsed_time:0.4f} seconds")
-            return elapsed_time
-
-
-    def run():
-        for acid in acids:
-            for base in bases:
-                analyte = Compound("Analyte", acidic=False, pKas=base.pKas)
-                titrant = Compound("Titrant", acidic=True, pKas=acid.pKas)
-                titr = Titration(analyte, titrant, concentration_analyte=0.1, concentration_titrant=0.1,
-                                 volume_analyte=25)
-
-
-    t = Timer()
-    times = []
-    for i in range(10):
-        t.start()
-        run()
-        times.append(t.stop())
-
-    avg_time = sum(times) / len(times)
-    print(f"Average time: {avg_time:0.4f} seconds")
-
-# Average time without typing: 8.6527 seconds
