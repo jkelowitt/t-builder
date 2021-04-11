@@ -27,15 +27,13 @@ def make_titration():
     Analyte = Compound(
         name=get_value("Analyte Name"),
         acidic=get_value("aa"),
-        pKs=[float(i) for i in get_value("apk").split(",")],
-        strong=get_value("as"),
+        pKas=[float(i) for i in get_value("apk").split(",")],
     )
 
     Titrant = Compound(
         name=get_value("tname"),
         acidic=not get_value("aa"),
-        pKs=[float(i) for i in get_value("tpk").split(",")],
-        strong=get_value("ts"),
+        pKas=[float(i) for i in get_value("tpk").split(",")],
     )
 
     # Create titration object
@@ -239,10 +237,10 @@ with window("Main Window", label="Something Else", autosize=True):
 
             add_input_text(
                 "apk",
-                label="pK value(s)",
+                label="pKa value(s)",
                 default_value="3.13, 4.76, 6.40",
                 callback=plot_callback,
-                tip="Enter the pK values of the analyte. Separate them with commas if there are more than one.",
+                tip="Enter the pKa values of the analyte. Separate them with commas if there are more than one.",
             )
 
             add_input_float(
@@ -260,14 +258,6 @@ with window("Main Window", label="Something Else", autosize=True):
                 default_value=True,
                 callback=plot_callback,
                 tip="Check this box if the analyte acts as an acid during this titration.",
-            )
-
-            add_checkbox(
-                "as",
-                label="Strong",
-                default_value=False,
-                callback=plot_callback,
-                tip="Check this box if the titrant is a strong acid or base.",
             )
 
             add_dummy(height=25)
@@ -292,18 +282,10 @@ with window("Main Window", label="Something Else", autosize=True):
 
             add_input_text(
                 "tpk",
-                label="pK value(s)",
-                default_value="0.20",
+                label="pKa value(s)",
+                default_value="14.76",
                 callback=plot_callback,
-                tip="Enter the pK values of the titrant. Separate them with commas if there are more than one.",
-            )
-
-            add_checkbox(
-                "ts",
-                label="Strong",
-                default_value=True,
-                callback=plot_callback,
-                tip="Check this box if the titrant is a strong acid or base.",
+                tip="Enter the pKa values of the titrant. Separate them with commas if there are more than one.",
             )
 
             add_dummy(height=25)

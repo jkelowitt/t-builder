@@ -2,80 +2,74 @@ from numpy import array, arange, divide, where, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
+from typing import List, Tuple, Generator, Any
 
 
-def pk_to_k(pk):
+def pk_to_k(pk) -> array:
+    """Convert pK values to K values"""
     return array(10.0 ** (-array(pk)))
 
 
-def closest_value(num, arr):
+def closest_value(num: float, arr: array) -> float:
     """Returns the closest value to the number in the array."""
     return min(arr, key=lambda x: abs(x - num))
 
 
 class Compound:
-    def __init__(self, name, acidic, pKs, strong):
+    def __init__(self, name: str, acidic: bool, pKas: List):
         self.name = name
         self.acidic = acidic
-        self.pKs = pKs
-        self.K = pk_to_k(pKs)
-        self.strong = strong
+        self.pKas = pKas
+        self.K = pk_to_k(pKas)
 
 
 class AcidBase:
-    def __init__(self, analyte, titrant, precision=2, pKw=None, temp=None):
+    def __init__(self, analyte: Compound, titrant: Compound, precision: int = 2, pKw: float = None, temp: float = None):
         self.analyte_is_acidic = analyte.acidic
-        self.pk_analyte = analyte.pKs
+        self.pk_analyte = analyte.pKas
         self.k_analyte = pk_to_k(analyte.K)
         self.titrant_acidity = titrant.acidic
         self.k_titrant = pk_to_k(titrant.K)
-        self.pk_titrant = titrant.pKs
+        self.pk_titrant = titrant.pKas
 
-        self.aname = analyte.name
-        self.tname = titrant.name
+        self.aname: str = analyte.name
+        self.tname: str = titrant.name
 
-        if pKw is not None:
+        if pKw is not None:  # If given a pKw
             self.kw = 10 ** (-pKw)
-        elif temp is not None:
+        elif temp is not None:  # If given a temperature
             self.kw = 10 ** (-self.get_kw(temp))
-        else:
+        else:  # If given nothing
             self.kw = 10 ** (-13.995)
 
-        self.strong_analyte = analyte.strong
-        self.strong_titrant = titrant.strong
         self.precision = 10 ** -precision
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
-    def starting_phs(self, min_ph=0, max_ph=14):
+    def starting_phs(self, min_ph: float = 0, max_ph: float = 14) -> Tuple[array, array, array]:
         ph = array(arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
         if self.analyte_is_acidic:
             return ph, h, oh
         else:
-            return ph[::-1], h[::-1], oh[::-1]
+            return array(ph[::-1]), array(h[::-1]), array(oh[::-1])
 
     @staticmethod
-    def get_kw(temp):
-        # if temp > 350 or temp < 0:
-        #     print(
-        #         "Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
-        #         "\nProceed with caution, or set a pKw value rather than a temperature."
-        #     )
+    def get_kw(temp: float) -> float:
 
-        # Variables for a quartic function found to have an R^2 > 0.9999 in Desmos for n=40 Kw values at different temps
-        # This most likely works only on the range of data used: 0C to 350C
-        a = 6.7179 * 10 ** -10
-        b = -5.3141 * 10 ** -7
-        c = 0.000199761
-        d = -0.0421956
-        f = 14.9376
-        pKw = (a * temp ** 4) + (b * temp ** 3) + (c * temp ** 2) + (d * temp) + f
+        # Quadratic approximation of the data for liquid water found here:
+        # https://www.engineeringtoolbox.com/ionization-dissociation-autoprotolysis-constant-pKw-water-heavy-deuterium-oxide-d_2004.html
+        # 0 <= T <= 95 C
+        # R^2 = 0.9992
+        a = 0.000128275
+        b = -0.0406144
+        c = 14.9368
+        pKw = (a * temp ** 2) + (b * temp) + c
         return pKw
 
 
 class Bjerrum(AcidBase):
-    def __init__(self, analyte, titrant, precision, pKw=None, temp=None):
+    def __init__(self, analyte: Compound, titrant: Compound, precision: int, pKw: float = None, temp: float = None):
 
         super().__init__(analyte, titrant, precision, pKw, temp)
 
@@ -83,18 +77,20 @@ class Bjerrum(AcidBase):
         self.alpha_titrant = self.alpha_values(k=titrant.K, acid=titrant.acidic)
 
     @staticmethod
-    def scale_alphas(arr):
+    def scale_alphas(arr: array) -> array:
+        """
+        Scale the alpha values by its index in the sub-array
+        :param arr: Array of alpha values
+        :return: The scaled alpha array
+        """
         new_arr = []
-        for num, a in enumerate(array(arr).T):
+        for num, a in enumerate(arr.T):
             a *= num
             new_arr.append(a)
 
         return array(new_arr).T
 
-    def alpha_values(self, k, acid=True):
-        # Convert the k values to a list to help with matrix transformations.
-        k = array(k)
-
+    def alpha_values(self, k: array, acid: bool = True) -> array:
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
             k = self.kw / flip(k)
@@ -120,7 +116,12 @@ class Bjerrum(AcidBase):
         else:
             return array(alphas)
 
-    def write_alpha_data(self, title="Alpha Value Data", file_headers=False, species_names=None):
+    def write_alpha_data(self,
+                         title: str = "Alpha Value Data",
+                         file_headers: bool = False,
+                         species_names: List[str] = None
+                         ) -> None:
+
         # Initialize the dataframe with the ph values
         data_dict = {"pH": self.ph}
 
@@ -146,15 +147,15 @@ class Titration(Bjerrum):
     """
 
     def __init__(
-        self,
-        analyte,
-        titrant,
-        volume_analyte,
-        concentration_analyte,
-        concentration_titrant,
-        precision=2,
-        pKw=None,
-        temp=None,
+            self,
+            analyte: Compound,
+            titrant: Compound,
+            volume_analyte: float,
+            concentration_analyte: float,
+            concentration_titrant: float,
+            precision: int = 2,
+            pKw: float = None,
+            temp: float = None,
     ):
         super().__init__(analyte, titrant, precision, pKw, temp)
 
@@ -173,36 +174,26 @@ class Titration(Bjerrum):
         # Trimmed values for gui plot
         self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
 
-    def trim_values(self, *args):
+    def trim_values(self, *args: Any) -> Generator:
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
-        good_val_index = where((self.phi >= 0) & (self.phi <= limiter))
+        good_val_index = where((self.phi >= [0]) & (self.phi <= [limiter]))
 
         # Trim the values for every chosen data set
         rets = (arg[good_val_index] for arg in args)  # Add the trimmed dataset to the return variable
 
         return rets
 
-    def calculate_volume(self, acid_titrant):
+    def calculate_volume(self, acid_titrant: bool) -> Tuple[List, List]:
 
         # Alpha values scaled by their index
         scaled_alphas_analyte = self.scale_alphas(self.alpha_analyte)
         scaled_alphas_titrant = self.scale_alphas(self.alpha_titrant)
 
         # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
-        # Since strong acids/bases fully dissociate, they only appear in their pure form, thus, their alpha values = 1
-        # The alpha values are calculated to be almost exactly 1 anyways, but letting it calculate as normal breaks the
-        #  calculation
-        if self.strong_analyte:
-            summed_scaled_alphas_analyte = array([1])
-        else:
-            summed_scaled_alphas_analyte = sum(scaled_alphas_analyte, axis=1)
-
-        if self.strong_titrant:
-            summed_scaled_alphas_titrant = array([1])
-        else:
-            summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
+        summed_scaled_alphas_analyte = sum(scaled_alphas_analyte, axis=1)
+        summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
 
         delta = self.hydronium - self.hydroxide  # I found this written as delta somewhere, and thus it will be named.
 
@@ -219,7 +210,7 @@ class Titration(Bjerrum):
         volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
         return volume, phi
 
-    def write_titration_data(self, title="Titration Curve Data", file_headers=False):
+    def write_titration_data(self, title: str = "Titration Curve Data", file_headers: bool = False) -> None:
         # Make dataframe.
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         data = DataFrame({"volume": volume, "pH": pH})
@@ -227,7 +218,7 @@ class Titration(Bjerrum):
         # Write to a csv.
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
 
-    def find_buffer_points(self):
+    def find_buffer_points(self) -> Tuple[List[int], array]:
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         pKas = array(self.pk_analyte)
         # All the volumes where the pH equals pKa
@@ -238,7 +229,7 @@ class Titration(Bjerrum):
 
         return volume[volume_indices], pKas
 
-    def find_equiv_points(self):
+    def find_equiv_points(self) -> Tuple[List, List]:
         pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
         points = []
         for i in range(1, len(self.pk_analyte) + 1):
@@ -247,7 +238,7 @@ class Titration(Bjerrum):
 
         return list(volume[points]), list(pH[points])
 
-    def deriv(self, degree):
+    def deriv(self, degree: int) -> Tuple[array, array]:
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
 
         # An object which makes splines
@@ -262,11 +253,11 @@ class Titration(Bjerrum):
         return volume, d
 
     @staticmethod
-    def _scale_data(data, a):
+    def _scale_data(data: array, a: float) -> array:
         """abs normalization"""
         return a * (data / (1 + abs(data)))
 
-    def write_analysis_data(self, title="Analysis Data", file_headers=False):
+    def write_analysis_data(self, title: str = "Analysis Data", file_headers: bool = False) -> None:
         # Make dataframe.
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         volumeD1, deriv1 = self.deriv(1)
@@ -300,4 +291,4 @@ class Titration(Bjerrum):
         )
 
         # Write to a csv.
-        data.to_csv(f"{title}.csv", index=False, header=True)
+        data.to_csv(f"{title}.csv", header=file_headers, index=False)
