@@ -3,6 +3,7 @@ from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 from typing import List, Tuple, Generator, Any
+from dataclasses import dataclass, field
 
 
 def pk_to_k(pk) -> array:
@@ -15,47 +16,64 @@ def closest_value(num: float, arr: array) -> float:
     return min(arr, key=lambda x: abs(x - num))
 
 
+@dataclass
 class Compound:
-    def __init__(self, name: str, acidic: bool, pKas: List):
-        self.name = name
-        self.acidic = acidic
-        self.pKas = pKas
-        self.K = pk_to_k(pKas)
+    name: str
+    acidic: bool
+    pKas: list
+
+    def __post_init__(self):
+        self.ks: array = array(10.0 ** (-array(self.pKas)))
 
 
-class AcidBase:
-    def __init__(self, analyte: Compound, titrant: Compound, precision: int = 2, pKw: float = None, temp: float = None):
-        self.analyte_is_acidic = analyte.acidic
-        self.pk_analyte = analyte.pKas
-        self.k_analyte = pk_to_k(analyte.K)
-        self.titrant_acidity = titrant.acidic
-        self.k_titrant = pk_to_k(titrant.K)
-        self.pk_titrant = titrant.pKas
+@dataclass
+class Titration:
+    analyte: Compound
+    titrant: Compound
 
-        self.aname: str = analyte.name
-        self.tname: str = titrant.name
+    concentration_analyte: float
+    concentration_titrant: float
 
-        if pKw is not None:  # If given a pKw
-            self.kw = 10 ** (-pKw)
-        elif temp is not None:  # If given a temperature
-            self.kw = 10 ** (-self.get_kw(temp))
-        else:  # If given nothing
-            self.kw = 10 ** (-13.995)
+    volume_analyte: float
 
-        self.precision = 10 ** -precision
+    pKw: float = field(default=None)
+    temp: float = field(default=25)
+    decimal_places: float = field(default=2)
+
+    def __post_init__(self):
+        # Calculate the pKw
+        if self.pKw is not None:  # If given a pKw
+            self.kw = 10 ** (-self.pKw)
+        else:  # If given a temperature
+            self.kw = 10 ** (-self.temp_kw(self.temp))
+
+        # The increment level for the value ranges
+        self.precision: float = 10 ** -self.decimal_places
+
+        # Value ranges
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
+        # Calculate the alpha values for the compounds at each pH
+        self.alpha_analyte = self.alpha_values(k=self.analyte.ks, acid=self.analyte.acidic)
+        self.alpha_titrant = self.alpha_values(k=self.titrant.ks, acid=self.titrant.acidic)
+
+        # Calculate and trim the volumes.
+        self.volume_titrant, self.phi = self.calculate_volume(self.titrant.acidic)
+        self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
+
     def starting_phs(self, min_ph: float = 0, max_ph: float = 14) -> Tuple[array, array, array]:
+        """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
         ph = array(arange(min_ph, max_ph + self.precision, step=self.precision))
         h = 10 ** (-ph.copy())
         oh = self.kw / h
-        if self.analyte_is_acidic:
+        if self.analyte.acidic:
             return ph, h, oh
         else:
             return array(ph[::-1]), array(h[::-1]), array(oh[::-1])
 
     @staticmethod
-    def get_kw(temp: float) -> float:
+    def temp_kw(temp: float) -> float:
+        """Returns the pKw of water given a certain temperature in celcius."""
 
         # Quadratic approximation of the data for liquid water found here:
         # https://www.engineeringtoolbox.com/ionization-dissociation-autoprotolysis-constant-pKw-water-heavy-deuterium-oxide-d_2004.html
@@ -66,15 +84,6 @@ class AcidBase:
         c = 14.9368
         pKw = (a * temp ** 2) + (b * temp) + c
         return pKw
-
-
-class Bjerrum(AcidBase):
-    def __init__(self, analyte: Compound, titrant: Compound, precision: int, pKw: float = None, temp: float = None):
-
-        super().__init__(analyte, titrant, precision, pKw, temp)
-
-        self.alpha_analyte = self.alpha_values(k=analyte.K, acid=analyte.acidic)
-        self.alpha_titrant = self.alpha_values(k=titrant.K, acid=titrant.acidic)
 
     @staticmethod
     def scale_alphas(arr: array) -> array:
@@ -111,10 +120,10 @@ class Bjerrum(AcidBase):
         # Do the outermost alpha value calculation
         alphas = divide(denoms_arr.T, denoms).T  # Divide and re-transpose
 
-        if not acid:
-            return flip(alphas, axis=0)
-        else:
+        if acid:
             return array(alphas)
+        else:
+            return flip(alphas, axis=0)
 
     def write_alpha_data(self,
                          title: str = "Alpha Value Data",
@@ -140,43 +149,9 @@ class Bjerrum(AcidBase):
         data = DataFrame(data_dict)
         data.to_csv(f"{title}.csv", index=False, header=file_headers)
 
-
-class Titration(Bjerrum):
-    """
-    A class which defines a titration and predominance curve based on the used analyte and titrant.
-    """
-
-    def __init__(
-            self,
-            analyte: Compound,
-            titrant: Compound,
-            volume_analyte: float,
-            concentration_analyte: float,
-            concentration_titrant: float,
-            precision: int = 2,
-            pKw: float = None,
-            temp: float = None,
-    ):
-        super().__init__(analyte, titrant, precision, pKw, temp)
-
-        # Analyte information
-        self.concentration_analyte = concentration_analyte
-        self.volume_analyte = volume_analyte
-        self.ka_values = analyte.K
-
-        # Titrant Information
-        self.concentration_titrant = concentration_titrant
-        self.kt_values = titrant.K
-
-        # Calculate the respective titrant values for each pH
-        self.volume_titrant, self.phi = self.calculate_volume(self.titrant_acidity)
-
-        # Trimmed values for gui plot
-        self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
-
     def trim_values(self, *args: Any) -> Generator:
         # Go until you are 1 past the last sub-reaction.
-        limiter = len(self.k_analyte) + 1
+        limiter = len(self.analyte.pKas) + 1
 
         good_val_index = where((self.phi >= [0]) & (self.phi <= [limiter]))
 
@@ -195,7 +170,8 @@ class Titration(Bjerrum):
         summed_scaled_alphas_analyte = sum(scaled_alphas_analyte, axis=1)
         summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
 
-        delta = self.hydronium - self.hydroxide  # I found this written as delta somewhere, and thus it will be named.
+        # I found this written as delta somewhere, and thus it will be named.
+        delta = self.hydronium - self.hydroxide
 
         # Conditional addition or subtraction based on the titrant.
         if acid_titrant:
@@ -220,7 +196,7 @@ class Titration(Bjerrum):
 
     def find_buffer_points(self) -> Tuple[List[int], array]:
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
-        pKas = array(self.pk_analyte)
+        pKas = array(self.analyte.pKas)
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
@@ -229,16 +205,19 @@ class Titration(Bjerrum):
 
         return volume[volume_indices], pKas
 
+
     def find_equiv_points(self) -> Tuple[List, List]:
+        """Find the equivalence points based on the progression of the reaction"""
         pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
         points = []
-        for i in range(1, len(self.pk_analyte) + 1):
+        for i in range(1, len(self.analyte.pKas) + 1):
             closest = closest_value(i, phi)
             points.append(where(phi == closest)[0][0])
 
         return list(volume[points]), list(pH[points])
 
     def deriv(self, degree: int) -> Tuple[array, array]:
+        """Find the n-th derivative"""
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
 
         # An object which makes splines
@@ -265,25 +244,29 @@ class Titration(Bjerrum):
         volumeEq, pHEq = self.find_equiv_points()
         volumeBf, pHBf = self.find_buffer_points()
 
+        # Label the analysis rows
         analysis_row_labels = [
             *[f"eq pt {n}" for n in range(1, len(volumeEq) + 1)],
             *[f"bf pt {n}" for n in range(1, len(volumeBf) + 1)],
         ]
 
+        # Input data to the analysis columns
         analysis_volumes = [*[n for n in volumeEq], *[n for n in volumeBf]]
         analysis_pHs = [*[n for n in pHEq], *[n for n in pHBf]]
 
+        # Add spacers so that the Dataframe doesn't throw a fit
         while len(analysis_row_labels) < len(deriv1):
             analysis_row_labels.append(None)
             analysis_volumes.append(None)
             analysis_pHs.append(None)
 
+        # Add the data to the dataframe.
         data = DataFrame(
             {
                 "volume": volume,
                 "1st Derivative": deriv1,
                 "2nd Derivative": deriv2,
-                " ": [" " for _ in range(len(deriv1))],
+                " ": [" " for _ in range(len(deriv1))], # Spacer column
                 "Analysis": analysis_row_labels,
                 "Volume at Point": analysis_volumes,
                 "pH at Point": analysis_pHs,
