@@ -6,6 +6,7 @@ from typing import List, Tuple, Generator, Any
 
 
 def pk_to_k(pk) -> array:
+    """Convert pK values to K values"""
     return array(10.0 ** (-array(pk)))
 
 
@@ -34,11 +35,11 @@ class AcidBase:
         self.aname: str = analyte.name
         self.tname: str = titrant.name
 
-        if pKw is not None:
+        if pKw is not None:  # If given a pKw
             self.kw = 10 ** (-pKw)
-        elif temp is not None:
+        elif temp is not None:  # If given a temperature
             self.kw = 10 ** (-self.get_kw(temp))
-        else:
+        else:  # If given nothing
             self.kw = 10 ** (-13.995)
 
         self.precision = 10 ** -precision
@@ -82,6 +83,11 @@ class Bjerrum(AcidBase):
 
     @staticmethod
     def scale_alphas(arr: array) -> array:
+        """
+        Scale the alpha values by its index in the sub-array
+        :param arr: Array of alpha values
+        :return: The scaled alpha array
+        """
         new_arr = []
         for num, a in enumerate(arr.T):
             a *= num
