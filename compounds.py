@@ -640,3 +640,9 @@ bases = [CesiumHydroxide,
 
 acids.sort(key=lambda x: x.pKas[0])
 bases.sort(key=lambda x: x.pKas[0])
+
+strong_acids = [x for x in acids if x.acidic and len(x.pKas) == 1 and x.pKas[0] <= 0]
+strong_bases = [x for x in bases if not x.acidic and len(x.pKas) == 1 and x.pKas[0] >= 14]
+
+weak_acids = [x for x in acids if x not in strong_acids]
+weak_bases = [x for x in bases if x not in strong_bases]
