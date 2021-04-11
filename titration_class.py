@@ -1,7 +1,7 @@
 from numpy import array, arange, divide, where, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from pandas import DataFrame
-from scipy.interpolate import InterpolatedUnivariateSpline as ius
+from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 from typing import List, Tuple, Generator, Any
 
 
@@ -242,7 +242,7 @@ class Titration(Bjerrum):
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
 
         # An object which makes splines
-        spline_maker = ius(volume, pH)
+        spline_maker = IUS(volume, pH)
 
         # An object which calculates the derivative of those splines
         deriv_function = spline_maker.derivative(n=degree)
