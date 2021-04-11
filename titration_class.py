@@ -16,6 +16,11 @@ def closest_value(num: float, arr: array) -> float:
     return min(arr, key=lambda x: abs(x - num))
 
 
+def _scale_data(data: array, a: float) -> array:
+    """abs normalization"""
+    return a * (data / (1 + abs(data)))
+
+
 @dataclass
 class Compound:
     name: str
@@ -41,6 +46,7 @@ class Titration:
     decimal_places: float = field(default=2)
 
     def __post_init__(self):
+        """Important values to calculate after the initialization"""
         # Calculate the pKw
         if self.pKw is not None:  # If given a pKw
             self.kw = 10 ** (-self.pKw)
@@ -87,11 +93,7 @@ class Titration:
 
     @staticmethod
     def scale_alphas(arr: array) -> array:
-        """
-        Scale the alpha values by its index in the sub-array
-        :param arr: Array of alpha values
-        :return: The scaled alpha array
-        """
+        """Scale the alpha values by its index in the sub-array"""
         new_arr = []
         for num, a in enumerate(arr.T):
             a *= num
@@ -100,6 +102,7 @@ class Titration:
         return array(new_arr).T
 
     def alpha_values(self, k: array, acid: bool = True) -> array:
+        """Finds the fraction of solution which each species of compound takes up at each pH."""
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
             k = self.kw / flip(k)
@@ -125,31 +128,8 @@ class Titration:
         else:
             return flip(alphas, axis=0)
 
-    def write_alpha_data(self,
-                         title: str = "Alpha Value Data",
-                         file_headers: bool = False,
-                         species_names: List[str] = None
-                         ) -> None:
-
-        # Initialize the dataframe with the ph values
-        data_dict = {"pH": self.ph}
-
-        # Add the alpha values for each analyte species
-        if species_names is None:  # If names are not specified, just use generics.
-            for num, alpha in enumerate(transpose(self.alpha_analyte)):
-                data_dict[f"alpha{num}"] = alpha
-        else:  # If names are specified, use them.
-            for num, alpha in enumerate(transpose(self.alpha_analyte)):
-                try:
-                    data_dict[species_names[num]] = alpha
-                except IndexError:
-                    raise ValueError("You have not supplied enough species names!")
-
-        # Make and write the data frame to a csv
-        data = DataFrame(data_dict)
-        data.to_csv(f"{title}.csv", index=False, header=file_headers)
-
     def trim_values(self, *args: Any) -> Generator:
+        """Returns the data ranges where the volume is non-trivial and non-absurd."""
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.analyte.pKas) + 1
 
@@ -161,7 +141,7 @@ class Titration:
         return rets
 
     def calculate_volume(self, acid_titrant: bool) -> Tuple[List, List]:
-
+        """Calculate the volume of titrant required to reach each pH value."""
         # Alpha values scaled by their index
         scaled_alphas_analyte = self.scale_alphas(self.alpha_analyte)
         scaled_alphas_titrant = self.scale_alphas(self.alpha_titrant)
@@ -186,15 +166,8 @@ class Titration:
         volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
         return volume, phi
 
-    def write_titration_data(self, title: str = "Titration Curve Data", file_headers: bool = False) -> None:
-        # Make dataframe.
-        pH, volume = self.trim_values(self.ph, self.volume_titrant)
-        data = DataFrame({"volume": volume, "pH": pH})
-
-        # Write to a csv.
-        data.to_csv(f"{title}.csv", index=False, header=file_headers)
-
     def find_buffer_points(self) -> Tuple[List[int], array]:
+        """Find the volumes of the buffer points based on the pKa values."""
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         pKas = array(self.analyte.pKas)
         # All the volumes where the pH equals pKa
@@ -205,9 +178,8 @@ class Titration:
 
         return volume[volume_indices], pKas
 
-
     def find_equiv_points(self) -> Tuple[List, List]:
-        """Find the equivalence points based on the progression of the reaction"""
+        """Find the equivalence points based on the progression of the reaction."""
         pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
         points = []
         for i in range(1, len(self.analyte.pKas) + 1):
@@ -231,12 +203,43 @@ class Titration:
 
         return volume, d
 
-    @staticmethod
-    def _scale_data(data: array, a: float) -> array:
-        """abs normalization"""
-        return a * (data / (1 + abs(data)))
+    def write_alpha_data(self,
+                         title: str = "Alpha Value Data",
+                         file_headers: bool = False,
+                         species_names: List[str] = None
+                         ) -> None:
+        """Write the numerical alpha value data to a csv file."""
+
+        # Initialize the dataframe with the ph values
+        data_dict = {"pH": self.ph}
+
+        # Add the alpha values for each analyte species
+        if species_names is None:  # If names are not specified, just use generics.
+            for num, alpha in enumerate(transpose(self.alpha_analyte)):
+                data_dict[f"alpha{num}"] = alpha
+        else:  # If names are specified, use them.
+            for num, alpha in enumerate(transpose(self.alpha_analyte)):
+                try:
+                    data_dict[species_names[num]] = alpha
+                except IndexError:
+                    raise ValueError("You have not supplied enough species names!")
+
+        # Make and write the data frame to a csv
+        data = DataFrame(data_dict)
+        data.to_csv(f"{title}.csv", index=False, header=file_headers)
+
+    def write_titration_data(self, title: str = "Titration Curve Data", file_headers: bool = False) -> None:
+        """Write the volume and pH value for the titration to a csv file.
+        """
+        # Make dataframe.
+        pH, volume = self.trim_values(self.ph, self.volume_titrant)
+        data = DataFrame({"volume": volume, "pH": pH})
+
+        # Write to a csv.
+        data.to_csv(f"{title}.csv", index=False, header=file_headers)
 
     def write_analysis_data(self, title: str = "Analysis Data", file_headers: bool = False) -> None:
+        """Write all the data relating to the titration, and its analysis to a csv file."""
         # Make dataframe.
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         volumeD1, deriv1 = self.deriv(1)
@@ -266,7 +269,7 @@ class Titration:
                 "volume": volume,
                 "1st Derivative": deriv1,
                 "2nd Derivative": deriv2,
-                " ": [" " for _ in range(len(deriv1))], # Spacer column
+                " ": [" " for _ in range(len(deriv1))],  # Spacer column
                 "Analysis": analysis_row_labels,
                 "Volume at Point": analysis_volumes,
                 "pH at Point": analysis_pHs,
