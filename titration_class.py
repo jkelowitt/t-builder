@@ -81,7 +81,7 @@ class Titration:
 
     @staticmethod
     def temp_kw(temp: float) -> float:
-        """Returns the pKw of water given a certain temperature in celcius."""
+        """Returns the pKw of water given a certain temperature in celsius."""
 
         # Quadratic approximation of the data for liquid water found here:
         # https://www.engineeringtoolbox.com/ionization-dissociation-autoprotolysis-constant-pKw-water-heavy-deuterium-oxide-d_2004.html
