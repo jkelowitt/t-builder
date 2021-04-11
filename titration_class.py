@@ -69,13 +69,15 @@ class Titration:
 
     def starting_phs(self, min_ph: float = 0, max_ph: float = 14) -> Tuple[array, array, array]:
         """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
-        ph = array(arange(min_ph, max_ph + self.precision, step=self.precision))
-        h = 10 ** (-ph.copy())
-        oh = self.kw / h
+
         if self.analyte.acidic:
-            return ph, h, oh
+            ph = arange(min_ph, max_ph + self.precision, step=self.precision)
         else:
-            return array(ph[::-1]), array(h[::-1]), array(oh[::-1])
+            ph = arange(max_ph + self.precision, min_ph, step=-self.precision)
+
+        h = 10 ** (-ph)
+        oh = self.kw / h
+        return ph, h, oh
 
     @staticmethod
     def temp_kw(temp: float) -> float:
