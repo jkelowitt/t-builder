@@ -291,4 +291,4 @@ class Titration(Bjerrum):
         )
 
         # Write to a csv.
-        data.to_csv(f"{title}.csv", index=False, header=True)
+        data.to_csv(f"{title}.csv", header=file_headers, index=False)
