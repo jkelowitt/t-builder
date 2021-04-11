@@ -16,7 +16,7 @@ def closest_value(num: float, arr: array) -> float:
     return min(arr, key=lambda x: abs(x - num))
 
 
-def _scale_data(data: array, a: float) -> array:
+def scale_data(data: array, a: float) -> array:
     """abs normalization"""
     return a * (data / (1 + abs(data)))
 

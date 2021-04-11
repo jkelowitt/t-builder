@@ -1,5 +1,5 @@
 from unittest import TestCase, main
-from titration_class import array, Titration
+from titration_class import array, Titration, scale_data
 from compounds import strong_acids, strong_bases, weak_acids, weak_bases
 
 
@@ -162,7 +162,7 @@ class TestTitrationClassModule(TestCase):
 
     def test_scaled_data_less_than_one(self):
         for titration in self.titrations:
-            scaled = titration._scale_data(titration.ph, 1)
+            scaled = scale_data(titration.ph, 1)
             for scale in scaled:
                 self.assertTrue(scale <= 1)
 
