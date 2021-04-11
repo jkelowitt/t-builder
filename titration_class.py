@@ -56,20 +56,15 @@ class AcidBase:
 
     @staticmethod
     def get_kw(temp: float) -> float:
-        # if temp > 350 or temp < 0:
-        #     print(
-        #         "Warning! The Kw calculation loses accuracy near the end of the range 0C to 350C."
-        #         "\nProceed with caution, or set a pKw value rather than a temperature."
-        #     )
 
-        # Variables for a quartic function found to have an R^2 > 0.9999 in Desmos for n=40 Kw values at different temps
-        # This most likely works only on the range of data used: 0C to 350C
-        a = 6.7179 * 10 ** -10
-        b = -5.3141 * 10 ** -7
-        c = 0.000199761
-        d = -0.0421956
-        f = 14.9376
-        pKw = (a * temp ** 4) + (b * temp ** 3) + (c * temp ** 2) + (d * temp) + f
+        # Quadratic approximation of the data for liquid water found here:
+        # https://www.engineeringtoolbox.com/ionization-dissociation-autoprotolysis-constant-pKw-water-heavy-deuterium-oxide-d_2004.html
+        # 0 <= T <= 95 C
+        # R^2 = 0.9992
+        a = 0.000128275
+        b = -0.0406144
+        c = 14.9368
+        pKw = (a * temp ** 2) + (b * temp) + c
         return pKw
 
 
