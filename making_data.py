@@ -17,11 +17,11 @@ for t in strong_bases:
 
 for titr in titrations:
     titr.write_titration_data(
-        title=f"{titr.aname}_{titr.tname}_titration_data".replace(" ", "_").lower(), file_headers=True
+        title=f"{titr.analyte.name}_{titr.titrant.name}_titration_data".replace(" ", "_").lower(), file_headers=True
     )
     titr.write_alpha_data(
-        title=f"{titr.aname}_{titr.tname}_alpha_data".replace(" ", "_").lower(), file_headers=True
+        title=f"{titr.analyte.name}_{titr.titrant.name}_alpha_data".replace(" ", "_").lower(), file_headers=True
     )
     titr.write_analysis_data(
-        title=f"{titr.aname}_{titr.tname}_analysis_data".replace(" ", "_").lower(), file_headers=True
+        title=f"{titr.analyte.name}_{titr.titrant.name}_analysis_data".replace(" ", "_").lower(), file_headers=True
     )
