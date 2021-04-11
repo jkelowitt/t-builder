@@ -178,7 +178,7 @@ class Titration(Bjerrum):
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.k_analyte) + 1
 
-        good_val_index = where((self.phi >= 0) & (self.phi <= limiter))
+        good_val_index = where((self.phi >= [0]) & (self.phi <= [limiter]))
 
         # Trim the values for every chosen data set
         rets = (arg[good_val_index] for arg in args)  # Add the trimmed dataset to the return variable
