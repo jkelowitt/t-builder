@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 from titration_class import array, Titration
-from compounds import strong_bases, weak_bases, strong_acids, weak_acids
+from compounds import strong_acids, strong_bases, weak_acids, weak_bases
 
 
 class TestTitrationClassModule(TestCase):
