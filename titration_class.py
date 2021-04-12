@@ -16,11 +16,6 @@ def closest_value(num: float, arr: array) -> float:
     return min(arr, key=lambda x: abs(x - num))
 
 
-def scale_data(data: array, a: float) -> array:
-    """abs normalization"""
-    return a * (data / (1 + abs(data)))
-
-
 @dataclass
 class Compound:
     name: str
@@ -92,6 +87,23 @@ class Titration:
         c = 14.9368
         pKw = (a * temp ** 2) + (b * temp) + c
         return pKw
+
+    @staticmethod
+    def _scale_data(data: array, a: float) -> array:
+        """abs normalization"""
+        return a * (data / (1 + abs(data)))
+
+    def starting_phs(self, min_ph: float = 0, max_ph: float = 14) -> Tuple[array, array, array]:
+        """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
+
+        if self.analyte.acidic:
+            ph = arange(min_ph, max_ph + self.precision, step=self.precision)
+        else:
+            ph = arange(max_ph + self.precision, min_ph, step=-self.precision)
+
+        h = 10 ** (-ph)
+        oh = self.kw / h
+        return ph, h, oh
 
     @staticmethod
     def scale_alphas(arr: array) -> array:
