@@ -43,7 +43,7 @@ def make_titration():
         concentration_analyte=get_value("aconc"),
         concentration_titrant=get_value("tconc"),
         volume_analyte=get_value("avol"),
-        precision=get_value("precision"),
+        decimal_places=get_value("precision"),
         temp=get_value("temperature"),
     )
 
@@ -110,7 +110,7 @@ def plot_callback(sender, data):
 
             # Add labels to the volumes of each point
             for vol, pH in zip(vols, pHs):
-                if titr.analyte_is_acidic:
+                if titr.analyte.acidic:
                     add_annotation("Main Plot", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
                 else:
                     # Annotations need to be above the line if the solution is basic to prevent the line from clipping
@@ -141,7 +141,7 @@ def plot_callback(sender, data):
 
             # Add labels to the volumes of each point
             for vol, pH in zip(vols, pHs):
-                if titr.analyte_is_acidic:
+                if titr.analyte.acidic:
                     add_annotation("Main Plot", x=vol, y=pH, text=f"{vol:.5g} mL", xoffset=5, yoffset=5)
                 else:
                     # Annotations need to be above the line if the solution is basic to prevent the line from clipping
