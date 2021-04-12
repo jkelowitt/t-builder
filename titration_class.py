@@ -51,6 +51,7 @@ class Titration:
         # The increment level for the value ranges
         self.precision: float = 10 ** -self.decimal_places
 
+        """These should be done when the calculations are required, not when the object is instantiated."""
         # Value ranges
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
@@ -92,7 +93,6 @@ class Titration:
     def _scale_data(data: array, a: float) -> array:
         """abs normalization"""
         return a * (data / (1 + abs(data)))
-
 
     @staticmethod
     def scale_alphas(arr: array) -> array:
