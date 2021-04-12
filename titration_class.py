@@ -93,17 +93,6 @@ class Titration:
         """abs normalization"""
         return a * (data / (1 + abs(data)))
 
-    def starting_phs(self, min_ph: float = 0, max_ph: float = 14) -> Tuple[array, array, array]:
-        """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
-
-        if self.analyte.acidic:
-            ph = arange(min_ph, max_ph + self.precision, step=self.precision)
-        else:
-            ph = arange(max_ph + self.precision, min_ph, step=-self.precision)
-
-        h = 10 ** (-ph)
-        oh = self.kw / h
-        return ph, h, oh
 
     @staticmethod
     def scale_alphas(arr: array) -> array:
