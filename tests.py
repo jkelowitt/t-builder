@@ -1,5 +1,5 @@
 from unittest import TestCase, main
-from titration_class import array, Titration, scale_data
+from titration_class import array, Titration
 from compounds import strong_acids, strong_bases, weak_acids, weak_bases
 
 
@@ -45,7 +45,7 @@ class TestTitrationClassModule(TestCase):
             volume, derivative = array(titration.deriv(2))
             self.assertEqual(len(volume), len(titration.volume_titrant_t))
 
-    # """File Tests"""  This takes too long. Involves the process of creating >450 MB of data. Consolidate later.
+    # # """File Tests"""  This takes too long. Involves the process of creating >450 MB of test_data. Consolidate later.
     #
     # def test_titration_file_can_be_made(self):
     #     for titration in self.titrations:
@@ -78,7 +78,8 @@ class TestTitrationClassModule(TestCase):
     #         titration.write_titration_data(file_headers=True)
     #         data = read_csv("Titration Curve Data.csv")
     #         check = read_csv(
-    #             f"test_data/{titration.aname}_{titration.tname}_titration_data.csv".replace(" ", "_").lower()
+    #             f"test_data/{titration.analyte.name}_{titration.titrant.name}_titration_data.csv".replace(" ",
+    #                                                                                                       "_").lower()
     #         )
     #         self.assertDictEqual(data.to_dict(), check.to_dict())
     #
@@ -88,7 +89,8 @@ class TestTitrationClassModule(TestCase):
     #     for titration in self.titrations:
     #         titration.write_alpha_data(file_headers=True)
     #         data = read_csv("Alpha Value Data.csv")
-    #         check = read_csv(f"test_data/{titration.aname}_{titration.tname}_alpha_data.csv".replace(" ", "_").lower())
+    #         check = read_csv(
+    #             f"test_data/{titration.analyte.name}_{titration.titrant.name}_alpha_data.csv".replace(" ", "_").lower())
     #         self.assertDictEqual(data.head().to_dict(), check.head().to_dict())
     #
     #         remove("Alpha Value Data.csv")
@@ -98,7 +100,8 @@ class TestTitrationClassModule(TestCase):
     #         titration.write_analysis_data(file_headers=True)
     #         data = read_csv("Analysis Data.csv")
     #         check = read_csv(
-    #             f"test_data/{titration.aname}_{titration.tname}_analysis_data.csv".replace(" ", "_").lower()
+    #             f"test_data/{titration.analyte.name}_{titration.titrant.name}_analysis_data.csv".replace(" ",
+    #                                                                                                      "_").lower()
     #         )
     #
     #         self.assertDictEqual(data.head(2).to_dict(), check.head(2).to_dict())
@@ -162,7 +165,7 @@ class TestTitrationClassModule(TestCase):
 
     def test_scaled_data_less_than_one(self):
         for titration in self.titrations:
-            scaled = scale_data(titration.ph, 1)
+            scaled = titration._scale_data(titration.ph, 1)
             for scale in scaled:
                 self.assertTrue(scale <= 1)
 
