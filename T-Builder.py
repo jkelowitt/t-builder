@@ -205,8 +205,6 @@ def save_ana_data(sender, data):
 with window("Main Window", label="Something Else", autosize=True):
     set_main_window_size(width=1270, height=850)
 
-    # Project name
-
     with tab_bar("Main Tab bar"):
         add_tab_button("t_tab_button", label="Titration", callback=plot_callback)
         add_tab_button("b_tab_button", label="Speciation", callback=plot_callback)
