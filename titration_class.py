@@ -176,8 +176,11 @@ class Titration:
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
-            places = where(pH == closest_value(pKa, pH))[0][0]
-            volume_indices.append(places)
+            if pKa > 14:
+                continue
+            else:
+                places = where(pH == closest_value(pKa, pH))[0][0]
+                volume_indices.append(places)
 
         return volume[volume_indices], pKas
 

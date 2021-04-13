@@ -96,7 +96,8 @@ def plot_callback(sender, data):
             vols, pHs = titr.find_buffer_points()
 
             vols = list(vols)
-            pHs = list(pHs)
+            # It's impossible to have a pH > 14 in water, don't find the buffers for a solution which cannot exist.
+            pHs = [x for x in pHs if x < 14]
 
             add_scatter_series(
                 plot="Main Plot",
