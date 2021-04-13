@@ -89,7 +89,7 @@ def plot_callback(sender, data):
             x=tx,
             y=ty,
             weight=2,
-            color=[0, 255, 255, 255],
+            color=[0, 255, 255, 255],  # Cyan
         )
 
         if get_value("buffer_regions"):
@@ -103,8 +103,8 @@ def plot_callback(sender, data):
                 name="Buffer Points",
                 x=vols,
                 y=pHs,
-                fill=[255, 0, 0, 255],
-                outline=[255, 0, 0, 255],
+                fill=[255, 0, 0, 255],  # Red
+                outline=[255, 0, 0, 255],  # Red
                 weight=2,
             )
 
@@ -134,8 +134,8 @@ def plot_callback(sender, data):
                 name="Equivalence Points",
                 x=vols,
                 y=pHs,
-                fill=[0, 255, 0, 255],
-                outline=[0, 255, 0, 255],
+                fill=[0, 255, 0, 255],  # Green
+                outline=[0, 255, 0, 255],  # Green
                 weight=2,
             )
 
@@ -165,7 +165,7 @@ def plot_callback(sender, data):
                 x=list(volume),
                 y=list(data),
                 weight=2,
-                color=[255, 0, 255, 255],
+                color=[255, 0, 255, 255],  # Purple
             )
 
         if get_value("2ndderiv"):
@@ -179,7 +179,7 @@ def plot_callback(sender, data):
                 x=list(volume),
                 y=list(data),
                 weight=2,
-                color=[255, 255, 0, 255],
+                color=[255, 255, 0, 255],  # Yellow
             )
 
 
