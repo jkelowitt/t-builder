@@ -1,6 +1,7 @@
 from dearpygui.core import *
 from dearpygui.simple import *
 from webbrowser import open
+import data_writing as dw
 
 from titration_class import Compound, Titration
 
@@ -187,19 +188,19 @@ def plot_callback(sender, data):
 def save_titr_data(sender, data):
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_titration".replace(" ", "_")
-    titr.write_titration_data(title=title)
+    dw.write_titration_data(titr, title=title)
 
 
 def save_bjer_data(sender, data):
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_species".replace(" ", "_")
-    titr.write_alpha_data(title=title)
+    dw.write_alpha_data(titr, title=title)
 
 
 def save_ana_data(sender, data):
     titr = make_titration()
     title = f"{get_value('aname')}_{get_value('tname')}_analysis".replace(" ", "_")
-    titr.write_analysis_data(title=title)
+    dw.write_analysis_data(titr, title=title)
 
 
 # Main gui formatting
