@@ -316,7 +316,6 @@ Protactinium_IV_Hydroxide = ts.Compound(name='Protactinium_IV_hydroxide', acidic
 Diphenylamine = ts.Compound(name='Diphenylamine', acidic=False, pKas=[0.78])
 Hafnium_IV_Hydroxide = ts.Compound(name='Hafnium_IV_hydroxide', acidic=False, pKas=[0.52])
 Zirconium_IV_Hydroxide = ts.Compound(name='Zirconium_IV_hydroxide', acidic=False, pKas=[0.5])
-Urea = ts.Compound(name='Urea', acidic=False, pKas=[0.18])
 
 # Lists of compound
 
@@ -636,7 +635,7 @@ bases = [CesiumHydroxide,
          Diphenylamine,
          Hafnium_IV_Hydroxide,
          Zirconium_IV_Hydroxide,
-         Urea]
+         ]
 
 acids.sort(key=lambda x: x.pKas[0])
 bases.sort(key=lambda x: x.pKas[0])
