@@ -18,10 +18,11 @@ save the data plotted above to a CSV file.
 * Save Titration or Relative Species plots to CSV
 
 ### Citric acid titrated with KOH:
+
 ![citric_acid_koh_titration](https://i.imgur.com/gQIjOxH.png)
 
-
 ### Species of Citric acid as pH increases:
+
 ![citric_acid_relative_speciation](https://i.imgur.com/Ng8gZpb.png)
 
 ## TODO:
@@ -71,8 +72,8 @@ With the alpha values now calculated, another relationship can be utilized. The 
 
 ![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\i}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\j}m\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
 
-where phi is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of
-the analyte and titrant, respectively, alpha_an represents the indexed alpha values of the analyte, and the similarly,
+where phi is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of the
+analyte and titrant, respectively, alpha_an represents the indexed alpha values of the analyte, and the similarly,
 alpha_tm represents the indexed alpha values of the titrant. The ± in the numerator is positive if the analyte is a
 base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. C_a and V_a are
 the concentration and volume of the analyte. C_t and V_t are the concentration and volume for the titrant.
