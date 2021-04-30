@@ -183,4 +183,5 @@ $RECYCLE.BIN/
 /build/
 /dist/
 /making_data.py
-*.spec
+/compiling_bat.txt
+/tb.ico
