@@ -101,8 +101,8 @@ class Titration:
         """Scale the alpha values by its index in the sub-array"""
         new_arr = []
         for num, a in enumerate(transpose(arr)):
-            a *= num
-            new_arr.append(a)
+            b = a * num
+            new_arr.append(b)
 
         return transpose(array(new_arr))
 
