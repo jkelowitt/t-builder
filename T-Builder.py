@@ -79,7 +79,14 @@ def plot_callback(sender, data):
         for num, alpha in enumerate(bys):
             add_line_series(plot="Main Plot", name=f"species{num}", x=bx, y=alpha, weight=2)
 
+        # Relabel the plot, and x and y axes
+        configure_item("Main Plot", label="Speciation Plot", x_axis_name="pH", y_axis_name="Relative Speciation")
+
     else:
+        # Relabel the plot, and x and y axes
+        configure_item("Main Plot", label="Titration", x_axis_name="Volume (mL)", y_axis_name="pH")
+
+
         # Perform titration calculations
         tx = list(titr.volume_titrant_t)
         ty = list(titr.ph_t)
@@ -380,11 +387,13 @@ with window("Main Window", label="Something Else", autosize=True):
         with group("TitrationPlotGroup"):
             add_plot(
                 "Main Plot",
-                label="",
+                label="Titration Curve",
                 query_callback=query,
                 width=plot_width,
                 height=plot_height,
                 anti_aliased=True,
+                x_axis_name="Volume (ml)",
+                y_axis_name="pH"
             )
 
     plot_callback("equiv", [])  # Make the plots appear on program start
