@@ -216,7 +216,7 @@ with window("Main Window", label="Something Else", autosize=True):
         add_tab_button("b_tab_button", label="Speciation", callback=plot_callback)
 
         add_same_line()
-        add_text(" " * 129)  # TODO ask for right adjust text on DPG
+        add_text(" " * 127)  # TODO ask for right adjust text on DPG
         add_same_line()
         add_button("T-Builder by Jkelowitt", callback=open_link, tip="Open in github in browser")
 
