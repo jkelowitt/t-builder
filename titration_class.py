@@ -48,6 +48,15 @@ class Titration:
         else:  # If given a temperature
             self.kw = 10 ** (-self.temp_kw(self.temp))
 
+        # (14 * (not self.analyte.acidic)) is a hack to conditionally subtract -log([H]) from 14.
+        # A boolean false = numerical 0, therefore:
+        #   14 * False = 0
+        #   14 * True = 14
+        self.start_ph: float = (14 * (not self.analyte.acidic)) - log10(self.concentration_analyte)
+        self.end_ph: float = (14 * self.analyte.acidic) - log10(self.concentration_titrant)
+
+        print(self.start_ph, self.end_ph)
+
         # The increment level for the value ranges
         self.precision: int = 10 ** self.decimal_places
 
@@ -63,14 +72,9 @@ class Titration:
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant.acidic)
         self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
 
-    def starting_phs(self, min_ph: float = 0, max_ph: float = 14) -> Tuple[array, array, array]:
+    def starting_phs(self) -> Tuple[array, array, array]:
         """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
-
-        if self.analyte.acidic:
-            ph = linspace(min_ph, max_ph, num=self.precision)
-        else:  # Swap max and min pH so that the proper volume order is preserved.
-            ph = linspace(max_ph, min_ph, num=self.precision)
-
+        ph = linspace(self.start_ph, self.end_ph, num=self.precision)
         h = 10 ** (-ph)
         oh = self.kw / h
         return ph, h, oh
