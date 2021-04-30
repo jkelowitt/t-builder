@@ -293,10 +293,10 @@ with window("Main Window", label="Something Else", autosize=True):
 
             add_input_int(
                 "precision",
-                label="Precision",
+                label="Number of Points",
                 default_value=2,
                 callback=plot_callback,
-                tip="The number of decimal points to calculate the pH to. (>=1)",
+                tip="The number of pH points to calculate. (10^n items)",
                 width=65,
             )
 
