@@ -1,8 +1,9 @@
-from numpy import array, arange, divide, where, flip, abs
+from dataclasses import dataclass, field
+from typing import List, Tuple, Generator, Any
+
+from numpy import array, linspace, divide, where, flip, abs
 from numpy.core.fromnumeric import prod, sum, transpose
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
-from typing import List, Tuple, Generator, Any
-from dataclasses import dataclass, field
 
 
 def pk_to_k(pk) -> array:
