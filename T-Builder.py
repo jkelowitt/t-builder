@@ -67,9 +67,6 @@ def plot_callback(sender, data):
 
     titr = make_titration()
 
-    # These are the only variables which could change the bjerrum plot
-    who_sent = get_all_items().copy()
-
     if sender == "b_tab_button":  # Everything but the buffer tab button
         # Perform bjerrum calculations
         bx = list(titr.ph)
@@ -85,7 +82,6 @@ def plot_callback(sender, data):
     else:
         # Relabel the plot, and x and y axes
         configure_item("Main Plot", label="Titration", x_axis_name="Volume (mL)", y_axis_name="pH")
-
 
         # Perform titration calculations
         tx = list(titr.volume_titrant_t)
