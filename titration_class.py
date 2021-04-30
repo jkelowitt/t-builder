@@ -38,7 +38,7 @@ class Titration:
 
     pKw: float = field(default=None)
     temp: float = field(default=25)
-    decimal_places: float = field(default=2)
+    decimal_places: int = field(default=2)
 
     def __post_init__(self):
         """Important values to calculate after the initialization"""
