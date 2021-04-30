@@ -1,8 +1,9 @@
+from webbrowser import open
+
 from dearpygui.core import *
 from dearpygui.simple import *
-from webbrowser import open
-import data_writing as dw
 
+import data_writing as dw
 from titration_class import Compound, Titration
 
 __author__ = "jkelowitt"
@@ -258,7 +259,7 @@ with window("Main Window", label="Something Else", autosize=True):
                 default_value=True,
                 callback=plot_callback,
                 tip="Check this box if the analyte acts as an acid during this titration.",
-            )
+            )  # TODO This may be automatable. Think "if pKa_a > pKa_t, then..."
 
             add_dummy(height=25)
             add_text("Titrant Data")
@@ -305,7 +306,7 @@ with window("Main Window", label="Something Else", autosize=True):
                 label="Temperature (C)",
                 default_value=25,
                 callback=plot_callback,
-                tip="The temperature at which the titration occurs. (Most accurate between 0 and 350 C)",
+                tip="The temperature at which the titration occurs. (0 - 100 C)",
                 width=65,
             )
 
