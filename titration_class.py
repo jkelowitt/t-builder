@@ -55,8 +55,6 @@ class Titration:
         self.start_ph: float = (14 * (not self.analyte.acidic)) - log10(self.concentration_analyte)
         self.end_ph: float = (14 * self.analyte.acidic) - log10(self.concentration_titrant)
 
-        print(self.start_ph, self.end_ph)
-
         # The increment level for the value ranges
         self.precision: int = 10 ** self.decimal_places
 
