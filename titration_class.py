@@ -49,7 +49,7 @@ class Titration:
             self.kw = 10 ** (-self.temp_kw(self.temp))
 
         # The increment level for the value ranges
-        self.precision: float = 10 ** -self.decimal_places
+        self.precision: int = 10 ** self.decimal_places
 
         """These should be done when the calculations are required, not when the object is instantiated."""
         # Value ranges
@@ -67,9 +67,9 @@ class Titration:
         """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
 
         if self.analyte.acidic:
-            ph = arange(min_ph, max_ph + self.precision, step=self.precision)
-        else:
-            ph = arange(max_ph + self.precision, min_ph, step=-self.precision)
+            ph = linspace(min_ph, max_ph, num=self.precision)
+        else:  # Swap max and min pH so that the proper volume order is preserved.
+            ph = linspace(max_ph, min_ph, num=self.precision)
 
         h = 10 ** (-ph)
         oh = self.kw / h
