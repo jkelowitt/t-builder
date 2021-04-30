@@ -173,10 +173,11 @@ class Titration:
         """Find the volumes of the buffer points based on the pKa values."""
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
         pKas = array(self.analyte.pKas)
+
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
-            if pKa > 14:
+            if pKa > 14:  # Should never be larger than 14
                 continue
             else:
                 places = where(pH == closest_value(pKa, pH))[0][0]
