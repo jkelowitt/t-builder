@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Tuple, Generator, Any
 
-from numpy import array, linspace, divide, where, flip, abs
+from numpy import array, linspace, divide, where, flip, abs, log10
 from numpy.core.fromnumeric import prod, sum, transpose
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
