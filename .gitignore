@@ -180,3 +180,7 @@ $RECYCLE.BIN/
 /build
 /output
 /test_data
+/build/
+/dist/
+/making_data.py
+*.spec
