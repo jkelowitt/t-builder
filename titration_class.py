@@ -98,11 +98,11 @@ class Titration:
     def scale_alphas(arr: array) -> array:
         """Scale the alpha values by its index in the sub-array"""
         new_arr = []
-        for num, a in enumerate(arr.T):
+        for num, a in enumerate(transpose(arr)):
             a *= num
             new_arr.append(a)
 
-        return array(new_arr).T
+        return transpose(array(new_arr))
 
     def alpha_values(self, k: array, acid: bool = True) -> array:
         """Finds the fraction of solution which each species of compound takes up at each pH."""
@@ -120,11 +120,11 @@ class Titration:
         k_vals = [prod(k[0:x]) for x in range(n + 1)]
 
         # Prod and Sum the h and k values
-        denoms_arr = h_vals.T * k_vals  # Product of the sub-elements of the denominator
+        denoms_arr = transpose(h_vals) * k_vals  # Product of the sub-elements of the denominator
         denoms = sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
 
         # Do the outermost alpha value calculation
-        alphas = divide(denoms_arr.T, denoms).T  # Divide and re-transpose
+        alphas = transpose(divide(transpose(denoms_arr), denoms))  # Divide and re-transpose
 
         if acid:
             return array(alphas)
