@@ -185,3 +185,5 @@ $RECYCLE.BIN/
 /making_data.py
 /compiling_bat.txt
 /tb.ico
+/clean_titr_data/
+data_writing.py
