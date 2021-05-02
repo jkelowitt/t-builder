@@ -216,426 +216,429 @@ Xenon_VI = ts.Compound(name="Xenon_VI_", acidic=True, pKas=[10.5])
 Xenon_VIII = ts.Compound(name="Xenon_VIII_", acidic=True, pKas=[2.0])
 
 # Bases
-CesiumHydroxide = ts.Compound(name='CsOH', acidic=False, pKas=[15.76])
-FranciumHydroxide = ts.Compound(name='FrOH', acidic=False, pKas=[15.7])
-RubidiumHydroxide = ts.Compound(name='RbOH', acidic=False, pKas=[15.4])
-LithiumHydroxide = ts.Compound(name='LiOH', acidic=False, pKas=[14.36])
-CalciumHydroxide = ts.Compound(name='calcium_hydroxide', acidic=False, pKas=[12.6, 11.57])
-RadiumHydroxide = ts.Compound(name='Radiumhydroxide', acidic=False, pKas=[14.])
-BariumHydroxide = ts.Compound(name='Bariumhydroxide', acidic=False, pKas=[13.85])
-SodiumHydroxide = ts.Compound(name='NaOH', acidic=False, pKas=[13.8])
-StrontiumHydroxide = ts.Compound(name='Strontiumhydroxide', acidic=False, pKas=[13.7])
-PotassiumHydroxide = ts.Compound(name='KOH', acidic=False, pKas=[13.5])
-Thallium_I_Hydroxide = ts.Compound(name='Thallium_I_hydroxide', acidic=False, pKas=[13.36])
-MagnesiumHydroxide = ts.Compound(name='Magnesiumhydroxide', acidic=False, pKas=[12.2])
-Manganese_II_Hydroxide = ts.Compound(name='Manganese_II_hydroxide', acidic=False, pKas=[12.])
-Indium_I_Hydroxide = ts.Compound(name='Indium_I_hydroxide_InOH', acidic=False, pKas=[11.83])
-SilverHydroxide = ts.Compound(name='Silverhydroxide', acidic=False, pKas=[11.5])
-Neptunyl_V_Hydroxide = ts.Compound(name='Neptunyl_V_hydroxide', acidic=False, pKas=[11.3])
-Protactinyl_V_Hydroxide = ts.Compound(name='Protactinyl_V_hydroxide', acidic=False, pKas=[11.19])
-ActiniumHydroxide = ts.Compound(name='Actiniumhydroxide', acidic=False, pKas=[11.1])
-Americium_III_Hydroxide = ts.Compound(name='Americium_III_hydroxide', acidic=False, pKas=[11.1])
-Curium_III_Hydroxide = ts.Compound(name='Curium_III_hydroxide', acidic=False, pKas=[11.1])
-Plutonium_III_Hydroxide = ts.Compound(name='Plutonium_III_hydroxide', acidic=False, pKas=[11.1])
-Iron_II_Hydroxide = ts.Compound(name='Iron_II_hydroxide', acidic=False, pKas=[11.07])
-Triethylamine = ts.Compound(name='Triethylamine', acidic=False, pKas=[11.01])
-Dipropylamine = ts.Compound(name='Dipropylamine', acidic=False, pKas=[10.91])
-ethylamine = ts.Compound(name='ethylamine', acidic=False, pKas=[10.75])
-Dimethylamine = ts.Compound(name='Dimethylamine', acidic=False, pKas=[10.73])
-Methylamine = ts.Compound(name='Methylamine', acidic=False, pKas=[10.66])
-Tripropylamine = ts.Compound(name='Tripropylamine', acidic=False, pKas=[10.66])
-Propylamine = ts.Compound(name='Propylamine', acidic=False, pKas=[10.57])
-Hydrogenxenonate_VIII_ = ts.Compound(name='Hydrogenxenonate_VIII_', acidic=False, pKas=[10.5])
-Diethylamine = ts.Compound(name='Diethylamine', acidic=False, pKas=[10.49])
-CadmiumHydroxide = ts.Compound(name='Cadmiumhydroxide', acidic=False, pKas=[10.4])
-Nickel_II_Hydroxide = ts.Compound(name='Nickel_II_hydroxide', acidic=False, pKas=[10.22])
-Trimethylamine = ts.Compound(name='Trimethylamine', acidic=False, pKas=[9.81])
-LanthanumHydroxide = ts.Compound(name='Lanthanumhydroxide', acidic=False, pKas=[9.8])
-Plutonyl_V_Hydroxide = ts.Compound(name='Plutonyl_V_hydroxide', acidic=False, pKas=[9.7])
-Cobalt_II_Hydroxide = ts.Compound(name='Cobalt_II_hydroxide', acidic=False, pKas=[9.63])
-Lead_II_Hydroxide = ts.Compound(name='Lead_II_hydroxide', acidic=False, pKas=[9.62])
-Cerium_III_Hydroxide = ts.Compound(name='Cerium_III_hydroxide', acidic=False, pKas=[9.6])
-YttriumHydroxide = ts.Compound(name='Yttriumhydroxide', acidic=False, pKas=[9.6])
-Neodymium_III_Hydroxide = ts.Compound(name='Neodymium_III_hydroxide', acidic=False, pKas=[9.5])
-Praseodymium_III_Hydroxide = ts.Compound(name='Praseodymium_III_hydroxide', acidic=False, pKas=[9.4])
-Promethium_III_Hydroxide = ts.Compound(name='Promethium_III_hydroxide', acidic=False, pKas=[9.4])
-Samarium_III_Hydroxide = ts.Compound(name='Samarium_III_hydroxide', acidic=False, pKas=[9.4])
-ammonia = ts.Compound(name='ammonia', acidic=False, pKas=[9.25])
-Platinum_II_Hydroxide = ts.Compound(name='Platinum_II_hydroxide', acidic=False, pKas=[9.2])
-ZincHydroxide = ts.Compound(name='Zinchydroxide', acidic=False, pKas=[8.99])
-Europium_III_Hydroxide = ts.Compound(name='Europium_III_hydroxide', acidic=False, pKas=[8.8])
-Terbium_III_Hydroxide = ts.Compound(name='Terbium_III_hydroxide', acidic=False, pKas=[8.8])
-Trimethylphosphine = ts.Compound(name='Trimethylphosphine', acidic=False, pKas=[8.65])
-BerylliumHydroxide = ts.Compound(name='Berylliumhydroxide', acidic=False, pKas=[8.6])
-Perchlorylimide = ts.Compound(name='Perchlorylimide', acidic=False, pKas=[8.6])
-Dysprosium_III_Hydroxide = ts.Compound(name='Dysprosium_III_hydroxide', acidic=False, pKas=[8.5])
-Copper_II_Hydroxide = ts.Compound(name='Copper_II_hydroxide', acidic=False, pKas=[8.5])
-Holmium_III_Hydroxide = ts.Compound(name='Holmium_III_hydroxide', acidic=False, pKas=[8.4])
-Erbium_III_Hydroxide = ts.Compound(name='Erbium_III_hydroxide', acidic=False, pKas=[8.3])
-GadoliniumHydroxide = ts.Compound(name='Gadoliniumhydroxide', acidic=False, pKas=[8.3])
-Thulium_III_Hydroxide = ts.Compound(name='Thulium_III_hydroxide', acidic=False, pKas=[8.3])
-Ytterbium_III_Hydroxide = ts.Compound(name='Ytterbium_III_hydroxide', acidic=False, pKas=[8.3])
-Hydroxylamine = ts.Compound(name='Hydroxylamine', acidic=False, pKas=[8.2])
-LutetiumHydroxide = ts.Compound(name='Lutetiumhydroxide', acidic=False, pKas=[8.2])
-Ethylhydrazine = ts.Compound(name='Ethylhydrazine', acidic=False, pKas=[7.99])
-Hydrazine = ts.Compound(name='Hydrazine', acidic=False, pKas=[7.93])
-Methylhydrazine = ts.Compound(name='Methylhydrazine', acidic=False, pKas=[7.87])
-Peroxodiphosphate = ts.Compound(name='Peroxodiphosphate', acidic=False, pKas=[7.67])
-Iron_III_Hydroxide = ts.Compound(name='Iron_III_hydroxide', acidic=False, pKas=[6.89])
-Uranyl_VI_Hydroxide = ts.Compound(name='Uranyl_VI_hydroxide', acidic=False, pKas=[6.8])
-Plutonium_IV_Hydroxide = ts.Compound(name='Plutonium_IV_hydroxide', acidic=False, pKas=[6.7])
-ScandiumHydroxide = ts.Compound(name='Scandiumhydroxide', acidic=False, pKas=[6.4])
-Bismuth_III_Hydroxide = ts.Compound(name='Bismuth_III_hydroxide', acidic=False, pKas=[6.38])
-Vanadyl_IV_hydroxide_VO = ts.Compound(name='Vanadyl_IV_hydroxide_VO', acidic=False, pKas=[6.34])
-AluminumHydroxide = ts.Compound(name='Aluminumhydroxide', acidic=False, pKas=[5.86])
-Thorium_IV_Hydroxide = ts.Compound(name='Thorium_IV_hydroxide', acidic=False, pKas=[5.8])
-Chromium_III_Hydroxide = ts.Compound(name='Chromium_III_hydroxide', acidic=False, pKas=[5.7])
-Uranium_IV_Hydroxide = ts.Compound(name='Uranium_IV_hydroxide', acidic=False, pKas=[5.65])
-Neptunium_IV_Hydroxide = ts.Compound(name='Neptunium_IV_hydroxide', acidic=False, pKas=[5.3])
-Rutherfordium_IV_Hydroxide = ts.Compound(name='Rutherfordium_IV_hydroxide', acidic=False, pKas=[5.3])
-Phenylhydrazine = ts.Compound(name='Phenylhydrazine', acidic=False, pKas=[5.21])
-Indium_III_hydroxide_In = ts.Compound(name='Indium_III_hydroxide_In', acidic=False, pKas=[5.16])
-GalliumHydroxide = ts.Compound(name='Galliumhydroxide', acidic=False, pKas=[4.75])
-aniline = ts.Compound(name='aniline', acidic=False, pKas=[4.6])
-Vanadium_III_hydroxide_V = ts.Compound(name='Vanadium_III_hydroxide_V', acidic=False, pKas=[4.1])
-Plutonyl_VI_Hydroxide = ts.Compound(name='Plutonyl_VI_hydroxide', acidic=False, pKas=[4.05])
-Gold_I_Hydroxide = ts.Compound(name='Gold_I_hydroxide', acidic=False, pKas=[3.8])
-Tin_II_Hydroxide = ts.Compound(name='Tin_II_hydroxide', acidic=False, pKas=[3.66])
-Tin_IV_Hydroxide = ts.Compound(name='Tin_IV_hydroxide', acidic=False, pKas=[3.32])
-Triphenylphosphine = ts.Compound(name='Triphenylphosphine', acidic=False, pKas=[2.73])
-Methylphosphine = ts.Compound(name='Methylphosphine', acidic=False, pKas=[2.7])
-Mercury_II_Hydroxide = ts.Compound(name='Mercury_II_hydroxide', acidic=False, pKas=[2.5])
-Palladium_II_Hydroxide = ts.Compound(name='Palladium_II_hydroxide', acidic=False, pKas=[2.46])
-Technetyl_IV_Hydroxide = ts.Compound(name='Technetyl_IV_hydroxide', acidic=False, pKas=[2.43])
-Titanyl_IV_dihydroxide = ts.Compound(name='Titanyl_IV_dihydroxide', acidic=False, pKas=[2.4])
-Cerium_IV_Hydroxide = ts.Compound(name='Cerium_IV_hydroxide', acidic=False, pKas=[2.29])
-Thallium_III_Hydroxide = ts.Compound(name='Thallium_III_hydroxide', acidic=False, pKas=[1.9])
-Astatine_I_Hydroxide = ts.Compound(name='Astatine_I_hydroxide', acidic=False, pKas=[1.5])
-Antimony_III_Hydroxide = ts.Compound(name='Antimony_III_hydroxide', acidic=False, pKas=[1.42])
-Protactinium_IV_Hydroxide = ts.Compound(name='Protactinium_IV_hydroxide', acidic=False, pKas=[1.25])
-Diphenylamine = ts.Compound(name='Diphenylamine', acidic=False, pKas=[0.78])
-Hafnium_IV_Hydroxide = ts.Compound(name='Hafnium_IV_hydroxide', acidic=False, pKas=[0.52])
-Zirconium_IV_Hydroxide = ts.Compound(name='Zirconium_IV_hydroxide', acidic=False, pKas=[0.5])
+CesiumHydroxide = ts.Compound(name="CsOH", acidic=False, pKas=[15.76])
+FranciumHydroxide = ts.Compound(name="FrOH", acidic=False, pKas=[15.7])
+RubidiumHydroxide = ts.Compound(name="RbOH", acidic=False, pKas=[15.4])
+LithiumHydroxide = ts.Compound(name="LiOH", acidic=False, pKas=[14.36])
+CalciumHydroxide = ts.Compound(name="calcium_hydroxide", acidic=False, pKas=[12.6, 11.57])
+RadiumHydroxide = ts.Compound(name="Radiumhydroxide", acidic=False, pKas=[14.0])
+BariumHydroxide = ts.Compound(name="Bariumhydroxide", acidic=False, pKas=[13.85])
+SodiumHydroxide = ts.Compound(name="NaOH", acidic=False, pKas=[13.8])
+StrontiumHydroxide = ts.Compound(name="Strontiumhydroxide", acidic=False, pKas=[13.7])
+PotassiumHydroxide = ts.Compound(name="KOH", acidic=False, pKas=[13.5])
+Thallium_I_Hydroxide = ts.Compound(name="Thallium_I_hydroxide", acidic=False, pKas=[13.36])
+MagnesiumHydroxide = ts.Compound(name="Magnesiumhydroxide", acidic=False, pKas=[12.2])
+Manganese_II_Hydroxide = ts.Compound(name="Manganese_II_hydroxide", acidic=False, pKas=[12.0])
+Indium_I_Hydroxide = ts.Compound(name="Indium_I_hydroxide_InOH", acidic=False, pKas=[11.83])
+SilverHydroxide = ts.Compound(name="Silverhydroxide", acidic=False, pKas=[11.5])
+Neptunyl_V_Hydroxide = ts.Compound(name="Neptunyl_V_hydroxide", acidic=False, pKas=[11.3])
+Protactinyl_V_Hydroxide = ts.Compound(name="Protactinyl_V_hydroxide", acidic=False, pKas=[11.19])
+ActiniumHydroxide = ts.Compound(name="Actiniumhydroxide", acidic=False, pKas=[11.1])
+Americium_III_Hydroxide = ts.Compound(name="Americium_III_hydroxide", acidic=False, pKas=[11.1])
+Curium_III_Hydroxide = ts.Compound(name="Curium_III_hydroxide", acidic=False, pKas=[11.1])
+Plutonium_III_Hydroxide = ts.Compound(name="Plutonium_III_hydroxide", acidic=False, pKas=[11.1])
+Iron_II_Hydroxide = ts.Compound(name="Iron_II_hydroxide", acidic=False, pKas=[11.07])
+Triethylamine = ts.Compound(name="Triethylamine", acidic=False, pKas=[11.01])
+Dipropylamine = ts.Compound(name="Dipropylamine", acidic=False, pKas=[10.91])
+ethylamine = ts.Compound(name="ethylamine", acidic=False, pKas=[10.75])
+Dimethylamine = ts.Compound(name="Dimethylamine", acidic=False, pKas=[10.73])
+Methylamine = ts.Compound(name="Methylamine", acidic=False, pKas=[10.66])
+Tripropylamine = ts.Compound(name="Tripropylamine", acidic=False, pKas=[10.66])
+Propylamine = ts.Compound(name="Propylamine", acidic=False, pKas=[10.57])
+Hydrogenxenonate_VIII_ = ts.Compound(name="Hydrogenxenonate_VIII_", acidic=False, pKas=[10.5])
+Diethylamine = ts.Compound(name="Diethylamine", acidic=False, pKas=[10.49])
+CadmiumHydroxide = ts.Compound(name="Cadmiumhydroxide", acidic=False, pKas=[10.4])
+Nickel_II_Hydroxide = ts.Compound(name="Nickel_II_hydroxide", acidic=False, pKas=[10.22])
+Trimethylamine = ts.Compound(name="Trimethylamine", acidic=False, pKas=[9.81])
+LanthanumHydroxide = ts.Compound(name="Lanthanumhydroxide", acidic=False, pKas=[9.8])
+Plutonyl_V_Hydroxide = ts.Compound(name="Plutonyl_V_hydroxide", acidic=False, pKas=[9.7])
+Cobalt_II_Hydroxide = ts.Compound(name="Cobalt_II_hydroxide", acidic=False, pKas=[9.63])
+Lead_II_Hydroxide = ts.Compound(name="Lead_II_hydroxide", acidic=False, pKas=[9.62])
+Cerium_III_Hydroxide = ts.Compound(name="Cerium_III_hydroxide", acidic=False, pKas=[9.6])
+YttriumHydroxide = ts.Compound(name="Yttriumhydroxide", acidic=False, pKas=[9.6])
+Neodymium_III_Hydroxide = ts.Compound(name="Neodymium_III_hydroxide", acidic=False, pKas=[9.5])
+Praseodymium_III_Hydroxide = ts.Compound(name="Praseodymium_III_hydroxide", acidic=False, pKas=[9.4])
+Promethium_III_Hydroxide = ts.Compound(name="Promethium_III_hydroxide", acidic=False, pKas=[9.4])
+Samarium_III_Hydroxide = ts.Compound(name="Samarium_III_hydroxide", acidic=False, pKas=[9.4])
+ammonia = ts.Compound(name="ammonia", acidic=False, pKas=[9.25])
+Platinum_II_Hydroxide = ts.Compound(name="Platinum_II_hydroxide", acidic=False, pKas=[9.2])
+ZincHydroxide = ts.Compound(name="Zinchydroxide", acidic=False, pKas=[8.99])
+Europium_III_Hydroxide = ts.Compound(name="Europium_III_hydroxide", acidic=False, pKas=[8.8])
+Terbium_III_Hydroxide = ts.Compound(name="Terbium_III_hydroxide", acidic=False, pKas=[8.8])
+Trimethylphosphine = ts.Compound(name="Trimethylphosphine", acidic=False, pKas=[8.65])
+BerylliumHydroxide = ts.Compound(name="Berylliumhydroxide", acidic=False, pKas=[8.6])
+Perchlorylimide = ts.Compound(name="Perchlorylimide", acidic=False, pKas=[8.6])
+Dysprosium_III_Hydroxide = ts.Compound(name="Dysprosium_III_hydroxide", acidic=False, pKas=[8.5])
+Copper_II_Hydroxide = ts.Compound(name="Copper_II_hydroxide", acidic=False, pKas=[8.5])
+Holmium_III_Hydroxide = ts.Compound(name="Holmium_III_hydroxide", acidic=False, pKas=[8.4])
+Erbium_III_Hydroxide = ts.Compound(name="Erbium_III_hydroxide", acidic=False, pKas=[8.3])
+GadoliniumHydroxide = ts.Compound(name="Gadoliniumhydroxide", acidic=False, pKas=[8.3])
+Thulium_III_Hydroxide = ts.Compound(name="Thulium_III_hydroxide", acidic=False, pKas=[8.3])
+Ytterbium_III_Hydroxide = ts.Compound(name="Ytterbium_III_hydroxide", acidic=False, pKas=[8.3])
+Hydroxylamine = ts.Compound(name="Hydroxylamine", acidic=False, pKas=[8.2])
+LutetiumHydroxide = ts.Compound(name="Lutetiumhydroxide", acidic=False, pKas=[8.2])
+Ethylhydrazine = ts.Compound(name="Ethylhydrazine", acidic=False, pKas=[7.99])
+Hydrazine = ts.Compound(name="Hydrazine", acidic=False, pKas=[7.93])
+Methylhydrazine = ts.Compound(name="Methylhydrazine", acidic=False, pKas=[7.87])
+Peroxodiphosphate = ts.Compound(name="Peroxodiphosphate", acidic=False, pKas=[7.67])
+Iron_III_Hydroxide = ts.Compound(name="Iron_III_hydroxide", acidic=False, pKas=[6.89])
+Uranyl_VI_Hydroxide = ts.Compound(name="Uranyl_VI_hydroxide", acidic=False, pKas=[6.8])
+Plutonium_IV_Hydroxide = ts.Compound(name="Plutonium_IV_hydroxide", acidic=False, pKas=[6.7])
+ScandiumHydroxide = ts.Compound(name="Scandiumhydroxide", acidic=False, pKas=[6.4])
+Bismuth_III_Hydroxide = ts.Compound(name="Bismuth_III_hydroxide", acidic=False, pKas=[6.38])
+Vanadyl_IV_hydroxide_VO = ts.Compound(name="Vanadyl_IV_hydroxide_VO", acidic=False, pKas=[6.34])
+AluminumHydroxide = ts.Compound(name="Aluminumhydroxide", acidic=False, pKas=[5.86])
+Thorium_IV_Hydroxide = ts.Compound(name="Thorium_IV_hydroxide", acidic=False, pKas=[5.8])
+Chromium_III_Hydroxide = ts.Compound(name="Chromium_III_hydroxide", acidic=False, pKas=[5.7])
+Uranium_IV_Hydroxide = ts.Compound(name="Uranium_IV_hydroxide", acidic=False, pKas=[5.65])
+Neptunium_IV_Hydroxide = ts.Compound(name="Neptunium_IV_hydroxide", acidic=False, pKas=[5.3])
+Rutherfordium_IV_Hydroxide = ts.Compound(name="Rutherfordium_IV_hydroxide", acidic=False, pKas=[5.3])
+Phenylhydrazine = ts.Compound(name="Phenylhydrazine", acidic=False, pKas=[5.21])
+Indium_III_hydroxide_In = ts.Compound(name="Indium_III_hydroxide_In", acidic=False, pKas=[5.16])
+GalliumHydroxide = ts.Compound(name="Galliumhydroxide", acidic=False, pKas=[4.75])
+aniline = ts.Compound(name="aniline", acidic=False, pKas=[4.6])
+Vanadium_III_hydroxide_V = ts.Compound(name="Vanadium_III_hydroxide_V", acidic=False, pKas=[4.1])
+Plutonyl_VI_Hydroxide = ts.Compound(name="Plutonyl_VI_hydroxide", acidic=False, pKas=[4.05])
+Gold_I_Hydroxide = ts.Compound(name="Gold_I_hydroxide", acidic=False, pKas=[3.8])
+Tin_II_Hydroxide = ts.Compound(name="Tin_II_hydroxide", acidic=False, pKas=[3.66])
+Tin_IV_Hydroxide = ts.Compound(name="Tin_IV_hydroxide", acidic=False, pKas=[3.32])
+Triphenylphosphine = ts.Compound(name="Triphenylphosphine", acidic=False, pKas=[2.73])
+Methylphosphine = ts.Compound(name="Methylphosphine", acidic=False, pKas=[2.7])
+Mercury_II_Hydroxide = ts.Compound(name="Mercury_II_hydroxide", acidic=False, pKas=[2.5])
+Palladium_II_Hydroxide = ts.Compound(name="Palladium_II_hydroxide", acidic=False, pKas=[2.46])
+Technetyl_IV_Hydroxide = ts.Compound(name="Technetyl_IV_hydroxide", acidic=False, pKas=[2.43])
+Titanyl_IV_dihydroxide = ts.Compound(name="Titanyl_IV_dihydroxide", acidic=False, pKas=[2.4])
+Cerium_IV_Hydroxide = ts.Compound(name="Cerium_IV_hydroxide", acidic=False, pKas=[2.29])
+Thallium_III_Hydroxide = ts.Compound(name="Thallium_III_hydroxide", acidic=False, pKas=[1.9])
+Astatine_I_Hydroxide = ts.Compound(name="Astatine_I_hydroxide", acidic=False, pKas=[1.5])
+Antimony_III_Hydroxide = ts.Compound(name="Antimony_III_hydroxide", acidic=False, pKas=[1.42])
+Protactinium_IV_Hydroxide = ts.Compound(name="Protactinium_IV_hydroxide", acidic=False, pKas=[1.25])
+Diphenylamine = ts.Compound(name="Diphenylamine", acidic=False, pKas=[0.78])
+Hafnium_IV_Hydroxide = ts.Compound(name="Hafnium_IV_hydroxide", acidic=False, pKas=[0.52])
+Zirconium_IV_Hydroxide = ts.Compound(name="Zirconium_IV_hydroxide", acidic=False, pKas=[0.5])
 
 # Lists of compound
 
-acids = [Hydrochloric,
-         Hydroiodic,
-         Nitric,
-         Hydrobromic,
-         Hydroperchloric,
-         P_Toluenesulfonic,
-         Propane1sulfonic,
-         Propane2sulfonic,
-         Amidosulfonic,
-         Benzenesulfonic,
-         Bromic,
-         Hydrobromic,
-         Butanesulfonic,
-         Chlorous,
-         Chlorosulfonic,
-         Chloric,
-         Chromic,
-         Dibromoacetic,
-         Dichloroacetic,
-         Dichromic,
-         Difluoroacetic,
-         Difluorophosphoric,
-         Diiodoacetic,
-         Dimethylphosphonic,
-         Disulfuric,
-         Dithionic,
-         Ethanesulfonic,
-         Fluorosulfonic,
-         Heptafluoropropanesulfonic,
-         EDTA,
-         Citric,
-         Carbonic,
-         Acetic,
-         Ammonium,
-         Malic,
-         Enanthic,
-         Acrylic,
-         Adipic,
-         Alanine,
-         Formic,
-         Amidophosphonic,
-         Arsenic,
-         Azelaic,
-         Benzoic,
-         Succinic,
-         Hydrocyanic,
-         Bromoacetic,
-         Brominous,
-         Butanethiol,
-         Butyric,
-         Butylarsonic,
-         Butylphosphinic,
-         Butylphosphonic,
-         Capric,
-         Caproic,
-         Caprylic,
-         Chloroacetic,
-         Citric,
-         Crotonic,
-         Cyanic,
-         Diamidophosphonic,
-         Dihydrogenperoxodiphosphate,
-         Disulfane,
-         Dithioarsenic,
-         Iron_VI,
-         Acetic,
-         Ethanethiol,
-         Ethylarsonic,
-         Ethylhydroperoxide,
-         Ethylphosphinic,
-         Ethylphosphonic,
-         Fluoroacetic,
-         Hydrofluoric,
-         Glycine,
-         Glycolic,
-         Hexafluoroantimonic,
-         Hexafluoroarsenic,
-         Hexafluorophosphoric,
-         Hexafluorotitan_IV,
-         Hexafluorosilicic,
-         Hexasulfane,
-         Hydrazidosulfonic,
-         Hydrogenperoxodiphosphate,
-         Hypobromous,
-         Hypochlorous,
-         Hypodiphosphoric,
-         Hypoiodous,
-         Hypophosphorous,
-         Hypo_nitrous,
-         Hypothiocyanitic,
-         Imidodiphosphoric,
-         Iodic,
-         Iodoacetic,
-         Hydroiodic,
-         Isocyanic,
-         Isopropylhydroperoxide,
-         Isopropyloxonium,
-         Isothiocyanic,
-         Carbonic,
-         Suberic,
-         Malonic,
-         Manganese_VI,
-         Mellitic,
-         Metaarsenous,
-         Metaboric,
-         Metagermanic,
-         Metasilicic,
-         Metaniobic,
-         Metaperiodic,
-         Metatantalic,
-         Metavanadium_V,
-         Methanal,
-         Methaneselenol,
-         Methanesulfonic,
-         Methanethiol,
-         Methylarsonic,
-         Methylhydroperoxide,
-         Methylphosphinic,
-         Methylphosphonic,
-         Methylsulfinic,
-         Lactic,
-         Molybdic,
-         Monofluorophosphoric,
-         Nitramine,
-         Nitromethane,
-         Octanesulfonic,
-         Ortho_periodic,
-         Orthoantimonic,
-         Orthoboric,
-         Orthogermanic,
-         Orthosilicic,
-         Orthotelluric,
-         Orthovanadic,
-         Oxalic,
-         Pelargonic,
-         Pentacarbonylmanganese,
-         Pentafluoroethanesulfonic,
-         Pentasulfane,
-         Perchlorylamide,
-         Perchlorylamine,
-         Perchromic,
-         Permanganic,
-         Perosmic,
-         Peroxoformic,
-         Peroxobutyric,
-         Peroxodiphosphoric,
-         Peroxodisulfuric,
-         Peroxyacetic,
-         Peroxohypositrous,
-         Peroxopropionic,
-         Peroxonitric,
-         Peroxo_nitrous,
-         Peroxosulphuric,
-         Perrhenic,
-         Perruthenic,
-         Pertechnetic,
-         Phenol,
-         Phenylphosphonic,
-         Phenylsulfinic,
-         Phosphorous,
-         Phosphoric,
-         Pimelic,
-         Poly,
-         Propanethiol,
-         Propionic,
-         Propylarsonic,
-         Propylphosphinic,
-         Propylphosphonic,
-         Salicylic,
-         Nitric,
-         Nitrous,
-         Hydrochloric,
-         Sulfuric,
-         Hydrogensulfide,
-         Sulphurous,
-         Seaborgium_VI,
-         Sebacic,
-         Selenous,
-         Selenophenol,
-         Selenophosphoric,
-         Selenic,
-         Hydroselenic,
-         Hydrazoic,
-         Tartronic,
-         Telluric,
-         Tetracarbonyliron,
-         Tetrafluoroboric,
-         Tetraphosphoric,
-         Tetrasulfane,
-         Tetrathiophosphoric,
-         Thioarsenic,
-         Thiocyanic,
-         Thiophenol,
-         Thiophosphoric,
-         Thiosulfuric,
-         Thioselenic,
-         Tribromoacetic,
-         Trichloroacetic,
-         Trifluoroacetic,
-         Trifluoromethanesulfonic,
-         Trihydrogenperoxodiphosphate,
-         Triiodoacetic,
-         Trioxide,
-         Triphosphoric,
-         Triselenocarbonic,
-         Trisulfane,
-         Trithiocarbonic,
-         Valeric,
-         HydrogenHyperoxide,
-         HydrogenOzonide,
-         HydrogenPeroxide,
-         Tartaric,
-         Tungstic,
-         Xenon_VI,
-         Xenon_VIII]
+acids = [
+    Hydrochloric,
+    Hydroiodic,
+    Nitric,
+    Hydrobromic,
+    Hydroperchloric,
+    P_Toluenesulfonic,
+    Propane1sulfonic,
+    Propane2sulfonic,
+    Amidosulfonic,
+    Benzenesulfonic,
+    Bromic,
+    Hydrobromic,
+    Butanesulfonic,
+    Chlorous,
+    Chlorosulfonic,
+    Chloric,
+    Chromic,
+    Dibromoacetic,
+    Dichloroacetic,
+    Dichromic,
+    Difluoroacetic,
+    Difluorophosphoric,
+    Diiodoacetic,
+    Dimethylphosphonic,
+    Disulfuric,
+    Dithionic,
+    Ethanesulfonic,
+    Fluorosulfonic,
+    Heptafluoropropanesulfonic,
+    EDTA,
+    Citric,
+    Carbonic,
+    Acetic,
+    Ammonium,
+    Malic,
+    Enanthic,
+    Acrylic,
+    Adipic,
+    Alanine,
+    Formic,
+    Amidophosphonic,
+    Arsenic,
+    Azelaic,
+    Benzoic,
+    Succinic,
+    Hydrocyanic,
+    Bromoacetic,
+    Brominous,
+    Butanethiol,
+    Butyric,
+    Butylarsonic,
+    Butylphosphinic,
+    Butylphosphonic,
+    Capric,
+    Caproic,
+    Caprylic,
+    Chloroacetic,
+    Citric,
+    Crotonic,
+    Cyanic,
+    Diamidophosphonic,
+    Dihydrogenperoxodiphosphate,
+    Disulfane,
+    Dithioarsenic,
+    Iron_VI,
+    Acetic,
+    Ethanethiol,
+    Ethylarsonic,
+    Ethylhydroperoxide,
+    Ethylphosphinic,
+    Ethylphosphonic,
+    Fluoroacetic,
+    Hydrofluoric,
+    Glycine,
+    Glycolic,
+    Hexafluoroantimonic,
+    Hexafluoroarsenic,
+    Hexafluorophosphoric,
+    Hexafluorotitan_IV,
+    Hexafluorosilicic,
+    Hexasulfane,
+    Hydrazidosulfonic,
+    Hydrogenperoxodiphosphate,
+    Hypobromous,
+    Hypochlorous,
+    Hypodiphosphoric,
+    Hypoiodous,
+    Hypophosphorous,
+    Hypo_nitrous,
+    Hypothiocyanitic,
+    Imidodiphosphoric,
+    Iodic,
+    Iodoacetic,
+    Hydroiodic,
+    Isocyanic,
+    Isopropylhydroperoxide,
+    Isopropyloxonium,
+    Isothiocyanic,
+    Carbonic,
+    Suberic,
+    Malonic,
+    Manganese_VI,
+    Mellitic,
+    Metaarsenous,
+    Metaboric,
+    Metagermanic,
+    Metasilicic,
+    Metaniobic,
+    Metaperiodic,
+    Metatantalic,
+    Metavanadium_V,
+    Methanal,
+    Methaneselenol,
+    Methanesulfonic,
+    Methanethiol,
+    Methylarsonic,
+    Methylhydroperoxide,
+    Methylphosphinic,
+    Methylphosphonic,
+    Methylsulfinic,
+    Lactic,
+    Molybdic,
+    Monofluorophosphoric,
+    Nitramine,
+    Nitromethane,
+    Octanesulfonic,
+    Ortho_periodic,
+    Orthoantimonic,
+    Orthoboric,
+    Orthogermanic,
+    Orthosilicic,
+    Orthotelluric,
+    Orthovanadic,
+    Oxalic,
+    Pelargonic,
+    Pentacarbonylmanganese,
+    Pentafluoroethanesulfonic,
+    Pentasulfane,
+    Perchlorylamide,
+    Perchlorylamine,
+    Perchromic,
+    Permanganic,
+    Perosmic,
+    Peroxoformic,
+    Peroxobutyric,
+    Peroxodiphosphoric,
+    Peroxodisulfuric,
+    Peroxyacetic,
+    Peroxohypositrous,
+    Peroxopropionic,
+    Peroxonitric,
+    Peroxo_nitrous,
+    Peroxosulphuric,
+    Perrhenic,
+    Perruthenic,
+    Pertechnetic,
+    Phenol,
+    Phenylphosphonic,
+    Phenylsulfinic,
+    Phosphorous,
+    Phosphoric,
+    Pimelic,
+    Poly,
+    Propanethiol,
+    Propionic,
+    Propylarsonic,
+    Propylphosphinic,
+    Propylphosphonic,
+    Salicylic,
+    Nitric,
+    Nitrous,
+    Hydrochloric,
+    Sulfuric,
+    Hydrogensulfide,
+    Sulphurous,
+    Seaborgium_VI,
+    Sebacic,
+    Selenous,
+    Selenophenol,
+    Selenophosphoric,
+    Selenic,
+    Hydroselenic,
+    Hydrazoic,
+    Tartronic,
+    Telluric,
+    Tetracarbonyliron,
+    Tetrafluoroboric,
+    Tetraphosphoric,
+    Tetrasulfane,
+    Tetrathiophosphoric,
+    Thioarsenic,
+    Thiocyanic,
+    Thiophenol,
+    Thiophosphoric,
+    Thiosulfuric,
+    Thioselenic,
+    Tribromoacetic,
+    Trichloroacetic,
+    Trifluoroacetic,
+    Trifluoromethanesulfonic,
+    Trihydrogenperoxodiphosphate,
+    Triiodoacetic,
+    Trioxide,
+    Triphosphoric,
+    Triselenocarbonic,
+    Trisulfane,
+    Trithiocarbonic,
+    Valeric,
+    HydrogenHyperoxide,
+    HydrogenOzonide,
+    HydrogenPeroxide,
+    Tartaric,
+    Tungstic,
+    Xenon_VI,
+    Xenon_VIII,
+]
 
-bases = [CesiumHydroxide,
-         FranciumHydroxide,
-         RubidiumHydroxide,
-         LithiumHydroxide,
-         CalciumHydroxide,
-         RadiumHydroxide,
-         BariumHydroxide,
-         SodiumHydroxide,
-         StrontiumHydroxide,
-         PotassiumHydroxide,
-         Thallium_I_Hydroxide,
-         MagnesiumHydroxide,
-         Manganese_II_Hydroxide,
-         Indium_I_Hydroxide,
-         SilverHydroxide,
-         Neptunyl_V_Hydroxide,
-         Protactinyl_V_Hydroxide,
-         ActiniumHydroxide,
-         Americium_III_Hydroxide,
-         Curium_III_Hydroxide,
-         Plutonium_III_Hydroxide,
-         Iron_II_Hydroxide,
-         Triethylamine,
-         Dipropylamine,
-         ethylamine,
-         Dimethylamine,
-         Methylamine,
-         Tripropylamine,
-         Propylamine,
-         Hydrogenxenonate_VIII_,
-         Diethylamine,
-         CadmiumHydroxide,
-         Nickel_II_Hydroxide,
-         Trimethylamine,
-         LanthanumHydroxide,
-         Plutonyl_V_Hydroxide,
-         Cobalt_II_Hydroxide,
-         Lead_II_Hydroxide,
-         Cerium_III_Hydroxide,
-         YttriumHydroxide,
-         Neodymium_III_Hydroxide,
-         Praseodymium_III_Hydroxide,
-         Promethium_III_Hydroxide,
-         Samarium_III_Hydroxide,
-         ammonia,
-         Platinum_II_Hydroxide,
-         ZincHydroxide,
-         Europium_III_Hydroxide,
-         Terbium_III_Hydroxide,
-         Trimethylphosphine,
-         BerylliumHydroxide,
-         Perchlorylimide,
-         Dysprosium_III_Hydroxide,
-         Copper_II_Hydroxide,
-         Holmium_III_Hydroxide,
-         Erbium_III_Hydroxide,
-         GadoliniumHydroxide,
-         Thulium_III_Hydroxide,
-         Ytterbium_III_Hydroxide,
-         Hydroxylamine,
-         LutetiumHydroxide,
-         Ethylhydrazine,
-         Hydrazine,
-         Methylhydrazine,
-         Peroxodiphosphate,
-         Iron_III_Hydroxide,
-         Uranyl_VI_Hydroxide,
-         Plutonium_IV_Hydroxide,
-         ScandiumHydroxide,
-         Bismuth_III_Hydroxide,
-         Vanadyl_IV_hydroxide_VO,
-         AluminumHydroxide,
-         Thorium_IV_Hydroxide,
-         Chromium_III_Hydroxide,
-         Uranium_IV_Hydroxide,
-         Neptunium_IV_Hydroxide,
-         Rutherfordium_IV_Hydroxide,
-         Phenylhydrazine,
-         Indium_III_hydroxide_In,
-         GalliumHydroxide,
-         aniline,
-         Vanadium_III_hydroxide_V,
-         Plutonyl_VI_Hydroxide,
-         Gold_I_Hydroxide,
-         Tin_II_Hydroxide,
-         Tin_IV_Hydroxide,
-         Triphenylphosphine,
-         Methylphosphine,
-         Mercury_II_Hydroxide,
-         Palladium_II_Hydroxide,
-         Technetyl_IV_Hydroxide,
-         Titanyl_IV_dihydroxide,
-         Cerium_IV_Hydroxide,
-         Thallium_III_Hydroxide,
-         Astatine_I_Hydroxide,
-         Antimony_III_Hydroxide,
-         Protactinium_IV_Hydroxide,
-         Diphenylamine,
-         Hafnium_IV_Hydroxide,
-         Zirconium_IV_Hydroxide,
-         ]
+bases = [
+    CesiumHydroxide,
+    FranciumHydroxide,
+    RubidiumHydroxide,
+    LithiumHydroxide,
+    CalciumHydroxide,
+    RadiumHydroxide,
+    BariumHydroxide,
+    SodiumHydroxide,
+    StrontiumHydroxide,
+    PotassiumHydroxide,
+    Thallium_I_Hydroxide,
+    MagnesiumHydroxide,
+    Manganese_II_Hydroxide,
+    Indium_I_Hydroxide,
+    SilverHydroxide,
+    Neptunyl_V_Hydroxide,
+    Protactinyl_V_Hydroxide,
+    ActiniumHydroxide,
+    Americium_III_Hydroxide,
+    Curium_III_Hydroxide,
+    Plutonium_III_Hydroxide,
+    Iron_II_Hydroxide,
+    Triethylamine,
+    Dipropylamine,
+    ethylamine,
+    Dimethylamine,
+    Methylamine,
+    Tripropylamine,
+    Propylamine,
+    Hydrogenxenonate_VIII_,
+    Diethylamine,
+    CadmiumHydroxide,
+    Nickel_II_Hydroxide,
+    Trimethylamine,
+    LanthanumHydroxide,
+    Plutonyl_V_Hydroxide,
+    Cobalt_II_Hydroxide,
+    Lead_II_Hydroxide,
+    Cerium_III_Hydroxide,
+    YttriumHydroxide,
+    Neodymium_III_Hydroxide,
+    Praseodymium_III_Hydroxide,
+    Promethium_III_Hydroxide,
+    Samarium_III_Hydroxide,
+    ammonia,
+    Platinum_II_Hydroxide,
+    ZincHydroxide,
+    Europium_III_Hydroxide,
+    Terbium_III_Hydroxide,
+    Trimethylphosphine,
+    BerylliumHydroxide,
+    Perchlorylimide,
+    Dysprosium_III_Hydroxide,
+    Copper_II_Hydroxide,
+    Holmium_III_Hydroxide,
+    Erbium_III_Hydroxide,
+    GadoliniumHydroxide,
+    Thulium_III_Hydroxide,
+    Ytterbium_III_Hydroxide,
+    Hydroxylamine,
+    LutetiumHydroxide,
+    Ethylhydrazine,
+    Hydrazine,
+    Methylhydrazine,
+    Peroxodiphosphate,
+    Iron_III_Hydroxide,
+    Uranyl_VI_Hydroxide,
+    Plutonium_IV_Hydroxide,
+    ScandiumHydroxide,
+    Bismuth_III_Hydroxide,
+    Vanadyl_IV_hydroxide_VO,
+    AluminumHydroxide,
+    Thorium_IV_Hydroxide,
+    Chromium_III_Hydroxide,
+    Uranium_IV_Hydroxide,
+    Neptunium_IV_Hydroxide,
+    Rutherfordium_IV_Hydroxide,
+    Phenylhydrazine,
+    Indium_III_hydroxide_In,
+    GalliumHydroxide,
+    aniline,
+    Vanadium_III_hydroxide_V,
+    Plutonyl_VI_Hydroxide,
+    Gold_I_Hydroxide,
+    Tin_II_Hydroxide,
+    Tin_IV_Hydroxide,
+    Triphenylphosphine,
+    Methylphosphine,
+    Mercury_II_Hydroxide,
+    Palladium_II_Hydroxide,
+    Technetyl_IV_Hydroxide,
+    Titanyl_IV_dihydroxide,
+    Cerium_IV_Hydroxide,
+    Thallium_III_Hydroxide,
+    Astatine_I_Hydroxide,
+    Antimony_III_Hydroxide,
+    Protactinium_IV_Hydroxide,
+    Diphenylamine,
+    Hafnium_IV_Hydroxide,
+    Zirconium_IV_Hydroxide,
+]
 
 acids.sort(key=lambda x: x.pKas[0])
 bases.sort(key=lambda x: x.pKas[0])
