@@ -389,7 +389,7 @@ with window("Main Window", label="Something Else", autosize=True):
                 height=plot_height,
                 anti_aliased=True,
                 x_axis_name="Volume (ml)",
-                y_axis_name="pH"
+                y_axis_name="pH",
             )
 
     plot_callback("equiv", [])  # Make the plots appear on program start

@@ -3,8 +3,9 @@ from pandas import DataFrame
 from numpy import transpose
 
 
-def write_alpha_data(titr, title: str = "Alpha Value Data", file_headers: bool = True,
-                     species_names: List[str] = None) -> None:
+def write_alpha_data(
+    titr, title: str = "Alpha Value Data", file_headers: bool = True, species_names: List[str] = None
+) -> None:
     """Write the numerical alpha value data to a csv file."""
 
     # Initialize the dataframe with the ph values
@@ -27,8 +28,7 @@ def write_alpha_data(titr, title: str = "Alpha Value Data", file_headers: bool =
 
 
 def write_titration_data(titr, title: str = "Titration Curve Data", file_headers: bool = True) -> None:
-    """Write the volume and pH value for the titration to a csv file.
-    """
+    """Write the volume and pH value for the titration to a csv file."""
     # Make dataframe.
     pH, volume = titr.trim_values(titr.ph, titr.volume_titrant)
     data = DataFrame({"volume": volume, "pH": pH})
