@@ -3,21 +3,31 @@ T-Builder Changelog
 A log of all changes which affect code performance.
 
 -----------------------------------------------------------------------
-Version 2.4
+Version 2.3.1
 -----------------------------------------------------------------------
 
 New:
--
+- A large list of compounds to select from
+- Type hints
+- Option to omit file headers in the save_files functions
+- Consolidated classes into two dataclasses
+
 
 Fixed:
--
+- Speciation numbers weren't totalling 1
+   - They were being scaled by their index improperly
+   - Never underestimate the mutability of lists
 
 Updated:
 - Updated to DearPyGUI v0.6.121
 - Updated to scipy v1.6.0
+- README.md function variables
+- Temperature now only scales from 0 to 100, rather than 0 to 350.
 
 Removed:
--
+- File printing tests fro tests.py
+- All the old data files
+
 
 -----------------------------------------------------------------------
 Version 2.3
