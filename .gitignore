@@ -182,7 +182,7 @@ $RECYCLE.BIN/
 /test_data
 /build/
 /dist/
-/making_data.py
+making_data.py
 /compiling_bat.txt
 /tb.ico
 /clean_titr_data/
