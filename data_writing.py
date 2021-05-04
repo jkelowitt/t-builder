@@ -3,9 +3,11 @@ from pandas import DataFrame
 from numpy import transpose
 
 
-def write_alpha_data(
-    titr, title: str = "Alpha Value Data", file_headers: bool = True, species_names: List[str] = None
-) -> None:
+def write_alpha_data(titr,
+                     title: str = "Alpha Value Data",
+                     file_headers: bool = True,
+                     species_names: List[str] = None) -> None:
+
     """Write the numerical alpha value data to a csv file."""
 
     # Initialize the dataframe with the ph values
