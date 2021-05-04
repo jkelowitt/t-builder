@@ -48,13 +48,6 @@ class Titration:
         else:  # If given a temperature
             self.kw = 10 ** (-self.temp_kw(self.temp))
 
-        # (14 * (not self.analyte.acidic)) is a hack to conditionally subtract -log([H]) from 14.
-        # A boolean false = numerical 0, therefore:
-        #   14 * False = 0
-        #   14 * True = 14
-        self.start_ph: float = (14 * (not self.analyte.acidic)) - log10(self.concentration_analyte)
-        self.end_ph: float = (14 * self.analyte.acidic) - log10(self.concentration_titrant)
-
         # The increment level for the value ranges
         self.precision: int = 10 ** self.decimal_places
 
@@ -70,9 +63,20 @@ class Titration:
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant.acidic)
         self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
 
-    def starting_phs(self) -> Tuple[array, array, array]:
+    def starting_phs(self, min_ph: float = None, max_ph: float = None) -> Tuple[array, array, array]:
         """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
-        ph = linspace(self.start_ph, self.end_ph, num=self.precision)
+
+        if min_ph is None:
+            min_ph = (14 * (not self.analyte.acidic)) - log10(self.concentration_analyte)
+
+        if max_ph is None:
+            max_ph = (14 * (not self.titrant.acidic)) - log10(self.concentration_analyte)
+
+        if self.analyte.acidic:
+            ph = arange(min_ph, max_ph, self.precision)
+        else:  # Swap max and min pH so that the proper volume order is preserved.
+            ph = arange(max_ph, min_ph, self.precision)
+
         h = 10 ** (-ph)
         oh = self.kw / h
         return ph, h, oh
@@ -101,8 +105,8 @@ class Titration:
         """Scale the alpha values by its index in the sub-array"""
         new_arr = []
         for num, a in enumerate(transpose(arr)):
-            b = a * num
-            new_arr.append(b)
+            a *= num
+            new_arr.append(a)
 
         return transpose(array(new_arr))
 
