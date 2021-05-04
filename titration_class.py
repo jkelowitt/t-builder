@@ -49,7 +49,7 @@ class Titration:
             self.kw = 10 ** (-self.temp_kw(self.temp))
 
         # The increment level for the value ranges
-        self.precision: int = 10 ** self.decimal_places
+        self.precision: int = 10 ** -self.decimal_places
 
         """These should be done when the calculations are required, not when the object is instantiated."""
         # Value ranges
