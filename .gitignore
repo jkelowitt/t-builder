@@ -187,3 +187,4 @@ making_data.py
 /tb.ico
 /clean_titr_data/
 data_writing.py
+*.csv
