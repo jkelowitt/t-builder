@@ -23,6 +23,7 @@ class Compound:
     pKas: list
 
     def __post_init__(self):
+        # The k values can become zero if the pKa value is too large ~> 330.
         self.ks: array = array(10.0 ** (-array(self.pKas)))
 
 
@@ -114,7 +115,7 @@ class Titration:
         """Finds the fraction of solution which each species of compound takes up at each pH."""
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
-            k = self.kw / flip(k)
+            k = self.kw / flip(k)  # TODO results in a Div by Zero error if pKa is too large (>330)
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
