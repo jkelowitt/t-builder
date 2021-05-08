@@ -1,30 +1,29 @@
 from dataclasses import dataclass, field
 from typing import List, Tuple, Generator, Any
 
-from numpy import array, arange, divide, where, flip, abs, log10
-from numpy.core.fromnumeric import prod, sum, transpose
+import numpy as np
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
 
-def pk_to_k(pk) -> array:
+def pk_to_k(pk) -> np.array:
     """Convert pK values to K values"""
-    return array(10.0 ** (-array(pk)))
+    return np.array(10.0 ** (-np.array(pk)))
 
 
-def closest_value(num: float, arr: array) -> float:
+def closest_value(num: float, arr: np.array) -> float:
     """Returns the closest value to the number in the array."""
-    return min(arr, key=lambda x: abs(x - num))
+    return min(arr, key=lambda x: np.abs(x - num))
 
 
 @dataclass
 class Compound:
     name: str
     acidic: bool
-    pKas: list
+    pKas: list[float]
 
     def __post_init__(self):
         # The k values can become zero if the pKa value is too large ~> 330.
-        self.ks: array = array(10.0 ** (-array(self.pKas)))
+        self.ks: np.array = np.array(10.0 ** (-np.array(self.pKas)))
 
 
 @dataclass
@@ -52,7 +51,6 @@ class Titration:
         # The increment level for the value ranges
         self.precision: int = 10 ** -self.decimal_places
 
-        """These should be done when the calculations are required, not when the object is instantiated."""
         # Value ranges
         self.ph, self.hydronium, self.hydroxide = self.starting_phs()
 
@@ -64,19 +62,19 @@ class Titration:
         self.volume_titrant, self.phi = self.calculate_volume(self.titrant.acidic)
         self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
 
-    def starting_phs(self, min_ph: float = None, max_ph: float = None) -> Tuple[array, array, array]:
+    def starting_phs(self, min_ph: float = None, max_ph: float = None) -> Tuple[np.array, np.array, np.array]:
         """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
 
         if min_ph is None:
-            min_ph = (14 * (not self.analyte.acidic)) - log10(self.concentration_analyte)
+            min_ph = (14 * (not self.analyte.acidic)) - np.log10(self.concentration_analyte)
 
         if max_ph is None:
-            max_ph = (14 * (not self.titrant.acidic)) - log10(self.concentration_analyte)
+            max_ph = (14 * (not self.titrant.acidic)) - np.log10(self.concentration_analyte)
 
         if self.analyte.acidic:
-            ph = arange(min_ph, max_ph, self.precision)
+            ph = np.arange(min_ph, max_ph, self.precision)
         else:  # Swap max and min pH so that the proper volume order is preserved.
-            ph = arange(max_ph, min_ph, self.precision)
+            ph = np.arange(max_ph, min_ph, self.precision)
 
         h = 10 ** (-ph)
         oh = self.kw / h
@@ -97,53 +95,53 @@ class Titration:
         return pKw
 
     @staticmethod
-    def _scale_data(data: array, a: float) -> array:
+    def _scale_data(data: np.array, a: float) -> np.array:
         """abs normalization"""
-        return a * (data / (1 + abs(data)))
+        return a * (data / (1 + np.abs(data)))
 
     @staticmethod
-    def scale_alphas(arr: array) -> array:
+    def scale_alphas(arr: np.array) -> np.array:
         """Scale the alpha values by its index in the sub-array"""
         new_arr = []
-        for num, a in enumerate(transpose(arr)):
+        for num, a in enumerate(np.transpose(arr)):
             a *= num
             new_arr.append(a)
 
-        return transpose(array(new_arr))
+        return np.transpose(np.array(new_arr))
 
-    def alpha_values(self, k: array, acid: bool = True) -> array:
+    def alpha_values(self, k: np.array, acid: bool = True) -> np.array:
         """Finds the fraction of solution which each species of compound takes up at each pH."""
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
         if not acid:
-            k = self.kw / flip(k)  # TODO results in a Div by Zero error if pKa is too large (>330)
+            k = self.kw / np.flip(k)  # TODO results in a Div by Zero error if pKa is too large (>330)
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
 
         # Get the values for the [H+]^n power
-        h_vals = array([self.hydronium ** i for i in range(n, -1, -1)])
+        h_vals = np.array([self.hydronium ** i for i in range(n, -1, -1)])
 
         # Get the products of the k values.
-        k_vals = [prod(k[0:x]) for x in range(n + 1)]
+        k_vals = [np.prod(k[0:x]) for x in range(n + 1)]
 
         # Prod and Sum the h and k values
-        denoms_arr = transpose(h_vals) * k_vals  # Product of the sub-elements of the denominator
-        denoms = sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
+        denoms_arr = np.transpose(h_vals) * k_vals  # Product of the sub-elements of the denominator
+        denoms = np.sum(denoms_arr, axis=1)  # Sum of the sub-elements of the denominator
 
         # Do the outermost alpha value calculation
-        alphas = transpose(divide(transpose(denoms_arr), denoms))  # Divide and re-transpose
+        alphas = np.transpose(np.divide(np.transpose(denoms_arr), denoms))  # Divide and re-transpose
 
         if acid:
-            return array(alphas)
-        else:
-            return flip(alphas, axis=0)
+            return np.array(alphas)
+
+        return np.flip(alphas, axis=0)
 
     def trim_values(self, *args: Any) -> Generator:
         """Returns the data ranges where the volume is non-trivial and non-absurd."""
         # Go until you are 1 past the last sub-reaction.
         limiter = len(self.analyte.pKas) + 1
 
-        good_val_index = where((self.phi >= [0]) & (self.phi <= [limiter]))
+        good_val_index = np.where((self.phi >= [0]) & (self.phi <= [limiter]))
 
         # Trim the values for every chosen data set
         rets = (arg[good_val_index] for arg in args)  # Add the trimmed dataset to the return variable
@@ -157,8 +155,8 @@ class Titration:
         scaled_alphas_titrant = self.scale_alphas(self.alpha_titrant)
 
         # Sum the scaled alpha values. Axis=1 forces the summation to occur for each individual [H+] value.
-        summed_scaled_alphas_analyte = sum(scaled_alphas_analyte, axis=1)
-        summed_scaled_alphas_titrant = sum(scaled_alphas_titrant, axis=1)
+        summed_scaled_alphas_analyte = np.sum(scaled_alphas_analyte, axis=1)
+        summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
 
         # I found this written as delta somewhere, and thus it will be named.
         delta = self.hydronium - self.hydroxide
@@ -176,19 +174,18 @@ class Titration:
         volume = phi * self.volume_analyte * self.concentration_analyte / self.concentration_titrant
         return volume, phi
 
-    def find_buffer_points(self) -> Tuple[List[int], array]:
+    def find_buffer_points(self) -> Tuple[List[int], np.array]:
         """Find the volumes of the buffer points based on the pKa values."""
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
-        pKas = array(self.analyte.pKas)
+        pKas = np.array(self.analyte.pKas)
 
         # All the volumes where the pH equals pKa
         volume_indices = []
         for pKa in pKas:
             if pKa > 14:  # Should never be larger than 14
                 continue
-            else:
-                places = where(pH == closest_value(pKa, pH))[0][0]
-                volume_indices.append(places)
+            places = np.where(pH == closest_value(pKa, pH))[0][0]
+            volume_indices.append(places)
 
         return volume[volume_indices], pKas
 
@@ -198,11 +195,11 @@ class Titration:
         points = []
         for i in range(1, len(self.analyte.pKas) + 1):
             closest = closest_value(i, phi)
-            points.append(where(phi == closest)[0][0])
+            points.append(np.where(phi == closest)[0][0])
 
         return list(volume[points]), list(pH[points])
 
-    def deriv(self, degree: int) -> Tuple[array, array]:
+    def deriv(self, degree: int) -> Tuple[np.array, np.array]:
         """Find the n-th derivative"""
         pH, volume = self.trim_values(self.ph, self.volume_titrant)
 
