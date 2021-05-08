@@ -7,7 +7,6 @@ def write_alpha_data(titr,
                      title: str = "Alpha Value Data",
                      file_headers: bool = True,
                      species_names: List[str] = None) -> None:
-
     """Write the numerical alpha value data to a csv file."""
 
     # Initialize the dataframe with the ph values
@@ -43,8 +42,8 @@ def write_analysis_data(titr, title: str = "Analysis Data", file_headers: bool =
     """Write all the data relating to the titration, and its analysis to a csv file."""
     # Make dataframe.
     pH, volume = titr.trim_values(titr.ph, titr.volume_titrant)
-    volumeD1, deriv1 = titr.deriv(1)
-    volumeD2, deriv2 = titr.deriv(2)
+    _, deriv1 = titr.deriv(1)
+    _, deriv2 = titr.deriv(2)
     volumeEq, pHEq = titr.find_equiv_points()
     volumeBf, pHBf = titr.find_buffer_points()
 
