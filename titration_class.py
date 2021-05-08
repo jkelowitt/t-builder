@@ -42,6 +42,7 @@ class Compound:
     pKas: A list of floats which represents the pKa values of the compound.
 
     """
+
     name: str
     acidic: bool
     pKas: list[float]
@@ -73,6 +74,7 @@ class Titration:
             Default is 25C. If pKw is None, this value is used to calculate the pKw at 25C.
     decimal_places : The number of decimal places the titration should be simulated to. Default is 2 (2 -> 0.01).
     """
+
     analyte: Compound
     titrant: Compound
 
