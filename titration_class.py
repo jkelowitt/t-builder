@@ -1,3 +1,18 @@
+"""
+@title: titration_class.py
+@author: Jackson Elowitt
+
+This file can be used to simulate titration curves.
+
+First, use the Compound class to create a titrant and an analyte.
+
+Second, pass in the analyte and titrant to the Titration class,
+    along with the concentrations and volumes of the analyte and titrants.
+
+From the titration class, call Titration.ph_t to obtain the trimmed pH values, and call
+    Titration.volume_titrant_t to obtain the volume of titrant required to reach those pH values.
+"""
+
 from dataclasses import dataclass, field
 from typing import List, Tuple, Generator, Any
 
@@ -17,6 +32,16 @@ def closest_value(num: float, arr: np.array) -> float:
 
 @dataclass
 class Compound:
+    """
+    Main class used to contain information about a specific compound
+
+    Parameters
+    ----------
+    name : A string which holds the name of the compound
+    acidic : A boolean which represents whether or not the compound is acidic. True --> Acidic, False -> Basic
+    pKas: A list of floats which represents the pKa values of the compound.
+
+    """
     name: str
     acidic: bool
     pKas: list[float]
@@ -28,6 +53,26 @@ class Compound:
 
 @dataclass
 class Titration:
+    """
+    Main Titration Class. Performs the titration of an analyte with a titrant
+        given their concentrations and volumes.
+
+    Parameters
+    ----------
+
+    analyte : A Compound class which represents the analyte of the titration
+    titrant : A Compound class which represents the titrant of the titration
+    concentration_analyte : A float which represents the concentration of the analyte
+    concentration_titrant : A float which represents the concentration of the titrant
+    volume_analyte : A float which represents the volume of analyte being titrated
+
+    Optional Parameters
+    -------------------
+    pKw : A custom value for the pKw of water. Default is None.
+    temp : A custom temperature for the temperature for the titration to take place.
+            Default is 25C. If pKw is None, this value is used to calculate the pKw at 25C.
+    decimal_places : The number of decimal places the titration should be simulated to. Default is 2 (2 -> 0.01).
+    """
     analyte: Compound
     titrant: Compound
 
