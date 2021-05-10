@@ -41,6 +41,18 @@ class Compound:
     acidic : A boolean which represents whether or not the compound is acidic. True --> Acidic, False -> Basic
     pKas: A list of floats which represents the pKa values of the compound.
 
+    Example
+    -------
+    >>> analyte = Compound("Acidic Analyte", acidic=True, pKas=[3, 6, 9])
+    >>> analyte.name
+    'Acidic Analyte'
+    >>> analyte.acidic
+    True
+    >>> analyte.pKas
+    [3, 6, 9]
+    >>> analyte.ks
+    array([1.e-03, 1.e-06, 1.e-09])
+
     """
 
     name: str
@@ -73,6 +85,25 @@ class Titration:
     temp : A custom temperature for the temperature for the titration to take place.
             Default is 25C. If pKw is None, this value is used to calculate the pKw at 25C.
     decimal_places : The number of decimal places the titration should be simulated to. Default is 2 (2 -> 0.01).
+
+    Example
+    -------
+    # Make the compounds
+    >>> analyte = Compound("Acidic Analyte", acidic=True, pKas=[3, 6, 9])
+
+    >>> titrant = Compound("Basic Analyte", acidic=False, pKas=[15])
+
+    # 'Perform' titration
+    >>> titr = Titration(analyte, titrant, concentration_analyte=0.1, concentration_titrant=0.1, volume_analyte=25)
+
+    # Extract information about the titration
+    >>> titr.ph
+    array([ 2.03,  2.04,  2.05, ..., 12.28, 12.29, 12.3 ])
+
+    >>> titr.volume_titrant
+    array([7.94800512e-02, 1.74868902e-01, 2.70378281e-01, ..., 9.84186264e+01, 9.90963992e+01, 9.97976880e+01])
+
+
     """
 
     analyte: Compound
