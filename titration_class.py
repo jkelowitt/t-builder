@@ -9,8 +9,8 @@ First, use the Compound class to create a titrant and an analyte.
 Second, pass in the analyte and titrant to the Titration class,
     along with the concentrations and volumes of the analyte and titrants.
 
-From the titration class, call Titration.ph_t to obtain the trimmed pH values, and call
-    Titration.volume_titrant_t to obtain the volume of titrant required to reach those pH values.
+From the titration class, call Titration.ph to obtain the trimmed pH values, and call
+    Titration.volume_titrant to obtain the volume of titrant required to reach those pH values.
 """
 
 from dataclasses import dataclass, field
@@ -134,18 +134,18 @@ class Titration:
         self.precision: int = 10 ** -self.decimal_places
 
         # Value ranges
-        self.ph, self.hydronium, self.hydroxide = self.starting_phs()
+        self.ph_full, self.hydronium_full, self.hydroxide_full = self.starting_phs()
 
         # Calculate the alpha values for the compounds at each pH
         self.alpha_analyte = self.alpha_values(k=self.analyte.ks, acid=self.analyte.acidic)
         self.alpha_titrant = self.alpha_values(k=self.titrant.ks, acid=self.titrant.acidic)
 
         # Calculate and trim the volumes.
-        self.volume_titrant, self.phi = self.calculate_volume(self.titrant.acidic)
-        self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
+        self.volume_titrant_full, self.phi = self.calculate_volume(self.titrant.acidic)
+        self.ph, self.volume_titrant = self.trim_values(self.ph_full, self.volume_titrant_full)
 
     def starting_phs(self, min_ph: float = None, max_ph: float = None) -> Tuple[np.array, np.array, np.array]:
-        """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
+        """Returns a range of pH, hydronium_full concentration, and hydroxide_full concentrations"""
 
         if min_ph is None:
             min_ph = (14 * (not self.analyte.acidic)) - np.log10(self.concentration_analyte)
@@ -204,7 +204,7 @@ class Titration:
         n = len(k)
 
         # Get the values for the [H+]^n power
-        h_vals = np.array([self.hydronium ** i for i in range(n, -1, -1)])
+        h_vals = np.array([self.hydronium_full ** i for i in range(n, -1, -1)])
 
         # Get the products of the k values.
         k_vals = [np.prod(k[0:x]) for x in range(n + 1)]
@@ -244,7 +244,7 @@ class Titration:
         summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
 
         # I found this written as delta somewhere, and thus it will be named.
-        delta = self.hydronium - self.hydroxide
+        delta = self.hydronium_full - self.hydroxide_full
 
         # Conditional addition or subtraction based on the titrant.
         if acid_titrant:
@@ -261,7 +261,7 @@ class Titration:
 
     def find_buffer_points(self) -> Tuple[List[int], np.array]:
         """Find the volumes of the buffer points based on the pKa values."""
-        pH, volume = self.trim_values(self.ph, self.volume_titrant)
+        pH, volume = self.trim_values(self.ph_full, self.volume_titrant_full)
         pKas = np.array(self.analyte.pKas)
 
         # All the volumes where the pH equals pKa
@@ -276,7 +276,7 @@ class Titration:
 
     def find_equiv_points(self) -> Tuple[List, List]:
         """Find the equivalence points based on the progression of the reaction."""
-        pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
+        pH, volume, phi = self.trim_values(self.ph_full, self.volume_titrant_full, self.phi)
         points = []
         for i in range(1, len(self.analyte.pKas) + 1):
             closest = closest_value(i, phi)
@@ -286,7 +286,7 @@ class Titration:
 
     def deriv(self, degree: int) -> Tuple[np.array, np.array]:
         """Find the n-th derivative"""
-        pH, volume = self.trim_values(self.ph, self.volume_titrant)
+        pH, volume = self.trim_values(self.ph_full, self.volume_titrant_full)
 
         # An object which makes splines
         spline_maker = IUS(volume, pH)

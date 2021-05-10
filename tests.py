@@ -32,7 +32,7 @@ class TestTitrationClassModule(TestCase):
     def test_first_derivative_volume_size_is_correct(self):
         for titration in self.titrations:
             volume, derivative = array(titration.deriv(1))
-            self.assertEqual(len(volume), len(titration.ph_t))
+            self.assertEqual(len(volume), len(titration.ph))
 
     """Second Derivative Tests"""
 
@@ -43,7 +43,7 @@ class TestTitrationClassModule(TestCase):
     def test_second_derivative_volume_size_is_correct(self):
         for titration in self.titrations:
             volume, derivative = array(titration.deriv(2))
-            self.assertEqual(len(volume), len(titration.volume_titrant_t))
+            self.assertEqual(len(volume), len(titration.volume_titrant))
 
     # # """File Tests"""  This takes too long. Involves the process of creating >450 MB of test_data. Consolidate later.
     #
@@ -114,10 +114,10 @@ class TestTitrationClassModule(TestCase):
         for titration in self.titrations:
 
             untrimmed = [
-                titration.volume_titrant,
-                titration.ph,
-                titration.hydronium,
-                titration.hydroxide,
+                titration.volume_titrant_full,
+                titration.ph_full,
+                titration.hydronium_full,
+                titration.hydroxide_full,
                 titration.alpha_analyte,
             ]
             length = len(untrimmed[0])
@@ -130,10 +130,10 @@ class TestTitrationClassModule(TestCase):
     def test_trimmed_values_have_same_length(self):
         for titration in self.titrations:
             trimmed = titration.trim_values(
-                titration.volume_titrant,
-                titration.ph,
-                titration.hydronium,
-                titration.hydroxide,
+                titration.volume_titrant_full,
+                titration.ph_full,
+                titration.hydronium_full,
+                titration.hydroxide_full,
                 titration.alpha_analyte,
             )
             length = len(next(trimmed))
@@ -143,17 +143,17 @@ class TestTitrationClassModule(TestCase):
     def test_trimmed_values_have_less_values_than_untrimmed_values(self):
         for titration in self.titrations:
             trimmed = titration.trim_values(
-                titration.volume_titrant,
-                titration.ph,
-                titration.hydronium,
-                titration.hydroxide,
+                titration.volume_titrant_full,
+                titration.ph_full,
+                titration.hydronium_full,
+                titration.hydroxide_full,
                 titration.alpha_analyte,
             )
             untrimmed = [
-                titration.volume_titrant,
-                titration.ph,
-                titration.hydronium,
-                titration.hydroxide,
+                titration.volume_titrant_full,
+                titration.ph_full,
+                titration.hydronium_full,
+                titration.hydroxide_full,
                 titration.alpha_analyte,
             ]
 
@@ -165,7 +165,7 @@ class TestTitrationClassModule(TestCase):
 
     def test_scaled_data_less_than_one(self):
         for titration in self.titrations:
-            scaled = titration._scale_data(titration.ph, 1)
+            scaled = titration._scale_data(titration.ph_full, 1)
             for scale in scaled:
                 self.assertTrue(scale <= 1)
 

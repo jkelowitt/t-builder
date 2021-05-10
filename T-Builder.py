@@ -69,7 +69,7 @@ def plot_callback(sender, data):
 
     if sender == "b_tab_button":  # Everything but the buffer tab button
         # Perform bjerrum calculations
-        bx = list(titr.ph)
+        bx = list(titr.ph_full)
         bys = [list(alpha) for alpha in titr.alpha_analyte.T]
 
         # For every alpha value list, plot the alpha values at every pH and add the line to the plot
@@ -84,8 +84,8 @@ def plot_callback(sender, data):
         configure_item("Main Plot", label="Titration", x_axis_name="Volume (mL)", y_axis_name="pH")
 
         # Perform titration calculations
-        tx = list(titr.volume_titrant_t)
-        ty = list(titr.ph_t)
+        tx = list(titr.volume_titrant)
+        ty = list(titr.ph)
 
         # plot the calculations
         add_line_series(
