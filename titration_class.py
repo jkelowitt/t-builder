@@ -61,7 +61,11 @@ class Compound:
 
     def __post_init__(self):
         # The k values can become zero if the pKa value is too large ~> 330.
-        self.ks: np.array = np.array(10.0 ** (-np.array(self.pKas)))
+        try:
+            self.ks: np.array = np.array(10.0 ** (-np.array(self.pKas)))
+        except RuntimeWarning:
+            raise OverflowError("The pKa entered is very extreme. This will most likely cause problems.\
+             Try a value with a magnitude less than 300.")
 
 
 @dataclass
@@ -190,8 +194,11 @@ class Titration:
     def alpha_values(self, k: np.array, acid: bool = True) -> np.array:
         """Finds the fraction of solution which each species of compound takes up at each pH."""
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
-        if not acid:
-            k = self.kw / np.flip(k)  # TODO results in a Div by Zero error if pKa is too large (>330)
+        try:
+            if not acid:
+                k = self.kw / np.flip(k)
+        except ZeroDivisionError:
+            raise ZeroDivisionError("The pKa entered is too extreme. Try a value with a magnitude less than 300.")
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
