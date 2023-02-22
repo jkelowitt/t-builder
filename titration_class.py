@@ -13,8 +13,9 @@ From the titration class, call Titration.ph to obtain the trimmed pH values, and
     Titration.volume_titrant to obtain the volume of titrant required to reach those pH values.
 """
 
+from copy import deepcopy
 from dataclasses import dataclass, field
-from typing import List, Tuple, Generator, Any
+from typing import Any, Generator, List, Tuple
 
 import numpy as np
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -186,8 +187,7 @@ class Titration:
         """Scale the alpha values by its index in the sub-array"""
         new_arr = []
         for num, a in enumerate(np.transpose(arr)):
-            a *= num
-            new_arr.append(a)
+            new_arr.append(a * num)
 
         return np.transpose(np.array(new_arr))
 
@@ -266,9 +266,13 @@ class Titration:
 
         # All the volumes where the pH equals pKa
         volume_indices = []
-        for pKa in pKas:
-            if pKa > 14:  # Should never be larger than 14
+        for pKa in deepcopy(pKas):
+
+            # Buffer point outside the pH range for the titration
+            if not (min(self.ph) <= pKa <= max(self.ph)):
+                pKas = np.delete(pKas, np.where(pKas == pKa))
                 continue
+
             places = np.where(pH == closest_value(pKa, pH))[0][0]
             volume_indices.append(places)
 
@@ -288,13 +292,16 @@ class Titration:
         """Find the n-th derivative"""
         pH, volume = self.trim_values(self.ph_full, self.volume_titrant_full)
 
-        # An object which makes splines
-        spline_maker = IUS(volume, pH)
+        if self.analyte.acidic:
+            spline_maker = IUS(volume, pH)
+        else:
+            # Basic solutions are calculated backwards, which the IUS hates
+            spline_maker = IUS(volume[::-1], pH[::-1])
 
         # An object which calculates the derivative of those splines
         deriv_function = spline_maker.derivative(n=degree)
 
-        # Calculate the derivative at all of the splines
+        # Calculate the derivative at all the splines
         d = deriv_function(volume)
 
         return volume, d

@@ -1,25 +1,28 @@
+import unittest
 from unittest import TestCase, main
-from titration_class import array, Titration
-from compounds import strong_acids, strong_bases, weak_acids, weak_bases
+
+from numpy import array
+
+from compounds import acids, bases
+from titration_class import Compound, Titration
 
 
 class TestTitrationClassModule(TestCase):
     def setUp(self):
         self.titrations = []
 
-        for t in strong_acids:
-            for a in weak_bases:
+        # Every combination of titration possible
+        for a in acids:
+            for b in bases:
                 self.titrations.append(
                     Titration(
-                        analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
+                        analyte=a, titrant=b, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
                     )
                 )
 
-        for t in strong_bases:
-            for a in weak_acids:
                 self.titrations.append(
                     Titration(
-                        analyte=a, titrant=t, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
+                        analyte=b, titrant=a, volume_analyte=25, concentration_titrant=0.10, concentration_analyte=0.10
                     )
                 )
 
