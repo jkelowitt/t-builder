@@ -18,7 +18,6 @@ from dataclasses import dataclass, field
 from typing import Any, Generator, List, Tuple
 
 import numpy as np
-from scipy.interpolate import InterpolatedUnivariateSpline as IUS
 
 
 def pk_to_k(pk) -> np.array:
@@ -223,7 +222,8 @@ class Titration:
 
     def trim_values(self, *args: Any) -> Generator:
         """Returns the data ranges where the volume is non-trivial and non-absurd."""
-        # Go until you are 1 past the last sub-reaction.
+
+        # Go until you are 1 'reaction' past the last sub-reaction.
         limiter = len(self.analyte.pKas) + 1
 
         good_val_index = np.where((self.phi >= [0]) & (self.phi <= [limiter]))
@@ -292,16 +292,10 @@ class Titration:
         """Find the n-th derivative"""
         pH, volume = self.trim_values(self.ph_full, self.volume_titrant_full)
 
-        if self.analyte.acidic:
-            spline_maker = IUS(volume, pH)
-        else:
-            # Basic solutions are calculated backwards, which the IUS hates
-            spline_maker = IUS(volume[::-1], pH[::-1])
+        # Since the pH is the input, the Delta pH is constant.
+        result = deepcopy(volume)
+        for _ in range(degree):
+            result = np.gradient(result)
 
-        # An object which calculates the derivative of those splines
-        deriv_function = spline_maker.derivative(n=degree)
-
-        # Calculate the derivative at all the splines
-        d = deriv_function(volume)
-
-        return volume, d
+        # Invert the derivative to get from the volume to the pH.
+        return volume, 1 / result
