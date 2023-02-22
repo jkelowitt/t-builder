@@ -9,12 +9,13 @@ First, use the Compound class to create a titrant and an analyte.
 Second, pass in the analyte and titrant to the Titration class,
     along with the concentrations and volumes of the analyte and titrants.
 
-From the titration class, call Titration.ph_t to obtain the trimmed pH values, and call
-    Titration.volume_titrant_t to obtain the volume of titrant required to reach those pH values.
+From the titration class, call Titration.ph to obtain the trimmed pH values, and call
+    Titration.volume_titrant to obtain the volume of titrant required to reach those pH values.
 """
 
+from copy import deepcopy
 from dataclasses import dataclass, field
-from typing import List, Tuple, Generator, Any
+from typing import Any, Generator, List, Tuple
 
 import numpy as np
 from scipy.interpolate import InterpolatedUnivariateSpline as IUS
@@ -41,6 +42,18 @@ class Compound:
     acidic : A boolean which represents whether or not the compound is acidic. True --> Acidic, False -> Basic
     pKas: A list of floats which represents the pKa values of the compound.
 
+    Example
+    -------
+    >>> analyte = Compound("Acidic Analyte", acidic=True, pKas=[3, 6, 9])
+    >>> analyte.name
+    'Acidic Analyte'
+    >>> analyte.acidic
+    True
+    >>> analyte.pKas
+    [3, 6, 9]
+    >>> analyte.ks
+    array([1.e-03, 1.e-06, 1.e-09])
+
     """
 
     name: str
@@ -49,7 +62,11 @@ class Compound:
 
     def __post_init__(self):
         # The k values can become zero if the pKa value is too large ~> 330.
-        self.ks: np.array = np.array(10.0 ** (-np.array(self.pKas)))
+        try:
+            self.ks: np.array = np.array(10.0 ** (-np.array(self.pKas)))
+        except RuntimeWarning:
+            raise OverflowError("The pKa entered is very extreme. This will most likely cause problems.\
+             Try a value with a magnitude less than 300.")
 
 
 @dataclass
@@ -73,6 +90,25 @@ class Titration:
     temp : A custom temperature for the temperature for the titration to take place.
             Default is 25C. If pKw is None, this value is used to calculate the pKw at 25C.
     decimal_places : The number of decimal places the titration should be simulated to. Default is 2 (2 -> 0.01).
+
+    Example
+    -------
+    # Make the compounds
+    >>> analyte = Compound("Acidic Analyte", acidic=True, pKas=[3, 6, 9])
+
+    >>> titrant = Compound("Basic Analyte", acidic=False, pKas=[15])
+
+    # 'Perform' titration
+    >>> titr = Titration(analyte, titrant, concentration_analyte=0.1, concentration_titrant=0.1, volume_analyte=25)
+
+    # Extract information about the titration
+    >>> titr.ph
+    array([ 2.03,  2.04,  2.05, ..., 12.28, 12.29, 12.3 ])
+
+    >>> titr.volume_titrant
+    array([7.94800512e-02, 1.74868902e-01, 2.70378281e-01, ..., 9.84186264e+01, 9.90963992e+01, 9.97976880e+01])
+
+
     """
 
     analyte: Compound
@@ -99,18 +135,18 @@ class Titration:
         self.precision: int = 10 ** -self.decimal_places
 
         # Value ranges
-        self.ph, self.hydronium, self.hydroxide = self.starting_phs()
+        self.ph_full, self.hydronium_full, self.hydroxide_full = self.starting_phs()
 
         # Calculate the alpha values for the compounds at each pH
         self.alpha_analyte = self.alpha_values(k=self.analyte.ks, acid=self.analyte.acidic)
         self.alpha_titrant = self.alpha_values(k=self.titrant.ks, acid=self.titrant.acidic)
 
         # Calculate and trim the volumes.
-        self.volume_titrant, self.phi = self.calculate_volume(self.titrant.acidic)
-        self.ph_t, self.volume_titrant_t = self.trim_values(self.ph, self.volume_titrant)
+        self.volume_titrant_full, self.phi = self.calculate_volume(self.titrant.acidic)
+        self.ph, self.volume_titrant = self.trim_values(self.ph_full, self.volume_titrant_full)
 
     def starting_phs(self, min_ph: float = None, max_ph: float = None) -> Tuple[np.array, np.array, np.array]:
-        """Returns a range of pH, hydronium concentration, and hydroxide concentrations"""
+        """Returns a range of pH, hydronium_full concentration, and hydroxide_full concentrations"""
 
         if min_ph is None:
             min_ph = (14 * (not self.analyte.acidic)) - np.log10(self.concentration_analyte)
@@ -151,22 +187,24 @@ class Titration:
         """Scale the alpha values by its index in the sub-array"""
         new_arr = []
         for num, a in enumerate(np.transpose(arr)):
-            a *= num
-            new_arr.append(a)
+            new_arr.append(a * num)
 
         return np.transpose(np.array(new_arr))
 
     def alpha_values(self, k: np.array, acid: bool = True) -> np.array:
         """Finds the fraction of solution which each species of compound takes up at each pH."""
         # If the k values are for K_b, convert to K_a. --> K_1 = K_w / K_n , K_2 = K_w / K_(n-1)
-        if not acid:
-            k = self.kw / np.flip(k)  # TODO results in a Div by Zero error if pKa is too large (>330)
+        try:
+            if not acid:
+                k = self.kw / np.flip(k)
+        except ZeroDivisionError:
+            raise ZeroDivisionError("The pKa entered is too extreme. Try a value with a magnitude less than 300.")
 
         # The functionality of an acid or base can be determined by the number of dissociation constants it has.
         n = len(k)
 
         # Get the values for the [H+]^n power
-        h_vals = np.array([self.hydronium ** i for i in range(n, -1, -1)])
+        h_vals = np.array([self.hydronium_full ** i for i in range(n, -1, -1)])
 
         # Get the products of the k values.
         k_vals = [np.prod(k[0:x]) for x in range(n + 1)]
@@ -206,7 +244,7 @@ class Titration:
         summed_scaled_alphas_titrant = np.sum(scaled_alphas_titrant, axis=1)
 
         # I found this written as delta somewhere, and thus it will be named.
-        delta = self.hydronium - self.hydroxide
+        delta = self.hydronium_full - self.hydroxide_full
 
         # Conditional addition or subtraction based on the titrant.
         if acid_titrant:
@@ -223,14 +261,18 @@ class Titration:
 
     def find_buffer_points(self) -> Tuple[List[int], np.array]:
         """Find the volumes of the buffer points based on the pKa values."""
-        pH, volume = self.trim_values(self.ph, self.volume_titrant)
+        pH, volume = self.trim_values(self.ph_full, self.volume_titrant_full)
         pKas = np.array(self.analyte.pKas)
 
         # All the volumes where the pH equals pKa
         volume_indices = []
-        for pKa in pKas:
-            if pKa > 14:  # Should never be larger than 14
+        for pKa in deepcopy(pKas):
+
+            # Buffer point outside the pH range for the titration
+            if not (min(self.ph) <= pKa <= max(self.ph)):
+                pKas = np.delete(pKas, np.where(pKas == pKa))
                 continue
+
             places = np.where(pH == closest_value(pKa, pH))[0][0]
             volume_indices.append(places)
 
@@ -238,7 +280,7 @@ class Titration:
 
     def find_equiv_points(self) -> Tuple[List, List]:
         """Find the equivalence points based on the progression of the reaction."""
-        pH, volume, phi = self.trim_values(self.ph, self.volume_titrant, self.phi)
+        pH, volume, phi = self.trim_values(self.ph_full, self.volume_titrant_full, self.phi)
         points = []
         for i in range(1, len(self.analyte.pKas) + 1):
             closest = closest_value(i, phi)
@@ -248,15 +290,18 @@ class Titration:
 
     def deriv(self, degree: int) -> Tuple[np.array, np.array]:
         """Find the n-th derivative"""
-        pH, volume = self.trim_values(self.ph, self.volume_titrant)
+        pH, volume = self.trim_values(self.ph_full, self.volume_titrant_full)
 
-        # An object which makes splines
-        spline_maker = IUS(volume, pH)
+        if self.analyte.acidic:
+            spline_maker = IUS(volume, pH)
+        else:
+            # Basic solutions are calculated backwards, which the IUS hates
+            spline_maker = IUS(volume[::-1], pH[::-1])
 
         # An object which calculates the derivative of those splines
         deriv_function = spline_maker.derivative(n=degree)
 
-        # Calculate the derivative at all of the splines
+        # Calculate the derivative at all the splines
         d = deriv_function(volume)
 
         return volume, d
