@@ -1,7 +1,6 @@
 from webbrowser import open
 
 import dearpygui.dearpygui as dpg
-from matplotlib.pyplot import cm
 
 import data_writing as dw
 from titration_class import Compound, Titration
@@ -12,7 +11,6 @@ __license__ = "MIT"
 
 LIMIT = 1000  # Actual limit to how many pKas you can have on each analyte/titrant
 data_width = 200
-color_map = cm.tab20
 
 
 def _help(message):
