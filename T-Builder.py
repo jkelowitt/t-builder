@@ -233,6 +233,7 @@ with dpg.theme(tag="equiv_theme"):
     with dpg.theme_component(dpg.mvScatterSeries):
         dpg.add_theme_color(dpg.mvPlotCol_Line, (0, 255, 0), category=dpg.mvThemeCat_Plots)
         dpg.add_theme_style(dpg.mvPlotStyleVar_MarkerSize, 5, category=dpg.mvThemeCat_Plots)
+        dpg.add_theme_style(dpg.mvPlotStyleVar_Marker, dpg.mvPlotMarker_Square, category=dpg.mvThemeCat_Plots)
 
 with dpg.theme(tag="yprime_theme"):
     with dpg.theme_component(dpg.mvLineSeries):
@@ -261,14 +262,15 @@ with dpg.window(tag="PrimaryWindow"):
             _help("Enter the name of the analyte. This is used when making the data files.")
 
             dpg.add_input_float(source="aconc", label="Analyte Concentration (M)", callback=plot_callback,
-                                user_data=[0], )
+                                min_value=0, user_data=[0], )
             _help("Enter the concentration of the analyte in molarity.")
 
             dpg.add_input_text(source="apk", label="Analyte pKa value(s)", default_value="3.13, 4.76, 6.40",
                                callback=plot_callback, )
             _help("Enter the pKa values of the analyte. Separate them with commas if there are more than one.")
 
-            dpg.add_input_float(source="avol", label="Analyte Volume (mL)", callback=plot_callback, user_data=[0], )
+            dpg.add_input_float(source="avol", label="Analyte Volume (mL)", callback=plot_callback, user_data=[0],
+                                min_value=0)
             _help("Enter the volume of the analyte in mL.")
 
             dpg.add_checkbox(source="aa", label="Analyte is Acidic", default_value=True, callback=plot_callback, )
@@ -282,7 +284,7 @@ with dpg.window(tag="PrimaryWindow"):
             _help("Enter the name of the titrant. This is used when naming the data files.")
 
             dpg.add_input_float(source="tconc", label="Titrant Concentration (M)", default_value=0.10,
-                                callback=plot_callback, user_data=[0], )
+                                min_value=0, callback=plot_callback, user_data=[0], )
             _help("Enter the concentration of the titrant in molarity.")
 
             dpg.add_input_text(source="tpk", label="Titrant pKa value(s)", default_value="14.76",
@@ -293,10 +295,11 @@ with dpg.window(tag="PrimaryWindow"):
             dpg.add_text("Titration Settings")
 
             dpg.add_input_int(source="precision", label="Number of Points", default_value=2, callback=plot_callback,
-                              width=65, )
+                              min_value=0, width=65, )
             _help("The number of pH points to calculate. (10^n items)")
 
-            dpg.add_input_float(source="temperature", label="Temperature (C)", callback=plot_callback, width=65, )
+            dpg.add_input_float(source="temperature", min_value=0, label="Temperature (C)", callback=plot_callback,
+                                width=65, )
             _help("The temperature at which the titration occurs. (0 - 95 C)")
 
             dpg.add_spacer(height=25)
@@ -318,11 +321,11 @@ with dpg.window(tag="PrimaryWindow"):
                              source="2ndderiv")
             _help("Show the normalized 2nd Derivative of the Titration plot.")
 
-            dpg.add_drag_float(label="Scale y'", default_value=8, min_value=1, speed=0.1, width=80, format="%0.2f",
+            dpg.add_drag_float(label="Scale y'", default_value=8, min_value=0, speed=0.1, width=80, format="%0.2f",
                                callback=plot_callback, source="1dscaler")
             _help("Scale the 1st Derivative of the Titration plot.")
 
-            dpg.add_drag_float(label="Scale y''", default_value=2, min_value=1, speed=0.1, width=80, format="%0.2f",
+            dpg.add_drag_float(label="Scale y''", default_value=2, min_value=0, speed=0.1, width=80, format="%0.2f",
                                callback=plot_callback, source="2dscaler")
             _help("Scale the 2nd Derivative of the Titration plot.")
 
