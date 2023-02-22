@@ -1,11 +1,10 @@
+import csv
 from typing import List
-from pandas import DataFrame
+
 from numpy import transpose
 
 
-def write_alpha_data(titr,
-                     title: str = "Alpha Value Data",
-                     file_headers: bool = True,
+def write_alpha_data(titr, title: str = "Alpha Value Data", file_headers: bool = True,
                      species_names: List[str] = None) -> None:
     """Write the numerical alpha value data to a csv file."""
 
@@ -24,18 +23,27 @@ def write_alpha_data(titr,
                 raise ValueError("You have not supplied enough species names!")
 
     # Make and write the data frame to a csv
-    data = DataFrame(data_dict)
-    data.to_csv(f"{title}.csv", index=False, header=file_headers)
+    data = transpose([[key] + list(data_dict[key]) for key in data_dict])
+
+    with open(title, "w+", newline="") as file:
+        writer = csv.writer(file)
+        for row in data:
+            writer.writerow(row)
 
 
 def write_titration_data(titr, title: str = "Titration Curve Data", file_headers: bool = True) -> None:
     """Write the volume and pH value for the titration to a csv file."""
     # Make dataframe.
     pH, volume = titr.trim_values(titr.ph_full, titr.volume_titrant_full)
-    data = DataFrame({"volume": volume, "pH": pH})
+    data_dict = {"volume": volume, "pH": pH}
 
-    # Write to a csv.
-    data.to_csv(f"{title}.csv", index=False, header=file_headers)
+    # Make and write the data frame to a csv
+    data = transpose([[key] + list(data_dict[key]) for key in data_dict])
+
+    with open(title, "w+", newline="") as file:
+        writer = csv.writer(file)
+        for row in data:
+            writer.writerow(row)
 
 
 def write_analysis_data(titr, title: str = "Analysis Data", file_headers: bool = True) -> None:
@@ -64,18 +72,21 @@ def write_analysis_data(titr, title: str = "Analysis Data", file_headers: bool =
         analysis_pHs.append(None)
 
     # Add the data to the dataframe.
-    data = DataFrame(
-        {
-            "volume": volume,
-            "pH": pH,
-            "1st Derivative": deriv1,
-            "2nd Derivative": deriv2,
-            " ": [" " for _ in range(len(deriv1))],  # Spacer column
-            "Analysis": analysis_row_labels,
-            "Volume at Point": analysis_volumes,
-            "pH at Point": analysis_pHs,
-        }
-    )
+    data_dict = {
+        "volume": volume,
+        "pH": pH,
+        "1st Derivative": deriv1,
+        "2nd Derivative": deriv2,
+        " ": [" " for _ in range(len(deriv1))],  # Spacer column
+        "Analysis": analysis_row_labels,
+        "Volume at Point": analysis_volumes,
+        "pH at Point": analysis_pHs,
+    }
 
-    # Write to a csv.
-    data.to_csv(f"{title}.csv", header=file_headers, index=False)
+    # Make and write the data frame to a csv
+    data = transpose([[key] + list(data_dict[key]) for key in data_dict])
+
+    with open(title, "w+", newline="") as file:
+        writer = csv.writer(file)
+        for row in data:
+            writer.writerow(row)
