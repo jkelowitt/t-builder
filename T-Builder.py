@@ -144,18 +144,21 @@ def plot_callback(sender, data):
                 dpg.add_plot_annotation(parent="main_plot", default_value=(vol, pH),
                                         label=f"{vol:.5g} mL", offset=offset_tuple, tag=f"e{n}")
 
+        # Since the value of the derivatives are large, the sigmoid squashes everything down to 1
+        # Making the derivatives smaller makes the larger features more pronounced in the final curve.
+        DERIV_SCALAR = 100
         if dpg.get_value("1stderiv"):
             volume, pHderiv = titr.deriv(degree=1)
-            data = titr._scale_data(pHderiv, dpg.get_value("1dscaler"))
-            dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis", label="First Derivative",
-                                tag="1stderivative")
+            data = titr._scale_data(pHderiv / DERIV_SCALAR, dpg.get_value('1dscaler'))
+            dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis",
+                                label="First Derivative", tag="1stderivative")
             dpg.bind_item_theme("1stderivative", "yprime_theme")
 
         if dpg.get_value("2ndderiv"):
             volume, pHderiv = titr.deriv(degree=2)
-            data = titr._scale_data(pHderiv, dpg.get_value("2dscaler"))
-            dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis", label="Second Derivative",
-                                tag="2ndderivative")
+            data = titr._scale_data(pHderiv / DERIV_SCALAR, dpg.get_value("2dscaler"))
+            dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis",
+                                label="Second Derivative", tag="2ndderivative")
             dpg.bind_item_theme("2ndderivative", "yprimeprime_theme")
 
     # Auto fit axes to data
@@ -165,19 +168,19 @@ def plot_callback(sender, data):
 
 def save_titr_data(sender, data):
     titr = make_titration()
-    title = f"{dpg.get_value('aname')}_{dpg.get_value('tname')}_titration".replace(" ", "_")
+    title = f"{dpg.get_value('aname')}_{dpg.get_value('tname')}_titration.csv".replace(" ", "_")
     dw.write_titration_data(titr, title=title)
 
 
 def save_bjer_data(sender, data):
     titr = make_titration()
-    title = f"{dpg.get_value('aname')}_{dpg.get_value('tname')}_species".replace(" ", "_")
+    title = f"{dpg.get_value('aname')}_{dpg.get_value('tname')}_species.csv".replace(" ", "_")
     dw.write_alpha_data(titr, title=title)
 
 
 def save_ana_data(sender, data):
     titr = make_titration()
-    title = f"{dpg.get_value('aname')}_{dpg.get_value('tname')}_analysis".replace(" ", "_")
+    title = f"{dpg.get_value('aname')}_{dpg.get_value('tname')}_analysis.csv".replace(" ", "_")
     dw.write_analysis_data(titr, title=title)
 
 
