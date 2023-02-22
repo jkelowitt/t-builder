@@ -29,22 +29,8 @@ def _help(message):
         dpg.add_text(message)
 
 
-def clear_plot(plot_label):
-    """ See https://github.com/hoffstadt/DearPyGui/issues/1786 """
-    axes = dpg.get_item_children(item=plot_label)
-    for axis in axes:
-        dpg.delete_item(axis, children_only=True, slot=1)
-
-    dpg.delete_item("plot")
-
-
 def open_link(sender, data):
     open("https://github.com/jkelowitt/t-builder", new=2)
-
-
-def query(sender, data):
-    dpg.set_plot_xlimits(sender, data[0], data[1])
-    dpg.set_plot_ylimits(sender, data[2], data[3])
 
 
 def make_titration():
@@ -128,7 +114,6 @@ def plot_callback(sender, data):
         # Plot the calculations
         dpg.add_line_series(tx, ty, label=f"Titration Curve", parent="main_plot_y_axis", tag="titration_curve")
         dpg.bind_item_theme("titration_curve", "titration_theme")
-
 
         # Plot special points over the curve
         # Offset annotations based on whether the annotations would collide with the line
