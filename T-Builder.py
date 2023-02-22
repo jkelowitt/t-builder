@@ -146,17 +146,16 @@ def plot_callback(sender, data):
 
         # Since the value of the derivatives are large, the sigmoid squashes everything down to 1
         # Making the derivatives smaller makes the larger features more pronounced in the final curve.
-        DERIV_SCALAR = 100
         if dpg.get_value("1stderiv"):
             volume, pHderiv = titr.deriv(degree=1)
-            data = titr._scale_data(pHderiv / DERIV_SCALAR, dpg.get_value('1dscaler'))
+            data = dpg.get_value('1dscaler') * pHderiv / max(pHderiv)
             dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis",
                                 label="First Derivative", tag="1stderivative")
             dpg.bind_item_theme("1stderivative", "yprime_theme")
 
         if dpg.get_value("2ndderiv"):
             volume, pHderiv = titr.deriv(degree=2)
-            data = titr._scale_data(pHderiv / DERIV_SCALAR, dpg.get_value("2dscaler"))
+            data = dpg.get_value('2dscaler') * pHderiv / max(pHderiv)
             dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis",
                                 label="Second Derivative", tag="2ndderivative")
             dpg.bind_item_theme("2ndderivative", "yprimeprime_theme")
