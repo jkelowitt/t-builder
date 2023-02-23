@@ -45,8 +45,7 @@ The alpha value for a species tells the relative predominance of the species at 
 and 1. The larger the alpha value for the species, the higher concentration the species is in at that pH. The alpha
 value for a given species at a certain concentration of hydronium can be given by the equation:
 
-$ \alpha_s = \frac{[H^+]^{i-s} * \prod^s_{j=0}{K_j}}{\sum_{n=0}^i({[H^+]^{i-n} * \prod_{j=0}^n{K_j}})} $
-$\sqrt{3x-1}+(1+x)^2$
+$$\alpha_s = \frac{[H^+]^{i-s} * \prod^s_{j=0}{K_j}}{\sum_{n=0}^i({[H^+]^{i-n} * \prod_{j=0}^n{K_j}})}$$
 
 where 's' is equal to the speciation index of the given species, ex. HCl -> Cl- have 's' of 1 and 2. The value of i is 
 the degree of functionality for the analyte. $K_j$ represents the indexed dissociation constant for the analyte 
@@ -55,7 +54,7 @@ diagram.
 
 With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
-$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\sum_{n=0}^i(n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})}{\sum_{m=0}^j(
+$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\sum_{n=0}^i (n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})}{\sum_{m=0}^j(
 n\alpha_{tm}) \mp (\frac{[H^+] - [OH^-]}{C_t})}$$
 
 where phi is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of the
