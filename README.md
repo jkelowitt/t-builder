@@ -68,7 +68,7 @@ definition of phi are known, they can be solved to find phi. Using phi and known
 the concentration of both analyte and titrant, the volume of titrant can be calculated through re-aranging the previous
 equation to find:
 
-![phi_usage](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;V_t&space;=&space;\frac{\phi&space;C_a&space;V_a}&space;{C_t})
+$$V_t = \frac{\phi C_a V_a}{C_t}$$
 
 This equation is then solved thousands of times to produce a plot of volumes to pH values. The volume of titrant is set
 as the x-axis, and the pH the y-axis, and a titration curve is born.
