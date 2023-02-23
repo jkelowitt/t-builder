@@ -59,6 +59,23 @@ def make_titration():
     return titr
 
 
+def resize_plot():
+    viewport_width = dpg.get_viewport_width()
+    viewport_height = dpg.get_viewport_height()
+
+    # The top bar, where the minimizze, expand, and close buttons are; are included in the viewport height
+    HEIGHT_OF_TOP_BAR = 80
+
+    # The grippable area around the window is also included, I think?
+    WIDTH_BUFFER = 250
+
+    tab_bar_height = dpg.get_item_height("Main Tab bar")
+    data_entry_width = dpg.get_item_width("Data Entry")
+
+    dpg.set_item_width("main_plot", viewport_width - data_width - WIDTH_BUFFER)
+    dpg.set_item_height("main_plot", viewport_height - tab_bar_height - HEIGHT_OF_TOP_BAR)
+
+
 def plot_callback(sender, data):
     titr = make_titration()
 
@@ -161,6 +178,11 @@ def plot_callback(sender, data):
             dpg.bind_item_theme("2ndderivative", "yprimeprime_theme")
 
     # Auto fit axes to data
+    try:
+        resize_plot()
+    except:
+        pass
+
     dpg.fit_axis_data("main_plot_x_axis")
     dpg.fit_axis_data("main_plot_y_axis")
 
@@ -355,29 +377,12 @@ with dpg.window(tag="PrimaryWindow"):
 
     plot_callback("equiv", [])  # Make the plots appear on program start
 
-
-def resize_plot():
-    viewport_width = dpg.get_viewport_width()
-    viewport_height = dpg.get_viewport_height()
-
-    # The top bar, where the minimizze, expand, and close buttons are; are included in the viewport height
-    HEIGHT_OF_TOP_BAR = 80
-
-    # The grippable area around the window is also included, I think?
-    WIDTH_BUFFER = 250
-
-    tab_bar_height = dpg.get_item_height("Main Tab bar")
-    data_entry_width = dpg.get_item_width("Data Entry")
-
-    dpg.set_item_width("main_plot", viewport_width - data_width - WIDTH_BUFFER)
-    dpg.set_item_height("main_plot", viewport_height - tab_bar_height - HEIGHT_OF_TOP_BAR)
-
-
 # Run the curve.
 if __name__ == "__main__":
     dpg.create_viewport(title="T-Builder")
     dpg.setup_dearpygui()
     dpg.show_viewport()
+    plot_callback("", "")  # Force plot resize on startup
     dpg.set_viewport_resize_callback(resize_plot)
     dpg.set_primary_window("PrimaryWindow", True)
     dpg.start_dearpygui()
