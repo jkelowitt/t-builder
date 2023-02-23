@@ -148,14 +148,14 @@ def plot_callback(sender, data):
         # Making the derivatives smaller makes the larger features more pronounced in the final curve.
         if dpg.get_value("1stderiv"):
             volume, pHderiv = titr.deriv(degree=1)
-            data = dpg.get_value('1dscaler') * pHderiv / max(pHderiv)
+            data = dpg.get_value('1dscaler') * pHderiv / (max(pHderiv) if dpg.get_value("aa") else -min(pHderiv))
             dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis",
                                 label="First Derivative", tag="1stderivative")
             dpg.bind_item_theme("1stderivative", "yprime_theme")
 
         if dpg.get_value("2ndderiv"):
             volume, pHderiv = titr.deriv(degree=2)
-            data = dpg.get_value('2dscaler') * pHderiv / max(pHderiv)
+            data = dpg.get_value('2dscaler') * pHderiv / (max(pHderiv) if dpg.get_value("aa") else -min(pHderiv))
             dpg.add_line_series(list(volume), list(data), parent="main_plot_y_axis",
                                 label="Second Derivative", tag="2ndderivative")
             dpg.bind_item_theme("2ndderivative", "yprimeprime_theme")
