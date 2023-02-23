@@ -19,34 +19,19 @@ save the data plotted above to a CSV file.
 
 ### Citric acid titrated with KOH:
 
-![citric_acid_koh_titration](https://i.imgur.com/gQIjOxH.png)
+![citric_acid_koh_titration](https://i.imgur.com/SnqnyLr.png)
 
 ### Species of Citric acid as pH increases:
 
-![citric_acid_relative_speciation](https://i.imgur.com/Ng8gZpb.png)
+![citric_acid_relative_speciation](https://i.imgur.com/qt3wTgF.png)
 
 ## TODO:
 
-* <del>"Show Plot" method</del> ***Done 7/31/2020***
-* <del>"Save Data CSV" method</del> ***Done 7/31/2020***
-* <del>Make a N-Functional analyte option</del> ***Done 12/23/2020***
-* <del>Make a M-Functional titrant option</del> ***Done 12/23/2020***
-* <del>Support for showing Bjerrum Plots </del> ***Done 12/23/2020***
-* <del>EQ point finder (either with phi or with 2nd deriv.)</del> ***Done 12/28/2020***
-* <del>Support for different temperatures </del> ***Done 12/24/2020***
-* <del>A GUI</del> ***Done 12/26/2020***
-* <del>Make a better name</del> ***Done 12/26/2020***
-* <del>More Plot options</del>
-    * <del>Probably just pass through matplotlib figure **kwargs</del> ***No longer pursued due to GUI***
-* Figure out how to make the titration curve of a mixture of analytes
 * Optional activity coefficients.
-* Optional Species Names
 * Advanced Features
-    * <del>Calculate the equivalence points</del> ***Done 12/28/2020***
-    * <del>Plot the derivatives</del> ***Done 12/28/2020***
     * Allow for preset compounds
     * Saving and loading compounds
-* <del>In GUI support for different temperatures<\del> ***Done 1/2/2021***
+    * Fitting and predicting titration curve composition
 
 ## Math
 
@@ -60,23 +45,24 @@ The alpha value for a species tells the relative predominance of the species at 
 and 1. The larger the alpha value for the species, the higher concentration the species is in at that pH. The alpha
 value for a given species at a certain concentration of hydronium can be given by the equation:
 
-![alpha_equation](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\fn_cm&space;\alpha_s&space;=&space;\frac{\Omega_s}{\sum_{n,m=\i,0}&space;^{0,&space;\i}([H^&plus;]^{n}&space;*&space;\prod^{m}&space;_{j=0}(K_j))})
+$ \alpha_s = \frac{[H^+]^{i-s} * \prod^s_{j=0}{K_j}}{\sum_{n=0}^i({[H^+]^{i-n} * \prod_{j=0}^n{K_j}})} $
+$\sqrt{3x-1}+(1+x)^2$
 
-where Omega_s is equal to the component of the sum in the denominator with the index equal to the absolute value of the
-charge on the species (assuming the un-reacted species is neutral). The un-reacted species, the species with no charge,
-s = 0, and thus Omega_s would equal the first component of the summation in the denominator. The value of i is the
-degree of functionality for the analyte. K_j represents the indexed dissociation constant for the analyte (For this
-notation, assume K_0 = 1). These values can be directly ported into a bjerrum plot or predominance zone diagram.
+where 's' is equal to the speciation index of the given species, ex. HCl -> Cl- have 's' of 1 and 2. The value of i is 
+the degree of functionality for the analyte. $K_j$ represents the indexed dissociation constant for the analyte 
+(For this notation, assume $K_0$ = 1). These values can be directly ported into a bjerrum plot or predominance zone 
+diagram.
 
 With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
-![phi_definition](https://latex.codecogs.com/png.latex?\dpi{200}&space;\bg_white&space;\phi&space;\equiv\frac{C_tV_t}{C_aV_a}=&space;\frac{(\sum_{n=0}^{\i}n\alpha_{an})\pm\frac{[H^&plus;]-[OH^-]}{C_a}}{(\sum_{m=0}^{\j}m\alpha_{tm})\mp\frac{[H^&plus;]-[OH^-]}{C_t}})
+$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\sum_{n=0}^i(n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})}{\sum_{m=0}^j(
+n\alpha_{tm}) \mp (\frac{[H^+] - [OH^-]}{C_t})}$$
 
 where phi is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of the
-analyte and titrant, respectively, alpha_an represents the indexed alpha values of the analyte, and the similarly,
-alpha_tm represents the indexed alpha values of the titrant. The ± in the numerator is positive if the analyte is a
-base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. C_a and V_a are
-the concentration and volume of the analyte. C_t and V_t are the concentration and volume for the titrant.
+analyte and titrant, respectively, $\alpha_{an}$ represents the indexed alpha values of the analyte, and the similarly,
+$alpha_{tm}$ represents the indexed alpha values of the titrant. The $\pm$ in the numerator is positive if the analyte is a
+base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. $C_a$ and $V_a$ are
+the concentration and volume of the analyte. $C_t$ and $V_t$ are the concentration and volume for the titrant.
 
 Phi can be used to determine the volume of titrant required to reach a certain pH. Since all the values in the
 definition of phi are known, they can be solved to find phi. Using phi and known values for the volume of analyte, and
