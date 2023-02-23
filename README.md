@@ -46,26 +46,25 @@ value for a given species at a certain concentration of hydronium can be given b
 
 $$\alpha_s = \frac{[H^+]^{i-s} * \Pi^s_{j=0}{K_j}}{\Sigma_{n=0}^i({[H^+]^{i-n} * \Pi_{j=0}^n{K_j}})}$$
 
-where 's' is equal to the speciation index of the given species, ex. HCl -> Cl- have 's' of 1 and 2. The value of i is 
-the degree of functionality for the analyte. $K_j$ represents the indexed dissociation constant for the analyte 
-(For this notation, assume $K_0$ = 1). These values can be directly ported into a bjerrum plot or predominance zone 
-diagram.
+where 's' is equal to the speciation index of the given species, ex. HCl -> Cl- have 's' of 1 and 2. The value of i is
+the degree of functionality for the analyte. $K_j$ represents the indexed dissociation constant for the analyte (For
+this notation, assume $K_0$ = 1). These values can be directly ported into a bjerrum plot or predominance zone diagram.
 
 With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
-$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\Sigma _{n=0}^i (n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})} {\Sigma _{m=0}^j(
+$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\Sigma _{n=0}^i (n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})} {\Sigma_{m=0}^j(
 n\alpha_{tm}) \mp (\frac{[H^+] - [OH^-]}{C_t})}$$
 
-where phi is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of the
+where $\phi$ is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of the
 analyte and titrant, respectively, $\alpha_{an}$ represents the indexed alpha values of the analyte, and the similarly,
-$alpha_{tm}$ represents the indexed alpha values of the titrant. The $\pm$ in the numerator is positive if the analyte is a
-base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. $C_a$ and $V_a$ are
-the concentration and volume of the analyte. $C_t$ and $V_t$ are the concentration and volume for the titrant.
+$alpha_{tm}$ represents the indexed alpha values of the titrant. The $\pm$ in the numerator is positive if the analyte
+is a base, and negative if the analyte is an acid. The opposite is true for the denominator, as indicated. $C_a$ and
+$V_a$ are the concentration and volume of the analyte. $C_t$ and $V_t$ are the concentration and volume for the titrant.
 
-Phi can be used to determine the volume of titrant required to reach a certain pH. Since all the values in the
-definition of phi are known, they can be solved to find phi. Using phi and known values for the volume of analyte, and
-the concentration of both analyte and titrant, the volume of titrant can be calculated through re-aranging the previous
-equation to find:
+$\phi$ can be used to determine the volume of titrant required to reach a certain pH. Since all the values in the
+definition of $\phi$ are known, they can be solved to find $\phi$. Using $\phi$ and known values for the volume of
+analyte, and the concentration of both analyte and titrant, the volume of titrant can be calculated through re-aranging
+the previous equation to find:
 
 $$V_t = \frac{\phi C_a V_a}{C_t}$$
 
