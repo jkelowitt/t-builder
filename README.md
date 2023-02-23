@@ -10,12 +10,12 @@ save the data plotted above to a CSV file.
 ## Features
 
 * Plot Titration curves and Relative Species Plots
-* Arbitrarily protic or functional analyte
-* Arbitrarily protic or functional titrant
+* Arbitrarily functional analyte
+* Arbitrarily functional titrant
 * Calculate Equivalence Points
-* Calculate buffer points. Where pH = pKa or pKb
+* Calculate Buffer points. Where pH = pKa or pKb
 * View Derivatives of plots
-* Save Titration or Relative Species plots to CSV
+* Save all generated data to a csv
 
 ### Citric acid titrated with KOH:
 
@@ -28,10 +28,9 @@ save the data plotted above to a CSV file.
 ## TODO:
 
 * Optional activity coefficients.
-* Advanced Features
-    * Allow for preset compounds
-    * Saving and loading compounds
-    * Fitting and predicting titration curve composition
+* Allow for preset compounds
+* Saving and loading compounds
+* Fitting and predicting titration curve composition
 
 ## Math
 
