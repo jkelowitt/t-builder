@@ -52,7 +52,7 @@ this notation, assume $K_0$ = 1). These values can be directly ported into a bje
 
 With the alpha values now calculated, another relationship can be utilized. The following equation can be obtained:
 
-$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\Sigma _{n=0}^i (n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})} {\Sigma_{m=0}^j(
+$$\phi = \frac{C_tV_t}{C_aV_a} = \frac{\Sigma_{n=0}^i (n\alpha_{an}) \pm (\frac{[H^+] - [OH^-]}{C_a})} {\Sigma_{m=0}^j(
 n\alpha_{tm}) \mp (\frac{[H^+] - [OH^-]}{C_t})}$$
 
 where $\phi$ is defined as the "Fraction of the way to the equivalence point", and i and j are the functionality of the
